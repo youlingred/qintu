@@ -1,0 +1,47 @@
+<header>
+  <nav class="navbar navbar-default">
+    <div class="container"> 
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header"> <a href="#"><img class="logo" src="{:config('theme_path')}/index/images/logo.png"></a> <span class="navbar-line"></span> </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+        {nav name = "nav"}
+          <li><a href="{:url($nav['url'])}">{$nav.name}</a></li>
+        {/nav}
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <form class="navbar-form navbar-left" action="{:url('search/index')}" method="GET">
+              <div class="custom-search">
+                <input type="hidden" value="posts" name="module" >
+                <input type="text" name="query" class="text-search" placeholder="按enter搜索">
+              </div>
+            </form>
+          </li>
+          {if condition="session('index_user_auth.nickname')"}
+          <li class="icon-shop"><a href="{:url('cart/index')}"><img src="{:config('theme_path')}/index/images/icon_shop.png"></a></li>
+          <li> <span class="login-box"><span data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="display:block" class="name">您好，{:session('index_user_auth.nickname')}<span class="caret"></span></span> 
+          <ul class="dropdown-menu">
+            <li class="i-order"><a href="{:url('order/orderLists')}"><span><img src="{:config('theme_path')}/index/images/order.png" alt=""></span>我的订单</a></li>
+            <li class="i-address"><a href="{:url('address/userAddress')}"><span><img src="{:config('theme_path')}/index/images/address.png" alt=""></span>收货地址</a></li>
+            <!-- <li class="i-complaint"><a href="#"><span><img src="{:config('theme_path')}/index/images/complaint.png" alt=""></span>投诉管理</a></li>
+            <li class="i-debit"><a href="#"><span><img src="{:config('theme_path')}/index/images/debit.png" alt=""></span>退款管理</a></li> -->
+            <li class="i-comment"><a href="{:url('comment/commentlist')}"><span><img src="{:config('theme_path')}/index/images/comment.png" alt=""></span>我的评价</a></li>
+            <li class="i-collection"><a href="{:url('collection/collection')}"><span><img src="{:config('theme_path')}/index/images/collectionone.png" alt=""></span>我的收藏</a></li>
+            <li class="i-member"><a href="{:url('user/userCenter')}"><span><img src="{:config('theme_path')}/index/images/member.png" alt=""></span>个人中心</a></li>
+            <li class="i-logout"><a href="{:url('common/logout')}"><span><img src="{:config('theme_path')}/index/images/logout.png" alt=""></span>退出登录</a></li>
+          </ul></span>
+          </li>
+          {else/}
+          <li class="icon-shop"><a href="{:url('cart/index')}"><img src="{:config('theme_path')}/index/images/icon_shop.png"></a></li>
+          <li><span class="login-register-box"><a href="{:url('Index/login')}">登录</a>&nbsp; | &nbsp;<a href="{:url('Index/register')}">注册 </a></span> </li>
+          {/if}
+        </ul>
+      </div>
+      <!-- /.navbar-collapse --> 
+    </div>
+    <!-- /.container-fluid --> 
+  </nav>
+</header>

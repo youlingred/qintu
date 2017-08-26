@@ -1,0 +1,126 @@
+a,a:hover{ 
+	text-decoration:none;
+	color:#333;
+}
+.addcar{
+	cursor: pointer;
+}
+.car{
+	position: fixed;
+	bottom: 0;
+	right:0;
+	width:300px;
+}
+.car .car-wap{
+	z-index: 9999;
+	display: none;
+}
+#car-clear{
+	cursor: pointer;
+}
+.car .car-top{
+	height:40px;
+	line-height: 40px;
+	background:#FAFAFA;
+	color:#ccc;
+}
+.car .car-top span:first-child{
+	display: block;
+	float: left;
+	width: 100px;
+	text-align: left;
+	margin-left: 10px;
+}
+.car .car-top #car-clear{
+	display: block;
+	float: right;
+	width: 63px;
+	text-align: right;
+	margin-right: 10px;
+	background: url(../images/delete.png) no-repeat left center;
+	padding-left: 20px;
+
+}
+.car .car-list .th{
+	color:#999;
+}
+.car .car-list{
+	background: #fff;
+	font-size: 12px;
+	max-height: 500px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.car .car-list-product{
+	padding-left:10px;
+	width: 140px;
+}
+.car .car-list-num{
+	text-align: center;
+	width: 80px;
+	padding-left: 6px;
+}
+.car .car-list-num span{
+	cursor: pointer;
+}
+.car .car-list-price{
+	text-align: center;
+	width: 65px;
+	color:#FF0024;
+}
+.car .car-list .table{
+	margin-bottom: 0px;
+}
+.car .car-list .table tr td{
+	border-bottom:1px solid #FAFAFA;
+}
+.car .car-list span{
+	display: block;
+	float: left;
+	font-size: 14px;
+	width:20px;
+	heigh:20px;
+	border:1px #ccc solid;
+}
+.car .car-list input{
+	text-align: center;
+	width:25px;
+	height: 22px;
+	float: left;
+	border: none;
+	border-top:1px #ccc solid;
+	border-bottom:1px #ccc solid;
+}
+
+.car .car-footer div{
+	float: left;
+	height:40px;
+	width: 150px;
+	line-height: 40px;
+	text-align: center;
+}
+.car .car-footer div:first-child{
+	background: #FF2D4B;
+	text-align: left;
+	padding-left: 14px;
+	color:#fff;
+	font-size: 14px;
+	cursor: pointer;
+}
+.car .car-footer div i{
+	margin-right: 10px;
+	background: url(../images/shop_car.png) no-repeat left center;
+	padding-left: 20px;
+}
+/*.car .car-footer div a{
+	color:#FF2D4B;
+}*/
+.car .car-footer a .go{
+	background: #FFF1F3;
+	color: #FF2D4B;
+	text-align: center;
+	font-size: 14px;
+	cursor: pointer;
+}
+

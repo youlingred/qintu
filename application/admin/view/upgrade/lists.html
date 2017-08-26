@@ -1,0 +1,224 @@
+{include file="common:head"}
+
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+
+{include file="common:header"}
+<!-- Left side column. contains the logo and sidebar -->
+{include file="common:navbar"}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        系统版本
+        <small>备份列表</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{:url('Index/index')}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{:url('admin/member/index')}">系统版本</a></li>
+        <li><a>备份列表</a></li>
+        
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <span>系统升级或修改前，建议提前做好版本备份和数据库备份</span>
+              <div class="pull-right" style="margin-right:10px;"> 
+                <button type="button" class="btn btn-block btn-default btn-sm back-system">系统备份</button>
+              </div>
+              
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+            <div class="alert alert-danger " role="alert" id="tip" style="display:none">
+               正在进行版本备份，可能需要一些时间，请耐心等待...
+              </div>
+              <div class="table-responsive mailbox-messages">
+                <table class="table table-hover table-striped">
+                  <thead>
+                  <tr>
+                    <th>备份名称</th>
+                    <th>版本</th>
+                    <th>数据大小</th>
+                    <th>备份时间</th>
+                    <th>状态</th>
+                    <th>操作</th>      
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {volist name="lists" id="data"}
+                  <tr>
+                    <td>{$data.name}</td>
+                    <td>{$data.version}</td>
+                    <td>{$data.size|format_bytes}</td>
+                    <td>{$data.time|date='Y-m-d-H-i-s',###}</td>
+                    <td>-</td>
+                    <td class="action">
+                        <a class="rollback" data="{$data['name']}">还原</a>&nbsp;&nbsp;
+                        <a class="delback" data="{$data['name']}">删除</a>
+                    </td>
+
+                  </tr>
+                  {/volist}
+                  
+                  </tbody>
+                  <thead>
+                  
+                  </thead>
+                  
+                </table>
+                <!-- /.table -->
+              </div>
+              <!-- /.mail-box-messages -->
+            </div>
+            <!-- /.box-body -->
+
+
+            <div class="box-footer with-border">
+              
+             
+               <div class="pull-right">
+              </div>          
+              <!-- /.box-tools -->
+            </div>
+          </div>
+          <!-- /. box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  {include file="common:footer"}
+
+</div>
+<script src="STATIC_PATH/plugins/jQuery/jquery-1.9.1.min.js"></script>
+<script src="STATIC_PATH/plugins/jQueryUI/jquery-ui.min.js"></script>
+<script src="STATIC_PATH/plugins/layer/layer.js"></script>
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+
+<script type="text/javascript">
+var index;
+  $('document').ready(function(argument){
+    //设置状态方法
+    $('.back-system').click(function(){
+      $('#tip').css('display','block');
+      index = layer.load(1, {
+          offset: ['50%', '50%'],
+          shade: [0.5,'#000'] //0.1透明度的白色背景
+      });
+      $.ajax({
+        cache:true,
+        type :"POST",
+        url  :'{:url('Upgrade/backSystem')}',
+        async:false,
+           success:function(data){
+            layer.close(index);
+            if(data.code){
+                msgok(data.msg);
+                location.reload() ;
+            } else {
+              msgerr(data.msg);
+            }
+           },
+           error:function(request){
+            layer.close(index);
+            msgerr("页面错误");
+           }
+      });        
+    });
+
+
+    $('.rollback').click(function(){
+      filename = $(this).attr('data');
+      $(this).parent().prev().text("正在解压...");
+      $.ajax({
+        cache:true,
+        type :"POST",
+        data:{filename:filename},
+        url  :'{:url('Upgrade/rollback')}',
+        async:false,
+           success:function(data){
+            if(data.code){
+                if(data.data.success==1){
+                  $('.rollback').parent().prev().text("正在还原...");
+                    copyToBack();
+                }else{
+                    msgerr(data.msg);
+                }
+            } else {
+              msgerr(data.msg);
+            }
+           },
+           error:function(request){
+            msgerr("页面错误");
+           }
+      });        
+    });
+
+    //复原文件
+    function copyToBack(){
+        var url = "http://{$Think.server.SERVER_NAME}ROOT_PATH/rollback.php";
+        $.ajax({
+        cache:true,
+        type :"POST",
+        url  :url,
+        async:false,
+        dataType: "json",
+             success:function(data){
+              if(data.code){
+                  $('.rollback').parent().prev().text("还原完成。");
+                  msgok(data.msg);
+                  location.reload() ;
+              } else {
+                msgerr(data.msg);
+              }
+             },
+             error:function(request){
+              msgerr("页面错误");
+             }
+        });    
+    }
+
+
+     $('.delback').click(function(){
+      filename = $(this).attr('data');
+      $.ajax({
+        cache:true,
+        type :"POST",
+        data:{filename:filename},
+        url  :'{:url('Upgrade/delback')}',
+        async:false,
+           success:function(data){
+                msgok(data.msg);
+                location.reload() ;
+           },
+           error:function(request){
+            msgerr("页面错误");
+           }
+      });        
+    });
+
+
+  })
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="STATIC_PATH/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+</body>
+</html>

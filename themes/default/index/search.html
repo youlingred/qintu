@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>Minishop电子商城</title>
+
+<!-- Bootstrap -->
+<link href="{:config('theme_path')}/index/css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="{:config('theme_path')}/index/css/common.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/news_list.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="{:config('theme_path')}/index/js/html5shiv.min.js"></script>
+    <script src="{:config('theme_path')}/index/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+{template file="index/header.html" /}
+
+<!--main start-->
+<div class="main">
+  <div class="container">
+    <!-- 新闻导航 -->
+    <div class="news-nav">
+      <div class="nav-title">搜索结果</div>
+    </div>
+    <!-- 新闻导航结束 -->
+    <!-- 新闻列表 -->
+    <div class="row list">
+      <!-- 左侧列表 -->
+      <div class="col-md-9 left">
+        {volist name="list" id="data"}
+        <div class="left-list">
+            <div class="news-list"> 
+              <div class="news-img"><a href="{:url('Article/detail?id='.$data['id'].'&category='.$data['category'])}"><img src="{$data['uuid']|get_posts_cover}" alt=""></a></div>
+              <div class="news-content">
+              	<p class="c-title"><a href="{:url('Article/detail?id='.$data['id'].'&category='.$data['category'])}">{$data['title']}</a></p>
+              	<p class="c-info"><span>{$data['updatetime']|date='Y-m-d',###}</span><span>浏览量：{$data['view']}</span></p>
+              	<p class="c-des"><a href="{:url('Article/detail?id='.$data['id'].'&category='.$data['category'])}">{$data['uuid']|get_val=###,'description',85}</a></p>
+              	<a href="{:url('Article/detail?id='.$data['id'].'&category='.$data['category'])}" class="c-but">&nbsp;</a>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+        </div>
+        {/volist}
+        <div class="page">
+                {$page}
+        </div>
+      </div>
+      <!-- 左侧列表 end  -->
+      <!-- 右侧内容 -->
+      <div class="col-md-3 right">
+        <div class="right-list">
+          <div class="first-icon">
+          	<a href="{:url('Article/page?name=honor')}"><div class="icon-left icon icon-1"><span>资质荣誉</span></div></a>
+          	<a href="{:url('Article/page?name=culture')}"><div class="icon-right icon icon-2"><span>企业文化</span></div></a>
+          </div>
+          <div>
+          	<a href="{:url('Article/page?name=history')}"><div class="icon-left icon icon-3"><span>发展历程</span></div></a>
+          	<a href="{:url('Article/page?name=registration')}"><div class="icon-right icon icon-4"><span>帮助中心</span></div></a>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="right-list">
+          <div class="information">
+          	<span class="info-title">行业资讯</span>
+          	<a href="{:url('Article/lists?category=info')}">更多</a>
+          </div>
+          <div>
+          	<ul>
+            {cateposts name="list" cateid='2' num="10"}
+          		<li><a href="{:url('Article/detail?id='.$list['id'].'&category=info')}">{$list['title']|msubstr=0,12}</a></li>
+            {/cateposts}
+          	</ul>
+          </div>
+        </div>
+        <div class="right-map" style="padding:10px;background:#fff;">
+          <div id="map" style="width:256px;height:300px;"></div>
+        </div>
+      </div>
+      <!-- 右侧内容结束 -->
+    </div>
+    <!-- 新闻列表结束 -->
+  </div>
+</div>
+<!--main end-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+<!--footer start-->
+
+{template file="index/footer.html" /}
+
+<!--footer end-->
+
+<script>
+	$(function(){
+		$('.icon-1').mouseover(function(event) {
+			$(this).addClass('icon-hover-1 icon-hover');
+		});
+		$('.icon-1').mouseout(function(event) {
+			$(this).removeClass('icon-hover-1 icon-hover');
+		});
+		$('.icon-2').mouseover(function(event) {
+			$(this).addClass('icon-hover-2 icon-hover');
+		});
+		$('.icon-2').mouseout(function(event) {
+			$(this).removeClass('icon-hover-2 icon-hover');
+		});
+		$('.icon-3').mouseover(function(event) {
+			$(this).addClass('icon-hover-3 icon-hover');
+		});
+		$('.icon-3').mouseout(function(event) {
+			$(this).removeClass('icon-hover-3 icon-hover');
+		});
+		$('.icon-4').mouseover(function(event) {
+			$(this).addClass('icon-hover-4 icon-hover');
+		});
+		$('.icon-4').mouseout(function(event) {
+			$(this).removeClass('icon-hover-4 icon-hover');
+		});
+	})
+</script>
+<!-- 地图   -->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vGvovbuaGErsNd9RQ9a00G08iVulAGt7">
+</script>
+<script type="text/javascript"> 
+var map = new BMap.Map("map");          // 创建地图实例  
+var point = new BMap.Point(116.404, 39.915);  // 创建点坐标  
+map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别
+   
+map.enableScrollWheelZoom(true);          //开启缩放
+map.enableDragging();           //开启拖拽
+var marker = new BMap.Marker(point);        // 创建标注    
+map.addOverlay(marker);        
+</script> 
+</body>
+</html>

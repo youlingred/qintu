@@ -1,0 +1,183 @@
+{include file="public/qintu/header"/}
+{include file="public/qintu/nav"/}
+	
+<?php
+	$qtdr_best_list=_get_goods_best_list('qtdr',3,'sortup');
+?>
+{php}
+$filters=_get_filters("filter_qtdr");
+$url_category='category='.$category;
+$url_filter='&filter='.$filter;
+$url_search='&search='.$search;
+$url_sort='&sort='.$sort;
+$url_base_search=url('goods/lists?category='.'qtdr_area_all|qtdr_tese_all'.$url_sort)
+{/php}
+<style>
+	hr{
+		border-top: 1px solid #53585e!important;
+	}
+</style>
+<img class="img-responsive" src="{:config('theme_path')}/index/images/banner_qtdr.jpg?ver={:__VERSION__}">
+<div class="row section-bg-white section no-padding banner-bottom" style="margin-top: -130px!important;">
+	<div class="col-md-8 col-md-offset-2 title-one">
+		<div class="row">
+			 <!--<p class="title" style="font-size: 28px;">本期明星达人></p>-->
+		  <div id="carousel1" class="qtdr-carousel carousel slide qtdr-banner" data-ride="carousel">
+			   	<ol id="best_person" class="carousel-indicators">
+			   		{volist name="$qtdr_best_list" id="vo" key="k"}
+			   		<li data-target="#carousel1" data-slide-to="{$k-1}" data-master-id="{:url('goods/detail?id='.$vo['id'])}" class="{eq name="k" value="1"}active{/eq}"></li>
+				     {/volist}
+	       		</ol>
+			    <div class="carousel-inner" role="listbox">
+			    	{volist name="$qtdr_best_list" id="vo" key="k"}
+				     	{eq name="k" value="1"}
+				     	<div class="row item active">
+				     		{else/}
+				     		<div class="row item">
+				     	{/eq}
+				     	<div class="row">
+				     		<div class="col-sm-3 col-sm-offset-2">
+					     	{empty name="$vo['cover_path']"}
+								<img class="img-responsive" src="{:config('theme_path')}/index/images/Thumbnail_Placeholder.png" alt="{$vo['name']}">
+							{else /}
+	                        	<img class="img-responsive" src="{:root_path()}{$vo['cover_path']}" alt="{$vo['name']}">
+	                        {/empty}
+	                        
+						     </div>
+						     <div class="col-sm-5" style="max-height: 200px;overflow: hidden;">
+						     	{$vo.man_profiles}
+						     </div>
+					        	 
+				     	</div>
+				     	<div class="row">
+				     		
+				     		<div class="col-sm-8 col-sm-offset-2" style="height: 160px;overflow: hidden;">
+				     			<hr>
+						         {$vo.goods_profiles}
+						     </div>
+				     	</div>
+					     
+					     
+	           		</div>
+	           		{/volist}
+	        	</div>
+	        <div class="section text-center"><button id="getnow" type="button" class="btn btn-lg btn-gold">了解达人</button></div>
+	        <div class="section"></div>
+			   <a class="left carousel-control" href="#carousel1" role="button" data-slide="prev">
+				   <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				   <span class="sr-only">Previous</span>
+			   </a>
+			   <a class="right carousel-control" href="#carousel1" role="button" data-slide="next">
+				   <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				   <span class="sr-only">Next</span>
+			   </a>
+       		</div>
+        </div>
+	</div>
+</div>
+<a name="pos"></a>
+<div class="row section-bg-gray section" style="padding-top: 10px!important;">
+	<div class="col-md-8 col-md-offset-2 title-one">
+		<div class="row select-main">
+			<ul class="nav">
+				{volist name="selfCates" id="data" key="i"}
+					<li class="nav-item">
+							<ul class="nav nav-pills">
+							{volist name="data" id="vo" key="k"}
+								<?php
+									$url_str=str_replace($categoryInfos[$i-1]['slug'],$vo['slug'],$category);
+								?>
+							    {eq name="$categoryInfos[$i-1]['name']" value="$vo['name']"}
+									<li role="presentation" class="active">
+										<a href="{:url('goods/lists?category='.$url_str.$url_filter.$url_search.$url_sort)}#pos">{$vo['name']}</a>
+									</li>
+	                            {else/}    
+	                                <li role="presentation">
+										<a href="{:url('goods/lists?category='.$url_str.$url_filter.$url_search.$url_sort)}#pos">{$vo['name']}</a>
+									</li>
+	                            {/eq} 
+                   			 {/volist}  
+                   		</ul>
+					</li>
+                {/volist}
+                {notempty name="filters"}
+	                <li class="nav-item">
+	                	<ul class="nav nav-pills">
+	                		{volist name="filters" id="vo"}
+						     <li role="presentation">
+							  <div class="checkbox" style="margin-bottom: 0px;margin-top: 0px;">
+							    <label>
+							      <input name="filter" type="checkbox" onchange="filterChange()" data-slug="{$vo.slug}" value="{$vo.id}" style="width: 15px; height: 15px;">{$vo.name}
+							    </label>
+							  </div>
+							</li>
+							{/volist}
+						</ul>
+	                </li>
+                 {/notempty}
+			</ul>
+		</div>
+		<div class="row">
+			{volist name="list" id="data" }
+			<div class="col-sm-3">
+				<a href="{:url('goods/detail?id='.$data['id'])}">
+					<div class="thumbnail">
+						{empty name="$data['cover_path']"}
+							<img src="{:config('theme_path')}/index/images/Thumbnail_Placeholder.png" alt="{$data['name']}">
+						{else /}
+                        	<img src="{:root_path()}{$data['cover_path']}" alt="{$data['name']}">
+                        {/empty}
+						<div class="caption text-center">
+							<p class="c-title">{$data.name}</p>	
+							<p class="description">{$data.description}</p>
+							<?php
+								$labels = explode("|", $data['label_tese']);
+							?>
+							<!--<p class="text-left label-wrap"> 
+								{volist name="labels" id="label" }
+									{if condition="$label"}
+										<span class="label label-default">{$label}</span>
+									{/if}
+								{/volist}
+							</p>-->
+							<?php
+								$shares=_get_qtdr_share_list($data['share_master_id']);	
+								$shares_num=count($shares);
+								$total_comment=get_total_comment($data['id'])
+							?>
+							<div style="color: #717171;">
+								<div style="float: right;">{$shares_num}个分享内容</div>
+								<!--<div style="float: right">{$total_comment}条评论</div>-->
+								<div style="clear: both;"></div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			{/volist}
+		</div>
+		<nav class="text-center" aria-label="Page navigation">
+			{$page}
+		</nav>
+	</div>
+</div>
+<!--<div class="row section-bg-gray section">
+ <div class="col-md-8 col-md-offset-2 title-one text-center">
+ <img src="{:config('theme_path')}/index/images/qtdr_banner_2.jpg" width="100%	">
+  <a href="{:url('goods/lists?category=qdz_area_all|qdz_tese_all')}"><button type="button" class="btn btn-lg btn-default" style="top: 60%;
+    left: 45%;
+    position: absolute;
+    background: rgba(0,0,0,0.0);
+    color: #FFF;">进入轻定制</button></a>
+ </div>
+</div>-->
+<div class="section"></div>
+{include file="public/qintu/footer"/}
+<script type="text/javascript">
+	$("#getnow").click(function(){
+		
+		var goURL=$("#best_person li.active").attr("data-master-id");
+		location=goURL;
+		
+	});
+</script>

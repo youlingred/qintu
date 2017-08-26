@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>小微商城</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/mui.min.css">
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/goods_list.css">
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/icons-extra.css" />
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/car.css">
+		<script src="{:config('theme_path')}/wap/js/mui.js"></script>
+		<script src="{:config('theme_path')}/wap/js/jquery.min.js"></script>
+		<script src="{:config('theme_path')}/wap/js/jquery.cookie.js"></script>
+		<script type="text/javascript">
+		    var car_path = '{:config('theme_path')}/wap/images/';
+		</script>
+		<script src="{:config('theme_path')}/wap/js/car.js"></script>
+	</head>
+	<body>
+		<div id="h-nav" style="position:fixed;top:45px;background:#000;z-index:9999;color:#fff;width:100%;height:100%;filter:alpha(opacity=80); -moz-opacity:0.8;-khtml-opacity: 0.8; opacity: 0.8;display:none">
+			<ul style="list-style:none;margin-left:20px;line-height:250%">
+				{:get_nav()}
+			</ul>
+		</div>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav" style="background: #FF2D4B;">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;margin-right:0;" onclick="history.go(-1)"></a>
+			<a class="mui-icon mui-icon-extra mui-icon-extra-class mui-pull-right show-nav" style="color: #fff;margin-left:0;"></a>
+			<a class="mui-icon mui-icon-search mui-pull-right" style="color: #fff;margin-left:0;"></a>
+			<h1 class="mui-title" style="color:#fff">商品中心</h1>
+			<div class="mui-input-row mui-search" style="clear:none;height:45px;line-height:45px;color:#fff;margin:0;padding:0;display:none">
+			    <input type="search" class="mui-input-clear " placeholder="" style="color:#fff">
+			</div>
+		</header>
+		<!-- 头部结束 -->
+<div class="swiper-container">
+  <div class="swiper-wrapper">
+		<div class="main">
+			{banner name='banner' pos="4"}
+				<img src="{:root_path()}{$banner.banner_path}" style="margin-top:40px;" width="100%" alt="">
+			{/banner}
+			<!-- <div class="div-line"></div> -->
+			<div class="cate-order">
+
+				{switch name="$sort"}
+                    {case value="default"}
+                        <a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=default')}"><div class="border-right order-active">默认排序</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=sellup')}"><div class="border-right">销量</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=scoreup')}"><div class="border-right">评分</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=priceup')}"><div>价格</div></a>
+                    {/case}
+                    {case value="sellup"}
+                        <a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=default')}"><div class="border-right ">默认排序</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=selldown')}"><div class="border-right order-active">销量<span class="mui-icon mui-icon-arrowthinup"></span></div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=scoreup')}"><div class="border-right">评分</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=priceup')}"><div>价格</div></a>
+                    {/case}
+                    {case value="selldown"}
+                       <a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=default')}"><div class="border-right ">默认排序</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=sellup')}"><div class="border-right order-active">销量<span class="mui-icon mui-icon-arrowthindown"></span></div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=scoreup')}"><div class="border-right">评分</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=priceup')}"><div>价格</div></a>
+                    {/case}
+                    {case value="scoreup"}
+                        <a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=default')}"><div class="border-right ">默认排序</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=sellup')}"><div class="border-right ">销量</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=scoredown')}"><div class="border-right order-active">评分<span class="mui-icon mui-icon-arrowthinup"></span></div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=priceup')}"><div>价格</div></a>
+                    {/case}
+                    {case value="scoredown"}
+                        <a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=default')}"><div class="border-right ">默认排序</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=sellup')}"><div class="border-right">销量</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=scoreup')}"><div class="border-right order-active">评分<span class="mui-icon mui-icon-arrowthindown"></span></div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=priceup')}"><div>价格</div></a>
+                    {/case}
+                    {case value="priceup"}
+                        <a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=default')}"><div class="border-right ">默认排序</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=sellup')}"><div class="border-right ">销量</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=scoreup')}"><div class="border-right">评分</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=pricedown')}"><div class="order-active">价格<span class="mui-icon mui-icon-arrowthinup"></span></div></a>
+                    {/case}
+                    {case value="pricedown"}
+                        <a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=default')}"><div class="border-right ">默认排序</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=sellup')}"><div class="border-right ">销量</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=scoreup')}"><div class="border-right">评分</div></a>
+						<a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=priceup')}"><div class="order-active">价格<span class="mui-icon mui-icon-arrowthindown"></span></div></a>
+                    {/case}
+                    {default /}
+                {/switch}
+			</div>
+			<!-- <div class="div-line"></div> -->
+			<!-- <div class="mui-content mui-row mui-fullscreen" style="background:#fff"> -->
+
+				<div class="mui-control-content mui-active" style="margin-bottom:55px;">
+						<ul class="mui-table-view">
+						    {volist name="$list" id="data"}
+						    <li class="mui-table-view-cell mui-media">
+						    		<a href="{:url('goods/detail?id='.$data['id'])}">
+                        			{empty name="$data['cover_path']"}
+						            <img class="mui-media-object mui-pull-left" src="{:config('theme_path')}/wap/images/irc_defaut.png">
+						            {else /}
+			                        <img class="mui-media-object mui-pull-left" src="{:root_path()}{$data['cover_path']}">
+			                        {/empty}
+			                        </a>
+						            <div class="mui-media-body">
+						            	<a href="{:url('goods/detail?id='.$data['id'])}">
+						                <span class="media-title">{$data['name']}</span>
+						                <p class="media-info">规格 <span>{$data['standard']}</span><span style="float:right;margin-right:4px;">评分{$data['score_num']}</span><span style="float:right;margin-right:4px;">销量{$data['sell_num']}</span></p>
+						                </a>
+						                <p class='mui-ellipsis' style="margin-top:4px;height:22px"><span class="money">￥{$data['price']}{notempty name="data.score"} / 赠积分{$data.score}{/notempty}</span>
+											<img class="addcar" src="{:config('theme_path')}/wap/images/shopping_cart.png" alt="" dataname="{$data['name']}" dataprice="{$data['price']}" dataid="{$data['id']}">
+											<span style="display:none">
+											<span class="plus addcar" dataname="{$data['name']}" dataprice="{$data['price']}" dataid="{$data['id']}">+</span><span class="num" id="list_{$data['id']}">1</span><span class="minus minus-item">-</span>
+											</span>
+						                </p>
+						            </div>
+						    </li>
+						    {/volist}
+						</ul>
+				</div>
+
+				<div class="page">
+	                {$page}
+	          	</div>
+
+			<!-- </div> -->
+		</div>
+  </div>
+</div
+		<!-- 底部 购物车-->
+		<div class="car-header">
+			<div><span class="car-title">购物车</span><span class="car-clear">[清空]</span></div>
+			<div style="clear:both"></div>
+			<div>
+				<table  style="width:100%">
+					<tr>
+						<td width="55%" style="text-align:left;padding-left:4px">名称</td>
+						<td width="15%" style="color:red">单价</td>
+						<td width="30%">数量</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="car">
+			<div class="car-info"><img id="car-logo" src="{:config('theme_path')}/wap/images/shopping_cart_big.png" alt=""><span class="mui-badge mui-badge-danger" style="display:none">1</span>&nbsp;&nbsp;共<span id="money">0.00</span>元</div>
+			<div class="car-go">去结算</div>
+		</div>
+		<!-- 底部结束 -->
+
+	</body>
+	<script>
+		$(function(){
+
+			//检测是否有列表数据
+			hasList();
+
+			$('.mui-icon-search').click(function(){
+				$(this).css('display','none');
+				$('.mui-title').css('display','none');
+				$('.mui-search').css('display','block');
+			});
+
+			//显示隐藏购物车
+			$('.car-info').click(function(){
+			 	$('.car-header').slideToggle();
+			})
+			$('.addcar').on('click',addProduct);
+			// 点击减号
+			$('.minus-item').on('click',function(){
+		  		//设置购物车显示
+		  		id = $(this).parent().prev('img').attr('dataid');
+		  		sub(id);
+			})
+			//清空购物车
+			$('.car-clear').click(function(){
+				clear();
+			})
+			//去结算
+			$('.car-go').click(function(){
+				location.href ="{:url('cart/index')}";
+			})
+		})
+		$(".main").click(function(){
+			$('.mui-icon-search').css('display','block');
+			$('.mui-title').css('display','block');
+			$('.mui-search').css('display','none');
+		})
+		$('.show-nav').click(function(){
+			$('#h-nav').slideToggle();
+		})
+	</script>
+</html>

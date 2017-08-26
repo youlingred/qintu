@@ -1,0 +1,181 @@
+{include file="common:head"}
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+
+  {include file="common:header"}
+  <!-- Left side column. contains the logo and sidebar -->
+ 
+{include file="common:navbar"}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        设置
+        <small>基本设置</small>
+      </h1>
+      <ol class="breadcrumb">
+       <li><a href="{:url('admin/index/index')}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{:url('admin/config/edit')}">设置</a></li>
+        <li class="active">基本设置</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+      <!-- form start -->
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+           <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">基本设置</h3>
+              <!-- <a type="button" href="{:url('add')}" class="btn btn-primary pull-right">新 增</a> -->
+            </div>
+            <div class="tab-content">
+              <!-- Font Awesome Icons -->
+              <form  method="post" action="" id='form1'>
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">网站标题 </label>
+                  <input type="text" class="form-control" id="title" name="web_site_title" value="{$list['web_site_title']}" placeholder="网站标题前台显示标题" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">网站描述</label>
+                  <input type="text" class="form-control" id="description" value="{$list['web_site_description']}" name="web_site_description" placeholder="网站搜索引擎描述" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">网站关键字</label>
+                  <input type="text" class="form-control" id="keyword" value="{$list['web_site_keyword']}" name="web_site_keyword" placeholder="网站搜索引擎关键字">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">网站备案号</label>
+                  <input type="text" class="form-control" id="site_icp" value="{$list['web_site_icp']}" name="web_site_icp" placeholder="设置在网站底部显示的备案号，如“沪ICP备12007941号-2" />
+                </div>                
+                <div class="form-group">
+                  <input type="hidden" id="close" value="{$list['web_site_close']}" />
+                  <label for="exampleInputPassword1">关闭站点</label>
+                  <select class="form-control" id="site_close" name="web_site_close">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">是否允许用户注册</label>
+                  <input type="hidden" id="register" value="{$list['web_allow_register']}" />
+                  <select class= "form-control" id="allow_register" name="web_allow_register">              
+                    <option value="1">允许注册</option>
+                    <option value="0">关闭注册</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">是否开启小票打印机(设置-接口设置中配置小票打印机接口)</label>
+                  <input type="hidden" id="ticket" value="{$list['web_allow_ticket']}" />
+                  <select class= "form-control" id="allow_ticket" name="web_allow_ticket">              
+                    <option value="1">开启</option>
+                    <option value="0">关闭</option>                
+                  </select>
+                </div>                
+                 <div class="form-group">
+                  <label for="exampleInputPassword1">汇率</label>
+                  <input type="text" class="form-control" id="rate" value="{$list['exchange_rate']}" name="exchange_rate" placeholder="设置在网站底部显示的备案号，如“沪ICP备12007941号-2" />
+                </div> 
+              <!-- /.box-body -->
+
+              <div class="pull-right">
+                <button class="btn btn-success" onclick="javascript:history.back(-1);return false;">返 回</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" onclick="submitInfo()" class="btn btn-primary">确 定</button>
+              </div>
+            </form>
+                
+              </div>
+              <!-- /#fa-icons -->
+
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          </div>
+          <!-- /.nav-tabs-custom -->
+          </section>
+           </div>
+ 
+  <!-- /.content-wrapper -->
+  {include file="common:footer"}
+
+
+
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<script src="STATIC_PATH/plugins/jQuery/jquery-1.9.1.min.js"></script>
+<script src="STATIC_PATH/plugins/jQueryUI/jquery-ui.min.js"></script>
+<script type="text/javascript">
+  var uploadPictuer     = '{:url('Upload/uploadPicture')}';
+  var uploadFlash       = 'STATIC_PATH/plugins/webuploader/dist/Uploader.swf';
+  var ueditorUploadPath = '{:url('ueditor/index')}';
+</script>
+<link rel="stylesheet" type="text/css" href="STATIC_PATH/plugins/webuploader/css/webuploader.css" />
+<script type="text/javascript" src="STATIC_PATH/plugins/webuploader/dist/webuploader.js"></script>
+<script type="text/javascript" src="STATIC_PATH/plugins/webuploader/dist/onefile.js"></script>
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+  function submitInfo(){
+       
+    var title = $("#title").val();
+    var description = $("#description").val();
+    var keyword = $("#keyword").val();
+    var site_close = $("#site_close").val();
+    var site_icp = $("#site_icp").val();
+    var allow_register = $("#allow_register").val();
+    var allow_ticket = $("#allow_ticket").val();
+    // alert($('#form1').serialize());
+    // return false;
+    $.ajax({
+      type: "POST",
+      cache: true,
+      url: "{:url('admin/config/edit')}",
+      data: $('#form1').serialize(),
+      dataType: "json",
+      async: false,
+      success: function(data) {
+        if (data.code) {
+          msgok(data.msg);
+          location.reload();                  
+        } else {
+          msgerr(data.msg);
+        }
+      },
+      error: function(request) {
+        msgerr("页面错误");
+      }
+    });
+  }
+</script>
+<script type="text/javascript">
+  var val_close = eval(document.getElementById('close')).value;
+
+  var val_register =document.getElementById('register').value;
+  var val_ticket =document.getElementById('ticket').value;
+  // alert(val_register);
+  $("#site_close option[value="+val_close+"]").attr("selected",true);
+  $("#allow_register option[value="+val_register+"]").attr("selected",true);
+  $("#allow_ticket option[value="+val_ticket+"]").attr("selected",true);
+ </script>
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="STATIC_PATH/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+

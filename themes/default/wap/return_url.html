@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/icons-extra.css" />
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/cart.css" />
+	</head>
+
+	<body>
+
+		<style>
+			.mui-control-content {
+				background-color: white;
+				min-height: 215px;
+			}
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			.mui-table-view::before {
+				background-color: #fff;
+			}
+			.mui-table-view::after {
+				background-color: #f0f0f0;
+			}
+		</style>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav" style="background: #FF2D4B;">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="history.go(-1)" style="color: #fff;"></a>
+			<a class="mui-icon mui-icon-extra mui-icon-extra-class mui-pull-right" style="color: #fff;"></a>
+			<h1 class="mui-title" style="color:#fff">支付结果</h1>
+		</header>
+		<!-- 头部结束 -->
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<div class="mui-media-body">
+						<p class="mui-ellipsis address-name"><a style='float:left;' href='#'>订单号</a> <a class='mobile'>{$ordersInfo['order_no']}</a></p>
+						<p class="mui-ellipsis address-detail" style='margin-top: 6px;'>{$content}</p>
+					</div>
+				</li>
+			</ul>
+			<div style='height: 30px; background-color: #fff;'>
+				<div class='goods-checkbox' style='margin-right: 10px;'>
+					<a href='{:url('Order/orderDetail',['order_no'=>$ordersInfo['order_no']])}'><span style='font-size: 12px; color:#fe0024;margin-left: 15px;margin-top:4px;float: left'>订单详情</span></a>
+				</div>
+				<span class="mui-pull-right" style='font-size: 12px; color:#999;margin-top:4px;'>
+					<a href='{:url('Order/orderLists')}'><span class="mui-pull-right" style='margin-right: 15px;font-size: 12px;' >我的订单</span></a>
+				</span>
+			</div>
+			
+			<div style='height: 15px;'></div>
+		</div>
+		<!-- 底部 -->
+		<div style='height: 50px;'></div>
+		{template file="wap/footer.html" /}
+		<!-- 底部结束 -->
+<script src="{:config('theme_path')}/wap/js/jquery.min.js"></script>
+	</body>
+
+</html>

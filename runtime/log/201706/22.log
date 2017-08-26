@@ -1,0 +1,268 @@
+[ 2017-06-22T18:30:02+08:00 ] ::1 ::1 GET /minishop/
+[ log ] localhost/minishop/ [运行时间：0.357021s][吞吐率：2.80req/s] [内存消耗：2,425.62kb] [文件加载：53]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop\core\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'UM_distinctid=15abaf0eb5b105-0e4b7d36d-4349052c-100200-15abaf0eb5e1bd; CNZZDATA1256643218=1194298924-1489194384-%7C1489237927; PHPSESSID=df07j2i0ag96c8807ocon43g41',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop/application/index\lang\zh-cn.php
+[ info ] [ SESSION ] INIT array (
+  'prefix' => 'minishop',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] Method [ <user> public method index ] {
+  @@ D:\phpStudy\WWW\minishop\application\index\controller\Index.php 22 - 26
+}
+
+[ info ] [ VIEW ] ./themes/qintu/index/index.html [ array (
+  0 => 'userinfo',
+) ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT file
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_key_value` [ RunTime:0.017001s ]
+[ sql ] [ SQL ] SELECT `value` FROM `mini_key_value` WHERE  `collection` = 'indextheme' LIMIT 1    [ RunTime:0.003000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `collection` = 'config.base'   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_apiconfig` [ RunTime:0.009000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_apiconfig`  [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `collection` = 'indextheme'  AND `uuid` = 'default' LIMIT 1     [ RunTime:0.000000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_navigation` [ RunTime:0.010001s ]
+[ sql ] [ SQL ] SELECT `id`,`name`,`icon`,`pid`,`sort`,`url`,`hide` FROM `mini_navigation` WHERE  `hide` = 0 ORDER BY sort   [ RunTime:0.001000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_banner` [ RunTime:0.009000s ]
+[ sql ] [ SQL ] SELECT * FROM mini_banner a LEFT JOIN mini_banner_position b ON b.id= a.position  WHERE  a.status = 1  AND a.position = 1 ORDER BY a.createtime  [ RunTime:0.004001s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SELECT * FROM mini_banner a LEFT JOIN mini_banner_position b ON b.id= a.position  WHERE  a.status = 1  AND a.position = 1 ORDER BY a.createtime  [ RunTime:0.002000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_cate` [ RunTime:0.011001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'qdz' LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_cate_relationships` [ RunTime:0.010000s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 25   [ RunTime:0.002001s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods` [ RunTime:0.014000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods` WHERE  `id` IN (61,80,188,226,223,168,102,101,100,108,106,105,83,84,78,82,79,81,196,210,207,193,183,162,167,204,201,189,179,176,170,302,159,157,154,164,148,149,151,150,194,190,172,156,163,152,211,208,205,184,180,175,169,166,161,160,158,155,153,202,198,177,243,233,197,192,247,219,231,216,209,206,241,239,236,238,234,229,227,222,221,218,182,178,174,171,214,249,273,199,195,203,181,261,268,266,230,225,191,185,173,245,260,295,276,292,283,272,269,264,257,254,252,251,242,248,224,213,228,217,220,215,237,297,287,235,301,240,246,284,275,265,258,244,290,281,262,255,253,299,250,300,303,256,277,279,291,270,274,263,133,63,212,186,271,91,92,62,232,187,128,132,96,94,98,67,310,308,99,289,259,280,278,285,267,288,286,296,116,294,64,50,66,111,110,107,97,65,93,95,114,103,115,117,113,104,112,165,298,293,127,139,145,143,142,141,138,137,136,135,144,130,129,126,125,124,123,122,121,120,146,119,118,134,147,140,131,200,307,109,68,311,316,306,317,49,309,318)  AND `status` = 1  AND `is_hot` = 1 ORDER BY sort asc LIMIT 9                                                                                                                                                                                                                                                   [ RunTime:0.019001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'qtdr' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 26   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods` WHERE  `id` IN (59,304,90,89,88,87,70,75,71,77,305,85,86,51,76,315,313,314,69,312,60)  AND `status` = 1  AND `is_hot` = 1 ORDER BY sort asc LIMIT 4                          [ RunTime:0.004000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'fx' LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 43   [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods` WHERE  `id` IN (72,73,53,74)  AND `status` = 1  AND `is_hot` = 1 ORDER BY sort asc LIMIT 4         [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'ztdz' LIMIT 1    [ RunTime:0.001001s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 27   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods` WHERE  `id` IN (52,57,56,54,58,55)  AND `status` = 1  AND `is_hot` = 1 ORDER BY sort asc LIMIT 3           [ RunTime:0.054003s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_posts` [ RunTime:0.021001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_posts` WHERE  `name` = 'why-choose' LIMIT 1    [ RunTime:0.001000s ]
+
+---------------------------------------------------------------
+[ 2017-06-22T18:30:08+08:00 ] ::1 ::1 GET /minishop/admin.php
+[ log ] localhost/minishop/admin.php [运行时间：0.769044s][吞吐率：1.30req/s] [内存消耗：2,291.58kb] [文件加载：53]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop\core\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'UM_distinctid=15abaf0eb5b105-0e4b7d36d-4349052c-100200-15abaf0eb5e1bd; CNZZDATA1256643218=1194298924-1489194384-%7C1489237927; PHPSESSID=df07j2i0ag96c8807ocon43g41; think_var=zh-cn; __session:0.8185869483277202:=http:',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop/application/admin\lang\zh-cn.php
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => 'session_id',
+  'prefix' => 'minishop',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] Method [ <user> public method index ] {
+  @@ D:\phpStudy\WWW\minishop\application\admin\controller\Index.php 21 - 38
+}
+
+[ info ] [ VIEW ] D:\phpStudy\WWW\minishop/application/admin\view\index\index.html [ array (
+  0 => 'menuTree',
+  1 => 'version',
+  2 => 'new_ver',
+  3 => 'user_num',
+  4 => 'post_num',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT file
+[ sql ] [ DB ] CONNECT:[ UseTime:0.012000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_key_value` [ RunTime:0.008001s ]
+[ sql ] [ SQL ] SELECT `value` FROM `mini_key_value` WHERE  `collection` = 'indextheme' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_menu` [ RunTime:0.015001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `hide` = 0   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_users` [ RunTime:0.012001s ]
+[ sql ] [ SQL ] SELECT `uuid` FROM `mini_users` WHERE  `id` = 1 LIMIT 1    [ RunTime:0.002000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `uuid` = 'ad75820a-96c3-a1a8-20c6-195534dd75d3' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT `uuid` FROM `mini_users` WHERE  `id` = 1 LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `uuid` = 'ad75820a-96c3-a1a8-20c6-195534dd75d3' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_apiconfig` [ RunTime:0.008001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_apiconfig`  [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT `id`,`uuid`,`username`,`password`,`nickname`,`email`,`mobile`,`regdate`,`regip`,`salt`,`status`,`last_login`,`wechat_openid`,`qq_openid`,`sina_openid`,`score` FROM `mini_users`  [ RunTime:0.003000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_posts` [ RunTime:0.007001s ]
+[ sql ] [ SQL ] SELECT `id`,`uid`,`uuid`,`createtime`,`content`,`title`,`description`,`status`,`comment_status`,`password`,`name`,`updatetime`,`pid`,`level`,`type`,`comment`,`view` FROM `mini_posts`  [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 1  AND (  instr('/minishop/admin.php',`url`)>0 ) LIMIT 1    [ RunTime:0.002000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 51  AND (  instr('/minishop/admin.php',`url`)>0 ) LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 71  AND (  instr('/minishop/admin.php',`url`)>0 ) LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 2  AND (  instr('/minishop/admin.php',`url`)>0 ) LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 3  AND (  instr('/minishop/admin.php',`url`)>0 ) LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 4  AND (  instr('/minishop/admin.php',`url`)>0 ) LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 5  AND (  instr('/minishop/admin.php',`url`)>0 ) LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 48  AND (  instr('/minishop/admin.php',`url`)>0 ) LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 68  AND (  instr('/minishop/admin.php',`url`)>0 ) LIMIT 1    [ RunTime:0.001000s ]
+
+---------------------------------------------------------------
+[ 2017-06-22T18:30:13+08:00 ] ::1 ::1 GET /minishop/admin.php/goods/category.html
+[ log ] localhost/minishop/admin.php/goods/category.html [运行时间：0.211012s][吞吐率：4.74req/s] [内存消耗：2,517.80kb] [文件加载：53]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop\core\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'goods',
+    2 => 'category',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36',
+  'referer' => 'http://localhost/minishop/admin.php',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'UM_distinctid=15abaf0eb5b105-0e4b7d36d-4349052c-100200-15abaf0eb5e1bd; CNZZDATA1256643218=1194298924-1489194384-%7C1489237927; PHPSESSID=df07j2i0ag96c8807ocon43g41; think_var=zh-cn; __session:0.8185869483277202:=http:',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop/application/admin\lang\zh-cn.php
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => 'session_id',
+  'prefix' => 'minishop',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] /**
+     * 产品分类
+     * @author tangtanglove
+     */
+Method [ <user> public method category ] {
+  @@ D:\phpStudy\WWW\minishop\application\admin\controller\Goods.php 396 - 420
+}
+
+[ info ] [ VIEW ] D:\phpStudy\WWW\minishop/application/admin\view\goods\category.html [ array (
+  0 => 'menuTree',
+  1 => 'goodsCateList',
+  2 => 'goodsCateTree',
+  3 => 'goodsCateSelectTree',
+) ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT file
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_key_value` [ RunTime:0.007001s ]
+[ sql ] [ SQL ] SELECT `value` FROM `mini_key_value` WHERE  `collection` = 'indextheme' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_menu` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `hide` = 0   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_users` [ RunTime:0.008001s ]
+[ sql ] [ SQL ] SELECT `uuid` FROM `mini_users` WHERE  `id` = 1 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `uuid` = 'ad75820a-96c3-a1a8-20c6-195534dd75d3' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT `uuid` FROM `mini_users` WHERE  `id` = 1 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `uuid` = 'ad75820a-96c3-a1a8-20c6-195534dd75d3' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_apiconfig` [ RunTime:0.008000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_apiconfig`  [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_cate` [ RunTime:0.007001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  (  1 )  [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate`  [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 1  AND (  instr('/minishop/admin.php/goods/category.html',`url`)>0 ) LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 51  AND (  instr('/minishop/admin.php/goods/category.html',`url`)>0 ) LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 2  AND (  instr('/minishop/admin.php/goods/category.html',`url`)>0 ) LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 3  AND (  instr('/minishop/admin.php/goods/category.html',`url`)>0 ) LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 4  AND (  instr('/minishop/admin.php/goods/category.html',`url`)>0 ) LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 5  AND (  instr('/minishop/admin.php/goods/category.html',`url`)>0 ) LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 48  AND (  instr('/minishop/admin.php/goods/category.html',`url`)>0 ) LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_menu` WHERE  `pid` = 68  AND (  instr('/minishop/admin.php/goods/category.html',`url`)>0 ) LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 25 LIMIT 1    [ RunTime:0.001001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 30 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 28 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 29 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 53 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 54 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 55 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 56 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 57 LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 58 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 59 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 60 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 32 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 33 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 42 LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 61 LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 62 LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 63 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 64 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 65 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 68 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 26 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 34 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 35 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 38 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 39 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 46 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 47 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 48 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 49 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 50 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 51 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 52 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 36 LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 37 LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 40 LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 27 LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 43 LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 69 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 70 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 71 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 72 LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 73 LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 74 LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 75 LIMIT 1    [ RunTime:0.001000s ]
+
+---------------------------------------------------------------

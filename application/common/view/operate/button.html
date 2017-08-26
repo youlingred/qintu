@@ -1,0 +1,9 @@
+{if condition="$type"}
+<div class="pull-left" style="margin-left:10px;">
+	<a href="{$url}" class="btn btn-block btn-primary btn-sm {$classes}">{$name}</a>
+</div>
+{else /}
+<div class="pull-left" style="margin-left:10px;"> 
+	<button type="button" class="btn btn-block btn-default btn-sm {$classes} {$class}">{$name}</button>
+</div> 
+{/if}

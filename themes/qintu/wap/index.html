@@ -1,0 +1,106 @@
+{include file="public/qintu/header"/}
+{include file="public/qintu/nav"/}
+{include file="public/qintu/banner"/}
+<?php
+	$qdz_hot_list=_get_goods_hot_list('qdz',3,'sortup');
+	$qtdr_hot_list=_get_goods_hot_list('qtdr',4,'sortup');
+	$fx_hot_list=_get_goods_best_list('qtlp_hsps',3,'sortup');
+	$ztdz_hot_list=_get_goods_hot_list('ztdz',3,'sortup');
+?>
+<div class="row section-bg-white section">
+	<div class="col-md-8 col-md-offset-2 title-one">
+		  <p class="text-center title">跨境分享结交良师益友</p>
+		  <p class="text-center txt">告别走马观花，这里只有纯粹的生活方式，让你深入民间结交朋友，有空来亲途看看。</p>
+		  <p class=" title-two">推荐分享 <a href="{:url('goods/lists?category=qdz_area_all|qdz_tese_all')}"><span class="txt-lookmore">查看更多>></span></p>
+	  <div class="row">
+	  	{volist name="qdz_hot_list" id="vo"}
+		<div class="col-sm-4">
+		  <a href="{:url('goods/detail?id='.$vo['id'])}">
+		  <div class="thumbnail">
+		  	{empty name="$vo['cover_path']"}
+				<img src="{:config('theme_path')}/wap/images/Thumbnail_Placeholder.png" alt="{$vo['name']}">
+			{else /}
+            	<img src="{:root_path()}{$vo['cover_path']}" alt="{$vo['name']}">
+            {/empty}
+			<div class="caption text-center">
+			  <p class="c-title">{$vo.name}</p>	
+			  <p class="description">{$vo.description}</p>
+			</div>
+		  </div>
+		  </a>
+		</div>
+		{/volist}
+	</div>
+	  <p class=" title-two">推荐达人<a href="{:url('goods/lists?category=qtdr_area_all|qtdr_tese_all')}"><span class="txt-lookmore">查看更多>></span></p>
+		  <div class="row">
+			{volist name="qtdr_hot_list" id="vo"}
+			<div class="col-sm-3">
+			  <a href="{:url('goods/detail?id='.$vo['id'])}">
+			  <div class="thumbnail">
+			  	{empty name="$vo['cover_path']"}
+					<img src="{:config('theme_path')}/wap/images/Thumbnail_Placeholder.png" alt="{$vo['name']}">
+				{else /}
+	            	<img src="{:root_path()}{$vo['cover_path']}" alt="{$vo['name']}">
+	            {/empty}
+				<div class="caption text-center">
+				  <p class="c-title">{$vo.name}</p>	
+				  <p class="description">{$vo.description}</p>
+				</div>
+			  </div>
+			  </a>
+			</div>
+			{/volist}
+		  </div>
+</div>
+</div>
+<div class="row section-bg-gray section">
+  <div class="col-md-8 col-md-offset-2 title-one">
+    <p class="text-center title">绝不简单的旅行</p>
+    <p class="text-center txt">在亲途还可以做很多事，我们只会为您精选日本最好的服务与产品，您差的只是一张机票而已。</p>
+    <div class="row">
+    {volist name="ztdz_hot_list" id="vo"}
+			<div class="col-sm-4">
+	  <!--<a href="">-->
+	  <div class="thumbnail">
+	  	{empty name="$vo['cover_path']"}
+			<img src="{:config('theme_path')}/wap/images/Thumbnail_Placeholder.png" alt="{$vo['name']}">
+		{else /}
+        	<img src="{:root_path()}{$vo['cover_path']}" alt="{$vo['name']}">
+        {/empty}
+		<div class="caption text-center">
+		  <p class="c-title">{$vo.name}</p>	
+		  <p class="description">{$vo.description}</p>
+		</div>
+	  </div>
+	  <!--</a>-->
+	</div>
+	{/volist}
+	<!--<p class="text-center title"><a href="{:url('article/page?name=srdz')}"><span><button type="button" class="btn btn-lg btn-gold">预约我的旅行</button></span></a></a></p>
+    </div>
+    <p class=" title-two">当季推荐主题<a href="{:url('goods/lists?category=ztdz')}"><span class="txt-lookmore">查看更多>></span></p>
+    <div class="row">
+    	 {volist name="ztdz_hot_list" id="vo"}
+		<div class="col-sm-4">
+		  <a href="{:url('goods/detail?id='.$vo['id'])}">
+			  <div class="thumbnail">
+			  	{empty name="$vo['cover_path']"}
+					<img src="{:config('theme_path')}/wap/images/Thumbnail_Placeholder.png" alt="{$vo['name']}">
+				{else /}
+		        	<img src="{:root_path()}{$vo['cover_path']}" alt="{$vo['name']}">
+		        {/empty}
+			  		<div>
+						<img class="mark-png" src="{:config('theme_path')}/wap/images/hot.png"/>
+						<div class="caption text-center">
+						  <p class="c-title">{$vo.name}</p>	
+		  				 <p class="description">{$vo.description}</p>
+						</div>
+				   </div>
+			  </div>
+			</a>
+		  </div>
+		  {/volist}
+		 </div>-->
+  </div>
+</div>
+{include file="public/qintu/footer"/}
+

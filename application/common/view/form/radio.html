@@ -1,0 +1,18 @@
+<div class="form-group">
+	<label>{$title}</label>
+	{volist name="option" id="vo"}
+		{eq name="$key" value="$data"}
+		  <div class="radio">
+		    <label>
+				<input name="{$name}" type="radio" value="{$key}" checked="checked">{$vo}
+			</label>
+		  </div>
+		{else/}
+		  <div class="radio">
+		    <label>
+				<input name="{$name}" type="radio" value="{$key}">{$vo}
+			</label>
+		  </div>
+		{/eq}
+	{/volist}
+</div>

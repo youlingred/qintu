@@ -1,0 +1,184 @@
+{include file="common:head"}
+
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+
+{include file="common:header"}
+<!-- Left side column. contains the logo and sidebar -->
+{include file="common:navbar"}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        反馈管理
+        <small>反馈列表</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{:url('Index/index')}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a>反馈管理</a></li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">              
+              <div class="pull-left" style="margin-left:10px;"> 
+                <button target-form="ids" type="submit" class="btn ajax-post confirm btn-block btn-primary btn-sm" url="{:url('dele')}">批量删除</button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+            
+              <div class="table-responsive mailbox-messages">
+                <table class="table table-hover table-striped">
+                  <thead>
+                  <tr>
+                    <th><input type="checkbox" class="selectAll"></th>
+                    <th>ID</th>
+                    <th>昵称</th>
+                    <th>电话</th>
+                    <th>邮箱</th>
+                    <th>内容</th>
+                    <th width="10%">反馈时间</th>
+                    <th width="10%">处理时间</th>
+                    <th width="10%">状态</th>                    
+                    <th width="10%">操作</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {volist name="list" id="vo"}
+                    <tr>
+                      <td>
+                        <input class="ids check" type="checkbox" name="ids[]" value="{$vo.id}">
+                      </td>
+                      <td>{$vo.id}</td>
+                      <td>{$vo.nickname}</td>
+                      <td>{$vo.mobile}</td>
+                      <td>{$vo.email}</td>
+                      <td>{$vo.content}</td>
+                      <td>{$vo.createtime|time_format}</td>
+                      <td>                        
+                        {eq name="vo.responsetime" value="0"}
+                          -
+                        {else /}
+                          {$vo.responsetime|time_format}
+                        {/eq}  
+                      </td>
+                      <td>
+                        {eq name="vo.status" value="0"}
+                          未处理
+                        {else /}
+                          {eq name="vo.status" value="1"}
+                            已处理
+                          {else /}
+                            已删除
+                          {/eq}  
+                        {/eq}  
+                      </td>
+                      <td style="width:200px">
+                        <a href="{:url('message/reply',['id'=>$vo.id])}">处理</a>
+                        <!-- <a type="button" class="btn ajax-get confirm" href="{:url('message/dele1',['id'=>$vo.id])}">删除</a> -->
+                      </td>
+                    </tr>
+                  {/volist}
+                  
+                  </tbody>
+                  <thead>
+                  <tr>
+                    <th><input type="checkbox" class="selectAll"></th>
+                    <th>ID</th>
+                    <th>昵称</th>
+                    <th>电话</th>
+                    <th>邮箱</th>
+                    <th>内容</th>
+                    <th width="10%">反馈时间</th>
+                    <th width="10%">处理时间</th>
+                    <th width="10%">状态</th>                    
+                    <th width="10%">操作</th>
+                  </tr>
+                  </thead>                  
+                </table>
+                <!-- /.table -->
+              </div>
+              <!-- /.mail-box-messages -->
+              <div class="pull-right" style="margin-right:20px;">
+                {$list->render()}
+              </div>
+            </div>
+            <!-- /.box-body -->                             
+          </div>
+          <!-- /. box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  {include file="common:footer"}
+
+</div>
+<script src="STATIC_PATH/plugins/jQuery/jquery-1.9.1.min.js"></script>
+<script src="STATIC_PATH/plugins/jQueryUI/jquery-ui.min.js"></script>
+<script src="STATIC_PATH/dist/js/alert.js"></script>
+<script type="text/javascript">
+  $.widget.bridge('uibutton',$.ui.button);
+</script>
+
+<script type="text/javascript">
+  $('document').ready(function(argument){
+    //全选、取消全选的事件
+    $("th .selectAll").click(function(){
+      if(this.checked){
+        $(".check").each(function(){this.checked=true;});
+      }else{
+        $(".check").each(function(){this.checked=false;});
+      }
+    });
+    //批量删除
+    $('#submit_dele').click(function(){      
+      var ids = new Array();//声明一个存放id的数组
+      $("[name='ids']:checked").each(function(){
+        ids.push($(this).val());
+      });
+      $.ajax({
+        cache:true,
+        type :"POST",
+        url  :'{:url('dele')}',
+        data :{ids:ids},
+        async:false,
+        success:function(data){
+          if(data.code){
+            msgok(data.msg);
+            setTimeout(function(){
+              location.href=data.url;
+            },1000);
+          } else {
+            msgerr(data.msg);
+          }
+        },
+        error:function(request){
+          msgerr("页面错误");
+        }
+      });        
+    });    
+    
+     // select选中
+    $(".filterStatus").val("{$Think.get.status ?? '0'}");
+
+  })
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="STATIC_PATH/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+</body>
+</html>

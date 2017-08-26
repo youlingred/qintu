@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>{:config('web_site_title')}</title>
+<meta name="keywords" content="{:config('web_site_keyword')}"/>
+<meta name="description" content="{:config('web_site_description')}"/>
+<!-- Bootstrap -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="css/common.css" rel="stylesheet">
+<link href="css/user_center.css" rel="stylesheet">
+<link href="css/car.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="{:config('theme_path')}/index/js/html5shiv.min.js"></script>
+    <script src="{:config('theme_path')}/index/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+<header>
+  <nav class="navbar navbar-default">
+    <div class="container"> 
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header"> <a href="#"><img class="logo" src="{:config('theme_path')}/index/images/logo.png"></a> <span class="navbar-line"></span> </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+
+          <li><a href="{:url($nav['url'])}">12</a></li>
+
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <form class="navbar-form navbar-left">
+              <div class="custom-search">
+                <input type="text" class="text-search" placeholder="搜索">
+              </div>
+            </form>
+          </li>
+          <li id="li-1"> <span class="login-register-box"> &nbsp;&nbsp; <span data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">fff<span class="caret"></span></span> 
+          <ul class="dropdown-menu">
+            <li><a href="{:url('order/orderLists')}"><i><img src="{:config('theme_path')}/index/images/order.png" alt=""></i>我的订单</a></li>
+            <li><a href="{:url('address/userAddress')}"><i><img src="{:config('theme_path')}/index/images/address.png" alt=""></i>收货地址</a></li>
+            <li><a href="#"><i><img src="{:config('theme_path')}/index/images/complaint.png" alt=""></i>投诉管理</a></li>
+            <li><a href="#"><i><img src="{:config('theme_path')}/index/images/debit.png" alt=""></i>退款管理</a></li>
+            <li><a href="{:url('comment/ordercomment')}"><i><img src="{:config('theme_path')}/index/images/comment.png" alt=""></i>我的评价</a></li>
+            <li><a href="{:url('collection/collection')}"><i><img src="{:config('theme_path')}/index/images/collectionone.png" alt=""></i>我的收藏</a></li>
+            <li><a href="{:url('user/userCenter')}"><i><img src="{:config('theme_path')}/index/images/member.png" alt=""></i>个人中心</a></li>
+            <li><a href="{:url('common/logout')}"><i><img src="{:config('theme_path')}/index/images/member.png" alt=""></i>退出登录</a></li>
+          </ul>
+          </li>
+
+          <li> <span class="login-register-box"> &nbsp;&nbsp; <a href="{:url('Index/login')}">登录</a>&nbsp; | &nbsp;<a href="{:url('Index/register')}">注册 </a></span> </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse --> 
+    </div>
+    <!-- /.container-fluid --> 
+  </nav>
+</header>
+<!--main start-->
+<div class="main">
+  <div class="container">
+    <div class="row">
+<!--左栏 start-->
+      <div class="col-xs-3" >
+        <div class="order">
+          <div class="order-left"><span>订单中心</span></div>
+          <div class="order-content">
+            <p><img src="{:config('theme_path')}/index/images/order.png"><span><a href="{:url('order/orderLists')}">我的订单</a></span></p>
+            <p><img src="{:config('theme_path')}/index/images/comment.png"><span><a href="{:url('comment/CommentList')}">我的评价</a></span></p>
+            <p><img src="{:config('theme_path')}/index/images/address.png"><span><a href="{:url('address/userAddress')}">收货地址</a></span></p>
+            <p><img src="{:config('theme_path')}/index/images/complaint.png"><span><a href="">投诉管理</a></span></p>
+            <p><img src="{:config('theme_path')}/index/images/debit.png"><span><a href="{:url('order/user_refund')}">退款管理</a></span></p>
+          </div>
+        </div>
+        <div class="account">
+          <div class="account-left"><span>我的账户</span></div>
+          <div class="account-content">
+            <p><img src="{:config('theme_path')}/index/images/member.png"><span><a href="{:url('user/userCenter')}">个人中心</a></span></p>
+            <p><img src="{:config('theme_path')}/index/images/shopping.png"><span><a href="{:url('cart/index')}">我的购物车</a></span></p>
+            <p><img src="{:config('theme_path')}/index/images/collectionone.png"><span><a href="{:url('collection/Collection')}">我的收藏</a></span></p>
+          
+          </div>
+        </div>
+        <div class="help">
+          <div class="help-left"><span>帮助中心</span></div>
+          <div class="help-content">
+            <p><img src="{:config('theme_path')}/index/images/guide.png"><span><a href="" target="_blank">购物指南</a></span></p>
+            <p><img src="{:config('theme_path')}/index/images/service.png"><span><a href="" target="_blank">售后服务</a></span></p>
+            <p><img src="{:config('theme_path')}/index/images/pay.png"><span><a href="{:url('Article/page',['name'=>'payment'])}" target="_blank">支付方式</a></span></p>
+            <p><img src="{:config('theme_path')}/index/images/distribution.png"><span><a href="" target="_blank">配送方式</a></span></p>
+          
+          </div>
+        </div>
+      </div>
+
+      <!--左栏 end-->
+
+      <!--退款管理 start-->
+      <div class="col-xs-9 " >
+       <div class="user-center">
+        <p class="user-title"><span>退款管理</span></p>
+        <div class="user-content user-content-center">
+          
+                <table class="table refund" border="0" >
+              <tr class="refund-list"style="height:50px;" >
+              <th >退款编号</th>
+              <th >商品名称</th>
+              <th >订单号</th>
+              <th >交易金额</th>
+              <th >退款金额</th>
+              <th >退款状态</th>
+              <th >操作</th>
+              </tr>
+        <tr>
+          <td style="padding-top:60px !important">01</td>
+          <td ><img src="images/irc_defaut.png" class="refund-img"  /><div class="refund-goods"><p class="bold">商品名称</p><p class="type">规格 : 1200*30*15</p></div></td>
+          <td><div class="refund-order"><p class="bold">2016-08-02</p><p class="type">123456789123</p></div></td>
+          <td style="padding-top:60px !important"><span class="refund-money" >¥30</span></td>
+          <td style="padding-top:60px !important"><span class="refund-money">¥30</span></td>
+          <td style="padding-top:60px !important"><span>待处理</span></td>
+          <td style="padding-top:60px !important"><img src="images/shopping_cart.png" /></td>
+        </tr>
+        <tr>
+          <td style="padding-top:60px !important">01</td>
+          <td ><img src="images/irc_defaut.png" class="refund-img"  /><div class="refund-goods"><p class="bold">商品名称</p><p class="type">规格 : 1200*30*15</p></div></td>
+          <td><div class="refund-order"><p class="bold">2016-08-02</p><p class="type">123456789123</p></div></td>
+          <td style="padding-top:60px !important"><span class="refund-money" >¥30</span></td>
+          <td style="padding-top:60px !important"><span class="refund-money">¥30</span></td>
+          <td style="padding-top:60px !important"><span>待处理</span></td>
+          <td style="padding-top:60px !important"><img src="images/shopping_cart.png" /></td>
+        </tr>
+        <tr>
+          <td style="padding-top:60px !important">01</td>
+          <td ><img src="images/irc_defaut.png" class="refund-img"  /><div class="refund-goods"><p class="bold">商品名称</p><p class="type">规格 : 1200*30*15</p></div></td>
+          <td><div class="refund-order"><p class="bold">2016-08-02</p><p class="type">123456789123</p></div></td>
+          <td style="padding-top:60px !important"><span class="refund-money" >¥30</span></td>
+          <td style="padding-top:60px !important"><span class="refund-money">¥30</span></td>
+          <td style="padding-top:60px !important"><span>待处理</span></td>
+          <td style="padding-top:60px !important"><img src="images/shopping_cart.png" /></td>
+        </tr>
+
+            </table>
+
+            <div class="page">
+           <ul class="pagination pagination-lg">
+            <li><a href="#">上一页</a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">下一页</a></li>
+           </ul>
+            </div>
+
+          </div>
+          
+        </div>
+        </div>
+
+        <!--退款管理 end-->
+      </div>
+    </div>
+</div>
+<!--main end-->
+<!--footer start-->
+<div class="footer">
+  <div class="footer-main">
+      <div class="container">
+      <div class="footer-main-left">
+            <ul>
+                <li>
+                      <p class="title"><a href="#">关于我们</a></p>
+                      <p><a href="#">公司简介</a></p>
+                      <p><a href="#">企业文化</a></p>
+                      <p><a href="#">发展历程</a></p>
+                      <p><a href="#">荣誉资质</a></p>
+                    </li>
+                <li>
+                      <p class="title"><a href="#">新闻资讯</a></p>
+                      <p><a href="#">新闻中心</a></p>
+                      <p><a href="#">行业资讯</a></p>
+                    </li>
+                <li>
+                      <p class="title"><a href="#">商品中心</a></p>
+                      <p><a href="#">水果类</a></p>
+                      <p><a href="#">坚果类</a></p>
+                      <p><a href="#">蔬菜类</a></p>
+                    </li>
+                <li>
+                      <p class="title"><a href="#">联系我们</a></p>
+                      <p><a href="#">招贤纳士</a></p>
+                      <p><a href="#">在线留言</a></p>
+                    </li>
+              </ul>
+          </div>
+      <div class="footer-main-right">
+              <div class="wap-erweima">
+                  <p><img src="{:config('theme_path')}/index/images/code.png"></p>
+                  <p>手机版</p>
+                </div>
+              <div class="wx-erweima">
+                  <p><img src="{:config('theme_path')}/index/images/code.png"></p>
+                  <p>微信平台</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  <div class="footer-bottom">
+     版权所有 ® 2005-2015 迁安珍良缘农副食品超商&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公司地址：迁安市中三元街59号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;技术支持：<a href="#">深蓝科技</a>
+    </div>
+</div>
+
+
+
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+<script>
+$(".img").click(function(){
+if($(".pay").css("display")=="none"){
+$(".pay").show();
+}else{
+$(".pay").hide();
+}
+});
+</script>
+</body>
+</html>

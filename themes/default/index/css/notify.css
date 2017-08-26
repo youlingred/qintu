@@ -1,0 +1,52 @@
+@charset "utf-8";
+/* CSS Document */
+
+.help{
+	margin-top:14px;
+}
+.help-bar-left{
+	font-size:18px;
+	font-weight:bold;
+	float:left;
+	border-left:3px solid #ff2c4c;
+	padding-left:10px;
+}
+.help-bar{
+	width:100%;
+	float:left;
+}
+.help-box{
+	margin-top:30px;
+	width:100%;
+	float:left;
+}
+.hbrc-left{
+	float:left;
+	width:80px;
+}
+.hbrc-right{
+	float:left;
+	margin-left:20px;
+	width:136px;
+}
+.hbrc-right .title,.hbrc-right .text{
+	float:left;
+	width:100%;
+}
+.hbrc-right .title a{
+	font-size:16px;
+	color:#333333;
+}
+.hbrc-right .text a{
+	font-size:14px;
+	color:#909090;
+}
+.hbrc-right .text{
+	margin-top:10px;
+	color:#909090;
+}
+
+.notify-box{ width:100%; background:#fff; padding:60px;}
+.nb-left{ float:left;}
+.nb-right{ float:left; margin-left:30px;}
+.more-info a{ color:#fe2d4c;}

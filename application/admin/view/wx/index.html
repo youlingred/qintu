@@ -1,0 +1,165 @@
+{include file="common:head"}
+
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+
+{include file="common:header"}
+<!-- Left side column. contains the logo and sidebar -->
+{include file="common:navbar"}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        微信
+        <small>微信设置</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{:url('Index/index')}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{:url('admin/wx/index')}">微信</a></li>
+        <li><a>微信设置</a></li>
+        
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+           
+             {include file="common:wx"}
+               
+              
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body ">
+            
+              <div class="table-responsive mailbox-messages">
+                  <div class="page-header">
+                    <h3>注意事项</h3>
+                  </div>
+                  <h4>1. 微信端目前只支持认证的服务号</h4>
+                  <h4>2. 使用前请确保已经配置了微信的相关信息</h4>
+                <!-- /.table -->
+              </div>
+              <!-- /.mail-box-messages -->
+            </div>
+            <!-- /.box-body -->
+
+          </div>
+          <!-- /. box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  {include file="common:footer"}
+
+</div>
+<script src="STATIC_PATH/plugins/jQuery/jquery-1.9.1.min.js"></script>
+<script src="STATIC_PATH/plugins/jQueryUI/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+  $.widget.bridge('uibutton',$.ui.button);
+</script>>
+
+<script type="text/javascript">
+  $('document').ready(function(argument){
+    //全选、取消全选的事件
+    $("th .selectAll").click(function(){
+      if(this.checked){
+        $(".check").each(function(){this.checked=true;});
+      }else{
+        $(".check").each(function(){this.checked=false;});
+      }
+    });
+    //设置状态方法
+    $('.setStatusSubmit').click(function(){
+      setStatus = $(".setStatus").val();
+      var ids = new Array();//声明一个存放id的数组
+      $("[name='ids']:checked").each(function(){
+        ids.push($(this).val());
+      });
+      $.ajax({
+        cache:true,
+        type :"POST",
+        url  :'{:url('setStatus')}',
+        data :{status:setStatus,ids:ids},
+        async:false,
+           success:function(data){
+            if(data.code){
+              msgok(data.msg);
+              setTimeout(function(){
+                location.href=data.url;
+              },1000);
+            } else {
+              msgerr(data.msg);
+            }
+           },
+           error:function(request){
+            msgerr("页面错误");
+           }
+      });        
+    });
+
+     //设置状态方法
+    $('.StatusSubmit').click(function(){
+      setStatus = $(".Status").val();
+      var ids = new Array();//声明一个存放id的数组
+      $("[name='ids']:checked").each(function(){
+        ids.push($(this).val());
+      });
+      $.ajax({
+        cache:true,
+        type :"POST",
+        url  :'{:url('setStatus')}',
+        data :{status:setStatus,ids:ids},
+        async:false,
+           success:function(data){
+            if(data.code){
+              msgok(data.msg);
+              setTimeout(function(){
+                location.href=data.url;
+              },1000);
+            } else {
+              msgerr(data.msg);
+            }
+           },
+           error:function(request){
+            msgerr("页面错误");
+           }
+      });        
+    });
+      // 搜索方法
+    $('.search').keyup(function (event) {
+      if (event.keyCode == "13") {
+          getUrl = '{:url('index',['q'=>'qstring'])}';
+          location.href = getUrl.replace("qstring", $('.search').val());
+      }
+    });
+     //筛选方法
+     $('.filter').click(function(event){
+          getUrl  = '{:url('index',['status'=>'filterStatus'])}';
+          getUrl = getUrl.replace("filterStatus", $('.filterStatus').val());
+          location.href = getUrl;
+     }); 
+     // select选中
+    $(".filterStatus").val("{$Think.get.status ?? '0'}");
+
+  })
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="STATIC_PATH/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+</body>
+</html>

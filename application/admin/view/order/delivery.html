@@ -1,0 +1,162 @@
+{include file="common:head"}
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+
+  {include file="common:header"}
+  <!-- Left side column. contains the logo and sidebar -->
+ 
+{include file="common:navbar"}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+  <section class="content-header">
+      <h1>        
+           订单发货 
+                        
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{:url('Index/index')}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li class="active"><a href="{:url('order/index')}">订单</a></li>
+        <li class="active">订单发货</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+      <!-- form start -->
+          <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#fa-icons">订单发货</a></li>
+              
+            </ul>
+            <div class="tab-content">
+              <!-- Font Awesome Icons -->
+              <form   method="post" name="upfile"  enctype="multipart/form-data" id='form'  >
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">订单号 </label>
+                  <span type="text" class="form-control" value="" name="post_title" >{$ordersInfo.order_no}</span>
+                </div>
+                <div class="form-group">
+               
+                  <label for="exampleInputPassword1">订单状态</label>
+                  <span type="text" class="form-control" value="" name="tel" >{switch name="ordersInfo.status" }
+                      {case value="nopaid"}未支付{/case}
+                      {case value="paid"}已支付{/case}
+                      {case value="shipped"}已发货{/case}
+                      {case value="completed"}已完成{/case}
+                     
+                  {/switch}</span>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">收货地址</label>
+                  <input type="text" class="form-control" value="{$ordersInfo.address}" name="address" id="address" placeholder="收货地址" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">收货人姓名</label>
+                  <input type="text" class="form-control" value="{$ordersInfo.consignee_name}" id="consignee_name" name="consignee_name" placeholder="送货人姓名" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">收货人联系方式</label>
+                  <input type="text" class="form-control" value="{$ordersInfo.mobile}" id="mobile" name="mobile" placeholder="收货人联系方式" />
+                </div>
+                <div class="form-group">
+                <input type="hidden" id="close" value="{$list['web_site_close']}" />
+                  <label for="exampleInputPassword1">关闭站点</label>
+                  <select class="form-control" id="site_close" name="web_site_close">
+              
+                <option value="0">否</option>
+                <option value="1">是</option>
+                
+            </select>
+                </div>
+               <input type="hidden" value="{$ordersInfo.order_no}" id="order_no">
+                
+              <!-- /.box-body -->
+                 
+
+
+              <div class="box-footer">
+                <button class="btn btn-success" onclick="javascript:history.back(-1);return false;">返 回</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button"  class="btn btn-primary" onclick="submitInfo()">发 货</button>
+              </div>
+            </form>
+                
+              </div>
+              <!-- /#fa-icons -->
+
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          </div>
+          <!-- /.nav-tabs-custom -->
+          </section>
+           </div>
+ 
+  <!-- /.content-wrapper -->
+  {include file="common:footer"}
+
+
+ 
+</div>
+<!-- ./wrapper -->
+
+<script src="STATIC_PATH/plugins/jQuery/jquery-1.9.1.min.js"></script>
+<script src="STATIC_PATH/plugins/jQueryUI/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+
+
+ <script>
+ function submitInfo(){
+
+        var order_no      = $("#order_no").val();
+        var address       = $("#address").val();
+        var mobile        = $("#mobile").val();
+        var consignee_name= $("#consignee_name").val();      
+         $.ajax({
+             type: "POST",
+             url: "{:url('admin/order/delivery')}",
+             data: {order_no      :order_no,
+                    address       :address,
+                    mobile         :mobile,
+                    consignee_name :consignee_name
+                   
+                    },
+             dataType: "json",
+              success: function(data) {
+              if (data.code) {
+                  msgok(data.msg);
+                  setTimeout(function () {
+                    location.href = data.url;
+                  }, 1000);
+              } else {
+                  msgerr(data.msg);
+              }
+
+            },
+            error: function(request) {
+              msgerr("页面错误");
+            }
+         });
+        
+    }
+  
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="STATIC_PATH/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+

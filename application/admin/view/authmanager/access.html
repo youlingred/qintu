@@ -1,0 +1,121 @@
+{include file="common:head"}
+  <style type="text/css">
+    dl dd{
+      height:30px;
+      line-height: 30px;
+      padding-left: 20px;
+      color:#666;
+    }
+    .dd1{
+      background: #ECECEC;
+    }
+  </style>
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+
+{include file="common:header"}
+<!-- Left side column. contains the logo and sidebar -->
+{include file="common:navbar"}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        {$group}——权限设置
+        <small>访问授权</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{:url('admin/index/index')}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{:url('admin/Authmanager/index')}">权限设置</a></li>
+        <li class="active">访问授权</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              <div class="table-responsive mailbox-messages">
+              	<dl>
+              		{:tree_to_auth_access($menuListTree,$rules)}
+              	</dl>
+              </div>
+              <!-- /<div class="mail-box-message"></div>s -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer with-border">
+              <div class="pull-left" style="margin-left:10px;"> 
+                <button class="btn btn-success" onclick="javascript:history.back(-1);return false;">返 回</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-block btn-default btn-sm setAuthSubmit">应 用</button>
+              </div>
+
+              <div class="pull-right">
+
+              </div>
+              <!-- /.box-tools -->
+            </div>
+          </div>
+          <!-- /. box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  
+  {include file="common:footer"}
+
+</div>
+<!-- ./wrapper -->
+
+<script src="STATIC_PATH/plugins/jQuery/jquery-1.9.1.min.js"></script>
+<script src="STATIC_PATH/plugins/jQueryUI/jquery-ui.min.js"></script>
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<script type="text/javascript">
+  $('document').ready(function (argument) {
+    // 设置权限方法
+    var gid = {$gid};
+    $('.setAuthSubmit').click(function () {
+      var ids = new Array();//声明一个存放id的数组 
+      $("[name='ids']:checked").each(function(){
+        ids.push($(this).val());
+      });
+      $.ajax({
+        cache: true,
+        type: "POST",
+        url : '{:url('Authmanager/setAccess')}',
+        data: {ids:ids,gid:gid},
+        async: false,
+          success: function(data) {
+            if (data.code) {
+                msgok(data.msg);
+                setTimeout(function () {
+                  location.href = data.url;
+                }, 1000);
+            } else {
+                msgerr(data.msg);
+            }
+
+          },
+          error: function(request) {
+            msgerr("页面错误");
+          }
+      });
+    });
+  });
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="STATIC_PATH/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+</body>
+</html>

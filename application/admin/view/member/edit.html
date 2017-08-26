@@ -1,0 +1,194 @@
+{include file="common:head"}
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+
+  {include file="common:header"}
+  <!-- Left side column. contains the logo and sidebar -->
+ 
+{include file="common:navbar"}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+  <section class="content-header">
+      <h1>        
+            编辑会员              
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{:url('Index/index')}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{:url('admin/member/index')}">会员</a></li>
+        <li class="active">编辑会员</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+      <!-- form start -->
+          <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+             <!--  <h3 class="box-title">编辑会员</h3> -->
+              <ul class="nav nav-tabs">
+              <li class="active"><a href="#activity" data-toggle="tab">编辑会员</a></li>
+              
+              <li><a href="#setting" data-toggle="tab">编辑密码</a></li>
+             </ul>
+
+             <!--  <div class="box-tools" id="activity">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div> -->
+          </div>
+            <div class="tab-content">
+            <div class="tab-pane active" id="activity">
+              <!-- Font Awesome Icons -->
+              <form   method="post" action={:url('edit')} id="editpost">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">用户名</label>
+                  <input type="text" readOnly="true" class="form-control" id="username" name="username" value="{$usersInfo.username}" placeholder="用户名" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">昵称</label>
+                  <input type="text" class="form-control" id="nickname"  value="{$usersInfo.nickname}" name="nickname" placeholder="昵称" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">邮箱</label>
+                  <input type="text" class="form-control" id="email" value="{$usersInfo.email}" name="email" placeholder="邮箱">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">手机号</label>
+                  <input type="text" class="form-control" id="mobile" value="{$usersInfo.mobile}" name="mobile" placeholder="手机号" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">积分</label>
+                  <input type="text" class="form-control" id="score" value="{$usersInfo.score}" name="score" placeholder="积分" />
+                </div>
+                
+               
+                  <input type="hidden" class="form-control" id="id" value="{$usersInfo.id}" name="id"  />
+              <div class="pull-right">
+                <button class="btn btn-success" onclick="javascript:history.back(-1);return false;">返 回</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button"  class="btn btn-primary submit">确 定</button>
+              </div>
+            </form>
+             
+              </div>
+
+        </div>
+              <!-- /#fa-icons -->
+            <div class="tab-pane" id="setting">
+              <form   method="post" action={:url('editPass')} id="editPass">
+              <div class="box-body">
+                
+                <div class="form-group">
+                  <label for="exampleInputPassword1">密码</label>
+                  <input type="password" class="form-control" id="repass"  value="" name="password" placeholder="密码" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">确认密码</label>
+                  <input type="password" class="form-control" id="confirm" value="" name="repassword" placeholder="确认密码">
+                </div>
+                
+                
+               
+                  <input type="hidden" class="form-control" id="id" value="{$usersInfo.id}" name="id"  />
+              <div class="pull-right">
+                <button class="btn btn-success" onclick="javascript:history.back(-1);return false;">返 回</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button"  class="btn btn-primary passsub">确 定</button>
+              </div>
+            </form>
+             
+              </div>
+            </div>
+            <!-- /.tab-content -->
+             
+          
+              <!-- Font Awesome Icons -->
+             
+ 
+
+              <!-- /#fa-icons -->
+
+            </div>
+          </div>
+          </div>
+          <!-- /.nav-tabs-custom -->
+          </section>
+           </div>
+ 
+  <!-- /.content-wrapper -->
+  {include file="common:footer"}
+
+
+ 
+
+            
+</div>
+<!-- ./wrapper -->
+
+<script src="STATIC_PATH/plugins/jQuery/jquery-1.9.1.min.js"></script>
+<script src="STATIC_PATH/plugins/jQueryUI/jquery-ui.min.js"></script>
+
+ <script type="text/javascript">
+     $(function () {
+    
+      // 编辑
+    $('.submit').click(function () {
+        $.ajax({
+          cache: true,
+          type: "POST",
+          url : '{:url('member/edit')}',
+          data: $('#editpost').serialize(),
+          async: false,
+            success: function(data) {
+              if (data.code) {
+                  msgok(data.msg);
+                  setTimeout(function () {
+                    location.href = data.url;
+                  }, 1000);
+              } else {
+                  msgerr(data.msg);
+              }
+
+            },
+            error: function(request) {
+              msgerr("页面错误");
+            }
+        });
+    });
+
+     $('.passsub').click(function () {
+        $.ajax({
+          cache: true,
+          type: "POST",
+          url : '{:url('member/editPass')}',
+          data: $('#editPass').serialize(),
+          async: false,
+            success: function(data) {
+              if (data.code) {
+                  msgok(data.msg);
+                  setTimeout(function () {
+                    location.href = data.url;
+                  }, 1000);
+              } else {
+                  msgerr(data.msg);
+              }
+
+            },
+            error: function(request) {
+              msgerr("页面错误");
+            }
+        });
+    });
+     })
+ </script>
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="STATIC_PATH/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+</body>
+</html>

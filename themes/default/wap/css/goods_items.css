@@ -1,0 +1,90 @@
+body {
+	font-size: 16px;
+    line-height: 18px;
+}
+/*底部导航高亮*/
+.mui-active{
+	color: #FF2D4B!important;
+}
+.mui-search.mui-active:before{
+	color:#fff!important;
+}
+.mui-bar .mui-search:before{
+	margin-top: 0px!important;
+}
+.mui-search:before{
+	top:0%!important;
+}
+.mui-input-row .mui-input-clear~.mui-icon-clear, .mui-input-row .mui-input-password~.mui-icon-eye, .mui-input-row .mui-input-speech~.mui-icon-speech{
+	color:#fff!important;
+}
+.mui-bar .mui-input-row .mui-input-clear~.mui-icon-clear, .mui-bar .mui-input-row .mui-input-speech~.mui-icon-speech{
+	top:4px!important;
+}
+.mui-search .mui-placeholder .mui-icon {
+	color:#fff!important;
+	margin-top: 4px;
+}
+input[type=search]{
+	    border-radius: 100px;
+	    background-color: rgba(255,255,255,0.5);
+}
+.div-line{
+	width:100%;
+	height: 10px;
+	background: #eee;
+}
+
+.mui-row.mui-fullscreen>[class*="mui-col-"] {
+	height: 100%;
+}
+.mui-col-xs-3,
+.mui-control-content {
+	overflow-y: auto;
+	height: 100%;
+}
+.mui-segmented-control .mui-control-item {
+	line-height: 50px;
+	width: 100%;
+}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+	background-color: #fff;
+}
+.mui-fullscreen{
+	top: 40px;
+	bottom: 50px;
+}
+
+
+
+
+.mui-segmented-control .mui-control-item{
+	line-height: 40px!important;
+}
+.mui-table-view-cell {
+
+    padding-top: 10px!important;
+    padding-right: 10px!important;
+    padding-bottom: 10px!important;
+    padding-left: 10px!important;
+
+}
+.mui-table-view-cell img{
+	width:100%!important;
+	height:80px!important;
+}
+
+.mui-table-view.mui-grid-view .mui-table-view-cell>a:not(.mui-btn) {
+    margin: -10px -14px 0 -4px!important;
+}
+.mui-table-view:after {
+    background-color: #fff!important;
+}
+.cate-item{
+	display:block;
+	height:40px;
+	line-height:40px;
+	text-align: center;
+	border-bottom: 1px #ccc solid;
+	color:#999;
+}

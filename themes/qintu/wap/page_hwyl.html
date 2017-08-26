@@ -1,0 +1,52 @@
+{include file="public/qintu/header"/} {include file="public/qintu/nav"/}
+<style type="text/css">
+	.col-sm-3,
+	.col-sm-4 {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	
+	.thumbnail {
+		margin-bottom: 10px;
+		position: relative;
+	}
+	.modal-content {
+		-webkit-box-shadow: none;
+		box-shadow: none;
+		border: none;
+	}
+	
+	.btn-circle {
+		border-radius: 40px;
+	}
+	.share_btn {
+		position: absolute;
+		right: 20%;
+		top: 350px;
+	}
+	.title-one .txt{
+		font-size: 14px;
+	}
+	.caption .c-title {
+		font-size: 16px;
+	}
+	.caption .description{
+		font-size: 14px;
+	}
+	.layui-layer-btn .layui-layer-btn0{
+		border-color: #414141;
+   		background-color: #414141;
+	}
+</style>
+<img class="img-responsive" src="{:config('theme_path')}/index/images/banner_hwyl.jpg?ver={:__VERSION__}">
+{include file="public/qintu/post-hwyl"/}
+<div class="section"></div>
+{include file="public/qintu/post-hwyl-sumbit"/}
+<div class="section"></div>
+{include file="public/qintu/footer"/}
+<script src="{:config('theme_path')}/index/js/page_qtlp_hsps.js?ver={:__VERSION__}"></script>
+<script>
+     $(function() {
+	$('.zoomify').zoomify();
+});
+</script>

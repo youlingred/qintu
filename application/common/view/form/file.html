@@ -1,0 +1,24 @@
+<div class="form-group">
+  <label>{$title}</label>  
+  <input id="fileupload1" type="file" name="file"><br/>
+</div>
+<script type="text/javascript" src="STATIC_PATH/plugins/jQuery/jquery-2.0.3.min.js"></script> 
+<script type="text/javascript" src="STATIC_PATH/plugins/jQuery/jquery.form.js"></script>
+<script type="text/javascript">
+  $(function () {  
+    var files = $(".files");    
+    $("#fileupload1").wrap("<form id='myupload1' action='{:url('upload/uploadFile')}'  method='post' enctype='multipart/form-data'></form>");      
+    $("#fileupload1").change(function(){   
+      $("#myupload1").ajaxSubmit({   
+        dataType:  'json',   
+        success: function(data) {   
+          alert("上传成功");  
+        },    
+        error:function(xhr){    
+          alert("上传失败");    
+        }   
+      });   
+    });   
+  });
+  
+</script>

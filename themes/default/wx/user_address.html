@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>{:config('web_site_title')}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/icons-extra.css" />
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/cart.css" />
+	</head>
+
+	<body>
+
+		<style>
+			.mui-control-content {
+				background-color: white;
+				min-height: 215px;
+			}
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			.mui-table-view::before {
+				background-color: #fff;
+			}
+			.mui-table-view::after {
+				background-color: #f0f0f0;
+			}
+		</style>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav" style="background: #FF2D4B;">
+			<a onclick="history.go(-1)" class="mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;"></a>
+			<a href="{:url('address/addAddress')}" class="mui-pull-right" style="color: #fff;font-size: 14px; height: 45px; line-height: 45px;">新增</a>
+			<h1 class="mui-title" style="color:#fff">收货地址</h1>
+		</header>
+		<!-- 头部结束 -->
+		<div class="mui-content">
+
+		{empty name="lists"}
+	          <div  style="margin-top:50px;text-align:center;color:#999;font-size:18px"><img src="{:config('theme_path')}/wx/images/no_address.png"></div>
+	    {else /}
+		    {volist name="addressList" id="list"}
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<div class="mui-media-body">
+						<p class="mui-ellipsis address-name"><a style='float:left;' href='#'>{$list['consignee_name']}</a> <a class='mobile'>{$list['mobile']}</a></p>
+						<p class="mui-ellipsis address-detail" style='margin-top: 6px;'>{$list['user_address']}</p>
+					</div>
+				</li>
+			</ul>
+			<div style='height: 30px; background-color: #fff;'>
+				<div class='goods-checkbox' style='margin-right: 10px;'>
+					
+
+					<input name="ids" id="ids" type="hidden" value="{list.goods_id}"  >
+					{eq name="$list['default']" value="1"}
+					<img id='select' class='{$list.id}' src='{:config('theme_path')}/wap/images/select_on.png' style='float:left;height:12px; margin-top:8px; margin-left: 15px;' class="mui-pull-left">
+					<span style='font-size: 12px; color:#fe0024;margin-left: 5px;margin-top:4px;float: left'>默认地址</span>
+					{else /}
+					<img id='select' class='{$list.id}' src='{:config('theme_path')}/wap/images/select_off.png' style='float:left;height:12px; margin-top:8px; margin-left: 15px;' class="mui-pull-left">
+					<span style='font-size: 12px; color:#fe0024;margin-left: 5px;margin-top:4px;float: left'>设为默认地址</span>
+					{/eq}
+				</div>
+				<span class="mui-pull-right" style='font-size: 12px; color:#999;margin-top:4px;'>
+					<a href="javascript:del({$list['id']})"><span class="mui-pull-right" style='margin-right: 15px;font-size: 12px;' ><img src='{:config('theme_path')}/wap/images/delete-off.png' style='height:12px; margin-top:5px;' /> 删除</span></a>
+					<a href="{:url('address/editAddress?id='.$list['id'])}"><span class="mui-pull-right" style='margin-right: 15px;font-size: 12px;' ><img src="{:config('theme_path')}/wap/images/edit.png" style='height:12px; margin-top:5px;' /> 编辑</span></a>
+				</span>
+			</div>
+			
+			<div style='height: 15px;'></div>
+
+			{/volist}
+			<div class="page">
+			{$page}
+			</div>
+		{/empty}
+		</div>
+<script src="{:config('theme_path')}/wap/js/mui.js"></script>
+<script src="{:config('theme_path')}/wap/js/jquery.min.js"></script>		
+		<!-- 底部 -->
+<div style='height: 50px;'></div>
+{template file="wap/footer.html" /}
+	 <!-- 底部结束 -->
+<script src="{:config('theme_path')}/wap/js/jquery.min.js"></script>
+<script type="text/javascript" language="javascript">
+// 删除数据
+  function del(address_id){
+  $.ajax({
+     type:'post',
+     url:"{:url('address/delAddress')}",
+     data:{"address_id":address_id,
+          },
+     dataType:'json',
+     success: function(data) {
+                if (data.code) {
+            alert(data.msg);
+          setTimeout(function () {
+          location.href = data.url;
+        }, 1000);
+        } else {
+            alert(data.msg);
+        }
+        },
+        error: function(request) {
+                alert("页面错误");
+      }
+  });
+  
+}
+</script>
+<script type="text/javascript">
+			$('document').ready(function(){
+				$('.goods-checkbox').click(function(){
+					select = $(this).children('img').attr('src');
+					if(select == '{:config('theme_path')}/wap/images/select_on.png') {
+						$(this).children('img').attr('src','{:config('theme_path')}/wap/images/select_off.png');
+						$(this).children('input').attr("checked",false);
+						
+					} else {
+						$(this).children('img').attr('src','{:config('theme_path')}/wap/images/select_on.png');
+						address_id = $(this).children('img').attr("class");
+						$.ajax({
+						     type:'post',
+						     url:"{:url('address/setDefault')}",
+						     data:{"address_id":address_id,
+						          },
+						     dataType:'json',
+						     success: function(data) {
+						                if (data.code) {
+						            alert(data.msg);
+						          setTimeout(function () {
+						          location.href = data.url;
+						        }, 1000);
+						        } else {
+						            alert(data.msg);
+						        }
+						        },
+						        error: function(request) {
+						                alert("页面错误");
+						      }
+						  });
+
+					}
+
+				});
+				});
+	</script>						
+
+	</body>
+
+</html>

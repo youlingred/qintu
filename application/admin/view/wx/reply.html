@@ -1,0 +1,109 @@
+{include file="common:head"}
+
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+
+{include file="common:header"}
+<!-- Left side column. contains the logo and sidebar -->
+{include file="common:navbar"}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        微信
+        <small>微信设置</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{:url('Index/index')}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{:url('admin/wx/index')}">微信</a></li>
+        <li><a>微信设置</a></li>
+        
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+
+            {include file="common:wx"}
+           
+            <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body ">
+              <form id="reply">
+                <h4>{$title} <small>{$small}</small></h4>
+                <textarea class="form-control" rows="3" name="msg">{$data['msg']}</textarea>
+                <div class="pull-left" style="margin-left:15px;margin-top:10px">
+                  <input type="hidden" name="type" value="{$data['type']}">
+                  <button class="btn btn-block btn-primary btn-sm submit">确定</button>
+                </div>
+              </form>
+              
+            </div>
+            <!-- /.box-body -->
+
+          </div>
+          <!-- /. box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  {include file="common:footer"}
+
+</div>
+<script src="STATIC_PATH/plugins/jQuery/jquery-1.9.1.min.js"></script>
+<script src="STATIC_PATH/plugins/jQueryUI/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+  $.widget.bridge('uibutton',$.ui.button);
+</script>>
+
+<script type="text/javascript">
+  $('document').ready(function(argument){
+
+   
+  $('.submit').click(function () {
+        $.ajax({
+          cache: true,
+          type: "POST",
+          url: '{:url('Wx/reply')}',
+          data: $('#reply').serialize(),
+          async: false,
+            success: function(data) {
+              if (data.code) {
+                  msgok(data.msg);
+                  setTimeout(function () {
+                    location.href = data.url;
+                  }, 1000);
+              } else {
+                  msgerr(data.msg);
+              }
+
+            },
+            error: function(request) {
+              msgerr("页面错误");
+            }
+        });
+    });
+  
+    
+  })
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="STATIC_PATH/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+</body>
+</html>

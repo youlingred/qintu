@@ -1,0 +1,51 @@
+{include file="public/qintu/header"/}
+{include file="public/qintu/nav"/}
+<style type="text/css">
+	.thumbnail img{
+		padding: 30px;
+	}
+	/*body{
+		background-image: url("{:config('theme_path')}/wap/images/banner_ztdz.jpg");
+		background-size:contain;
+		background-repeat: no-repeat;
+	}*/
+</style>
+<img class="img-responsive" src="{:config('theme_path')}/wap/images/banner_ztdz.jpg?ver={:__VERSION__}">
+<div class="row section-bg-gray section">
+	<div class="col-md-8 col-md-offset-2 title-one">
+		<div class="row">
+			{volist name="list" id="data" }
+			<div class="col-sm-6">
+				<a href="{:url('goods/detail?id='.$data['id'])}">
+					<div class="thumbnail">
+						{empty name="$data['cover_path']"}
+							<img src="{:config('theme_path')}/wap/images/Thumbnail_Placeholder.png" alt="{$data['name']}">
+						{else /}
+                        	<img src="{:root_path()}{$data['cover_path']}" alt="{$data['name']}">
+                        {/empty}
+						<div class="caption text-center">
+							<p class="c-title">{$data.name}</p>	
+							<p class="description">{$data.description}</p>
+							<?php
+								$labels = explode("|", $data['label_tese']);
+							?>
+							<p class="text-left label-wrap"> 
+								{volist name="labels" id="label" }
+									{if condition="$label"}
+										<span class="label label-default">{$label}</span>
+									{/if}
+								{/volist}
+							</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			{/volist}
+		</div>
+		<nav class="text-center" aria-label="Page navigation">
+			{$page}
+		</nav>
+	</div>
+</div>
+<div class="section"></div>
+{include file="public/qintu/footer"/}

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>{:config('web_site_title')}</title>
+<meta name="keywords" content="{:config('web_site_keyword')}"/>
+<meta name="description" content="{:config('web_site_description')}"/>
+<!-- Bootstrap -->
+<link href="{:config('theme_path')}/index/css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="{:config('theme_path')}/index/css/common.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/user_center.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/car.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="{:config('theme_path')}/index/js/html5shiv.min.js"></script>
+    <script src="{:config('theme_path')}/index/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+{template file="index/header.html" /}
+
+<!--main start-->
+<div class="main">
+  <div class="container">
+    <div class="row">
+    <!--左栏目 start-->
+    {template file="index/header_nav.html" /}
+    <!--左栏目 end-->
+       
+      <!--我的收藏 start-->
+      <div class="col-xs-9 " >
+       <div class="user-center">
+        <p class="user-title"><span>我的收藏</span></p>
+        
+        <div class="user-content user-content-center">
+          {empty name="lists"}
+          <div  style="margin-top:50px;margin-left:50px">
+             <div  style="margin-top:50px;text-align:center;color:#999;font-size:18px"><img src="{:config('theme_path')}/index/images/no_collection.png"></div>
+          </div>
+          {else /}
+            <table class="table refund" border="0" >
+              <tr class="refund-list" style="background:#F9F9F9">
+              <th width="15%"><input type="checkbox" class="selectAll" /><span style="margin-left:10px">全选</span>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+              <th width="40%">商品名称</th>
+              <th width="15%">单价</th>
+              <th width="15%">加入购物车</th>
+              <th width="15%">操作</th>
+              </tr>
+              {volist name="lists" id="list"}
+                <tr class="goods-list">
+                  <td style="padding-top:60px !important" ><input type="checkbox" name="ids" value="{$list['goods_id']}" class="check" /></td>
+                  <td>
+                  <a href="{:url('goods/detail',['id'=>$list['goods_id']])}">
+                  {empty name="list.goods_id"}
+                    <img src="{:config('theme_path')}/index/images/irc_defaut.png" class="refund-img "  />
+                      {else /}
+                      <img src="{:root_path()}{$list['goods_id']|get_goods_cover}" class="refund-img _img"  />
+                  {/empty}
+                  </a>
+                  <div class="refund-goods"><p class="bold">{$list['name']}</p><p class="type">规格 : {$list['standard']}</p></div></td>
+              
+                  <td style="padding-top:60px !important"><span class="refund-money" >¥{$list['price']}</span></td>
+                  <td style="padding-top:60px !important;padding-left:20px"><span class="refund-money"><img dataname="{$list['name']}" dataprice="{$list['price']}" dataid="{$list['goods_id']}" class="addcar" src="{:config('theme_path')}/index/images/shopping_cart.png" /></span></td>
+                  <td style="padding-top:60px !important"><span><a href="javascript:void(0)" onclick="del1({$list['goods_id']})"><img src="{:config('theme_path')}/index/images/delete.png" /></a></span></td>
+                  <input type="hidden" id="goods_id" value="{$list['goods_id']}">
+                </tr>
+              {/volist}
+            </table>
+            <div class="collection-table-bottom" style="background:#F9F9F9;padding:8px">
+              <input type="checkbox" class="selectAll" />
+              <span style="margin-left:10px ;color:#808080">全选</span>
+              <a  href="javascript:void(0)" onclick="del()">删除</a>
+            </div>            
+            <div class="page">
+                {$page}
+            </div>
+            {/empty}
+          </div>
+
+        </div>
+        </div>
+
+        <!--我的收藏 end-->
+      </div>
+    </div>
+</div>
+<!--main end-->
+<!-- 购物车begin -->
+<div class="car">
+  <div class="car-wap">
+  <div class="car-top">
+    <span>购物车</span>
+    <span id="car-clear">[清空]</span>
+  </div>
+  <div class="car-list">
+    <table class="table" id="table">
+      <tr class="th">
+        <td class="car-list-product" style="text-align:left">产品</td>
+        <td class="car-list-num">数量</td>
+        <td class="car-list-price th">单价</td>
+      </tr>
+    </table>
+  </div>
+  </div>
+  <div class="car-footer">
+    <div id="car-icon"><i id="end"></i>共<span id="money">0.00</span>元</div>
+    <a href="{:url('cart/index?type=step1')}" id="go"><div class="go">去结算</div></a>
+  </div>
+</div>
+<!-- 购物车end -->
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+<script src="{:config('theme_path')}/index/js/jquery.cookie.js"></script>
+<script type="text/javascript">
+    var car_path = '{:config('theme_path')}/index/images/';
+</script>
+<script src="{:config('theme_path')}/index/js/jquery.car.js"></script>
+
+<!--footer start-->
+
+{template file="index/footer.html" /}
+<!-- 客服 end -->
+
+
+
+
+<script type="text/javascript" language="javascript">
+// 删除数据
+  function del(){
+    var ids = new Array();//声明一个存放id的数组
+      $("[name='ids']:checked").each(function(){
+        ids.push($(this).val());
+        
+      });
+     if(ids==false){
+      alert('请选择数据');
+      return false
+     }
+  $.ajax({
+     type:'post',
+     url:"{:url('collection/delGoodsCollection')}",
+     data:{"ids":ids,
+          },
+     dataType:'json',
+     success: function(data) {
+                if (data.code) {
+            alert(data.msg);
+          setTimeout(function () {
+          location.href = data.url;
+        }, 1000);
+        } else {
+            alert(data.msg);
+        }
+        },
+        error: function(request) {
+                alert("页面错误");
+      }
+  });
+  
+}
+</script>
+<script type="text/javascript" language="javascript">
+// 删除数据
+  function del1(id){
+  $.ajax({
+     type:'post',
+     url:"{:url('collection/del')}",
+     data:{"id":id,
+          },
+     dataType:'json',
+     success: function(data) {
+                if (data.code) {
+            alert(data.msg);
+          setTimeout(function () {
+          location.href = data.url;
+        }, 1000);
+        } else {
+            alert(data.msg);
+        }
+        },
+        error: function(request) {
+                alert("页面错误");
+      }
+  });
+  
+}
+</script>
+<script type="text/javascript">
+  $('document').ready(function(argument){
+    //全选、取消全选的事件
+    $(".selectAll").click(function(){
+      if(this.checked){
+        $(".check").each(function(){this.checked=true;});
+      }else{
+        $(".check").each(function(){this.checked=false;});
+      }
+    });
+
+    //加入购物车
+    $('.addcar').on('click',addProduct);
+
+    //高亮导航
+    var curWwwPath = window.document.location.href;   
+    var pathName = window.document.location.pathname; 
+    // alert($('.order-content').children('div').children('span').children('a').attr('href'));
+    $('.account-content').children('div').each(function(){
+       url = $(this).children('span').children('a').attr('href');
+       if(url == String(pathName)){
+
+          $(this).addClass('navhover');
+       }
+    });
+
+    //帮助中心
+      $('.show-sub').click(function(){
+        $($(this).parent().siblings().children('ul:visible').prev('span')).toggleClass('visted');
+        $($(this).parent().siblings().children('ul:visible')).slideToggle();
+        $($(this).parent().siblings().children('ul:visible').prev('span').children('i')).toggleClass('glyphicon-down');
+
+        $(this).toggleClass('visted');
+        $(this).next('ul').slideToggle();
+        $(this).children('i').toggleClass('glyphicon-down');
+      })
+
+  })
+</script> 
+</body>
+</html>

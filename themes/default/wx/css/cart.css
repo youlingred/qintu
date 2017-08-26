@@ -1,0 +1,100 @@
+body a,a:link,a:hover, a:active, a:visited{text-decoration: none;color: inherit;}
+/*底部导航高亮*/
+.mui-active{
+    color: #FF2D4B!important;
+}
+.goods-checkbox{float: left;}
+.goods-name a{color:#333333}
+.goods-standard{font-size: 12px;}
+.goods-price{color:#ff2c4c}
+.goods-name .edit{ float: right;font-size: 12px;color:#999}
+.goods-price .price{float:left;}
+.goods-price .num{float:right;}
+.mui-table-view-cell::after{ background-color: #fff;}
+.goods-border{border-bottom: 1px solid #f0f0f0}
+.goods-tools{ height:17px; background:url('../images/jia_jian.png') no-repeat; width:60px; float: right;margin-right: 10px;}
+.goods-tools input{ border:0; width:10px; height:10px; text-align:center; color:#fe0024;font-size: 8px;}
+.goods-tools .jian,.goods-tools .jia,.goods-tools .text{ float:left;}
+.goods-tools .jian,.goods-tools .jia{ width:16px; height:16px; display:block; cursor:pointer;}
+.goods-tools .text{ width:20px;height:15px; margin-top:-1px; margin-left:3px; color:#fe0024;font-size: 12px; text-align: center;}
+.goods-delete{float: right;}
+.sum-money-box{ height: 50px;line-height:50px;background-color: #3a3a3a; display: block; color:#fff;}
+.collection-box{height: 50px;line-height:50px;background-color: #ffc30b; display: block;text-align: center;color:#3a3a3a;font-size: 14px;}
+.go-buy-box{height: 50px;line-height:50px;background-color: #fe0024; display: block;text-align: center; color:#fff;font-size: 14px; border: 0px;border-radius: 0px; padding: 0px; margin: 0px; width: 100%;}
+.buy-all{ font-size: 12px; float: left;}
+.sum-money{color:#fff; float: right; margin-right: 10px;}
+
+.goods-checkbox{float: left;}
+.address-name a{color:#333333}
+.address-detail{font-size: 12px;}
+.mobile {float:right;}
+
+.mui-input-row label {
+    float: left;
+    font-family: "Helvetica Neue",Helvetica,sans-serif;
+    line-height: 1.1;
+    padding: 11px 15px;
+    width: 25%;
+    font-size: 14px;
+}
+.mui-input-row label ~ input, .mui-input-row label ~ select, .mui-input-row label ~ textarea {
+    border: 0 none;
+    float: right;
+    margin-bottom: 0;
+    padding-left: 0;
+    width: 75%;
+    font-size: 12px;
+}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+color: #cccccc;
+font-size: 12px;
+}
+input:-moz-placeholder, textarea:-moz-placeholder {
+color: #cccccc;
+font-size: 12px;
+}
+input::-moz-placeholder, textarea::-moz-placeholder {
+color: #cccccc;
+font-size: 12px;
+}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+color: #cccccc;
+font-size: 12px;
+}
+.mui-input-group .mui-input-row::after{
+    background-color: #f0f0f0;
+    bottom: 0;
+    content: "";
+    height: 1px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    transform: scaleY(0.5);
+}
+.page{ margin-top:40px; text-align:center;}
+.page ul li{list-style-type: none;display:inline;border:1px solid #ccc;padding: 4px 8px;}
+.page  .active{color:#fff; background-color:#ff2c4c; border:1px solid #ff2c4c;}
+.mui-ellipsis .money{
+    color:red;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+.mui-ellipsis .minus{
+    padding:1px 8px;
+    border:1px solid #ccc;
+    float: right;
+    cursor: pointer;
+} 
+.mui-ellipsis .plus{
+    padding:1px 8px;
+    border:1px solid #ccc;
+    float: right;
+    margin-right: 2px;
+    cursor: pointer;
+} 
+.mui-ellipsis .num1{
+    padding:1px 8px;
+    border-top:1px solid #ccc;
+    border-bottom:1px solid #ccc;
+    float: right;
+} 

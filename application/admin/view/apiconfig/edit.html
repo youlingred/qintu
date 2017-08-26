@@ -1,0 +1,132 @@
+{include file="common:head"}
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+
+  {include file="common:header"}
+  <!-- Left side column. contains the logo and sidebar -->
+ 
+{include file="common:navbar"}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        设置
+        <small>接口设置</small>
+      </h1>
+      <ol class="breadcrumb">
+       <li><a href="{:url('admin/index/index')}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{:url('admin/apiconfig/edit')}">设置</a></li>
+        <li class="active">接口设置</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+      <!-- form start -->
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+           <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">接口设置</h3>              
+            </div>
+            <div class="tab-content">              
+              <form  method="post" enctype="multipart/form-data" id='form'>
+                <div class="box-body">
+                  {volist name="list" id="vo" key="k"}
+                    {switch name="k"}
+                      {case value="1"}
+                        <h4 style="color:#3c8dbc;padding:3px;">小票打印机接口</h4>
+                      {/case}
+                      {case value="8"}
+                        <h4 style="color:#3c8dbc;padding:3px;">发送短信接口</h4>
+                      {/case}
+                      {case value="12"}
+                        <h4 style="color:#3c8dbc;padding:3px;">支付宝接口</h4>
+                      {/case}
+                      {case value="14"}
+                        <h4 style="color:#3c8dbc;padding:3px;">微信支付接口</h4>
+                      {/case}
+                      {case value="19"}
+                        <h4 style="color:#3c8dbc;padding:3px;">百度地图接口</h4>
+                      {/case}
+                      {default /}
+                    {/switch}
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">{$vo.key} &nbsp;({$vo.description})</label>
+                      <input type="text" class="form-control" id="title" name="{$vo.key}" value="{$vo.value}" placeholder="{$vo.description}" />
+                    </div> 
+                  {/volist}
+                  <div class="pull-right">
+                    <button class="btn btn-success" onclick="javascript:history.back(-1);return false;">返 回</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="button" id="submit" class="btn btn-primary">确 定</button>
+                  </div>
+                </div><!-- /.box-body -->
+              </form> 
+            </div>
+              <!-- /#fa-icons -->
+          </div>
+            <!-- /.tab-content -->
+        </div>
+      </div>
+          <!-- /.nav-tabs-custom -->
+    </section>
+  </div>
+ 
+  <!-- /.content-wrapper -->
+  {include file="common:footer"}
+
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<script src="STATIC_PATH/plugins/jQueryUI/jquery-ui.min.js"></script>
+<script>
+  $.widget.bridge('uibutton', $.ui.button);  
+  $(function(){
+    $('#submit').click(function () {
+      $.ajax({
+        cache: true,
+        type: "POST",
+        url: '{:url('apiconfig/edit')}',
+        data: $('#form').serialize(),
+        async: false,
+        success: function(data) {
+          if (data.code) {
+            // alert(data.msg);
+            // 成功提示
+            msgok(data.msg);
+            setTimeout(function () {
+              location.href = data.url;
+            }, 1000);
+          } else {
+            // 错误提示
+            msgerr(data.msg);
+          }
+        },
+        error: function(request) {
+          // 错误提示
+          msgerr("页面错误", 5);
+        }
+      });
+    });
+  })   
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="STATIC_PATH/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+

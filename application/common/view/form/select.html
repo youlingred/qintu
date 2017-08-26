@@ -1,0 +1,14 @@
+<div class="form-group">
+	<label>{$title}</label>
+	<select name="{$name}" class="form-control" placeholder="{$placeholder}">		
+		{volist name="option" id="vo"}
+			{eq name="$key" value="$data"}
+				<option value="{$key}" selected="selected">
+					{$vo}
+				</option>
+			{else/}
+				<option value="{$key}">{$vo}</option>
+			{/eq}			
+		{/volist}
+	</select>	
+</div>

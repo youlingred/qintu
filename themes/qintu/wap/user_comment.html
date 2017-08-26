@@ -1,0 +1,197 @@
+{include file="public/qintu/header"/} {include file="public/qintu/nav"/} {php} $serverList=_get_posts_by_term('user_server_list'); $notice=_get_post_by_name('user_notice'); {/php}
+<link href="{:config('theme_path')}/index/css/user_center.css" rel="stylesheet">
+<div class="row section-bg-gray section">
+	<div class="col-md-6 section-bg-white col-md-offset-3 title-one" style="padding: 40px">
+		<div class="row">
+			<div class="col-sm-3 text-center">
+				<img src="{:config('theme_path')}/index/images/user_ico.png" style="margin-top: 30px" alt="" />
+				<p>{:session('index_user_auth.nickname')}</p>
+				<a href="{:url('common/logout')}"><button type="button" class="btn-orders btn btn-default">退出</button></a>
+				<div class="form-group" style="position: relative;margin-top: 30px;">
+					<hr>
+					<span style="position: absolute;top:-15px;left: 29%; font-size: 20px">服务流程</span>
+				</div>
+				<ul class="list-group list-no-border">
+					{volist name="$serverList" id="vo" key="k"}
+					<li class="list-group-item">
+						<span class="badge badge-gold" style="float: left;">{$k}</span> {$vo.content}
+					</li>
+					{/volist}
+				</ul>
+				<div class="text-left">
+					<label class="label-nobg">
+					特别提示：
+				</label>
+				</div>
+				<div class="text-left">
+					<label class="label-nobg">
+					{$notice.content}
+				</label>
+				</div>
+			</div>
+			<div class="col-sm-9" style="overflow: hidden;">
+				<!--我的评论 start-->
+					<div class="user-center" style="margin-left: 0;">
+						<p class="user-title"><span>我要评论</span></p>
+						<div class="user-content user-content-center">
+							<!--不同部分 start-->
+							<div class="row">
+								<div class="col-xs-12 text-center">
+									<div>
+										<a href="{:url('goods/detail',['id'=>$postInfo['goods_id']])}">
+											<?php
+												$cover_path=get_product_cover_path($postInfo['goods_id']);
+												
+												?>
+											{empty name="$cover_path"}
+											<img src="{:config('theme_path')}/index/images/Thumbnail_Placeholder.png" class="img-thumbnail" /> {else /}
+											<img src="{:root_path()}{$cover_path[0]}" class="img-thumbnail" /> {/empty}
+										</a>
+										<p class="title-two" style="margin: 20px 0 20px;">{$postInfo['name']}</p>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-9 ">
+								<div class="comment">
+									<div class="star_ul">
+										<!--             <span class="s_name">总体评价：</span> -->
+										<ul class="star_ul fl">
+											<li>
+												<a class="one-star" id="1" title="很差"></a>
+											</li>
+											<li>
+												<a class="two-star" id="2" title="差"></a>
+											</li>
+											<li>
+												<a class="three-star" id="3" title="还行"></a>
+											</li>
+											<li>
+												<a class="four-star" id="4" title="好"></a>
+											</li>
+											<li>
+												<a class="five-star" id="5" title="很好"></a>
+											</li>
+										</ul>
+										<span class="s_result fl">请打分</span>
+									</div>
+
+								</div>
+								<div style="margin-top:30px">
+									<form action="" method="POST">
+										<textarea class="comment-area" id="content" onkeyup="ta(this)" maxlength="100" title="最多可输入100个字符" placeholder="请输入评论的内容......"></textarea>
+									</form>
+								</div>
+
+							</div>
+							</div>
+							
+							<input type="hidden" id="order_id" value="{$postInfo['order_id']}" />
+							<input type="hidden" id="goods_id" value="{$postInfo['goods_id']}" />
+							<input type="hidden" id="score" value="" />
+							<button type="button" id="submit" class="  collection_btn" style="margin-top:50px;margin-left: initial;">发表评论</button>
+							<!--不同部分 end-->
+						</div>
+					
+
+				<!--我的评论 end-->
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="section"></div>
+{include file="public/qintu/footer"/}
+<script type="text/javascript">
+$(function(){
+  
+  $('.star_ul a').click(function(){
+    $('.star_ul a').removeClass('active-star');
+    $(this).addClass('active-star');
+    $('.s_result').css('color','#c00').html($(this).attr('title'))
+    $('#score').val($(this).attr('id'));
+
+  });  
+})
+</script>
+<script type="text/javascript">
+  function ta(obj){
+    var val=$(obj).val().length;
+    if(val==200){
+      alert("至多输入200个字符！");
+      $(obj).val($(obj).val().substring(0,100))
+      }
+  }
+</script>
+<script type="text/javascript" language="javascript">
+// 提交数据
+$(function(){
+  $("#submit").click(function(){
+    var goods_id  =$("#goods_id").val();
+    var order_id  =$("#order_id").val();
+    var content   =$("#content").val();
+    var score     =$("#score").val();
+  $.ajax({
+     type:'post',
+     url:"{:url('comment/orderComment')}",
+     data:{"goods_id" :goods_id,
+           "order_id" :order_id,
+           "content"  :content,
+           "score"    :score,
+          },
+     dataType:'json',
+     success: function(data) {
+                if (data.code) {
+            alert(data.msg);
+          setTimeout(function () {
+          location.href = data.url;
+        }, 1000);
+        } else {
+            alert(data.msg);
+        }
+        },
+        error: function(request) {
+                alert("页面错误");
+      }
+  });
+  
+   })
+})
+
+</script> 
+<script type="text/javascript">
+	$('.del_cart_btn').click(function() {
+		var cart = {
+			id: $(this).attr('data-orderid'),
+			type: 2,
+		}
+		delCart($(this), cart);
+	});
+	$('.del_order_btn').click(function() {
+		var order = {
+			id: $(this).attr('data-orderid'),
+			type: 2,
+		}
+		delOrder($(this), order);
+	});
+	$('#post_btn').click(function() {
+		var carts = new Array();
+
+		$(".order_no_elem").each(function(key, value) {
+			carts.push({
+				cart_id: $(value).attr("data-id"),
+				goods_id: $(value).attr("data-goods-id"),
+				name: $(value).attr("data-name"),
+				departure_time: $(this).attr('data-departure-time'),
+				man_num: $(this).attr('data-man-num'),
+				child_num: $(this).attr('data-child-num')
+			});
+
+		});
+		postCarts(carts);
+	});
+	$('#go_on_need').click(function() {
+		$('#need-success').modal('hide');
+		window.location.reload();
+	});
+</script>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>{:config('web_site_title')}</title>
+<meta name="keywords" content="{:config('web_site_keyword')}"/>
+<meta name="description" content="{:config('web_site_description')}"/>
+<!-- Bootstrap -->
+<link href="{:config('theme_path')}/index/css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="{:config('theme_path')}/index/css/common.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/order_detail.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+    <script src="{:config('theme_path')}/index/js/html5shiv.min.js"></script>
+    <script src="{:config('theme_path')}/index/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+{template file="index/header.html" /}
+<!--main start-->
+<div class="main">
+  <div class="container">
+	<div class="order-bar">
+    	<div class="order-bar-left">
+        订单详情
+        </div>
+    	<div class="order-bar-right">
+        订单号：{$ordersInfo['order_no']}
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+    <div class="order-box">
+    	<div class="order-box-left">
+        	<div class="obl-bar">当前订单状态</div>
+            <div class="obl-text">
+            {switch   name="$ordersInfo['status']" }
+                {case value="nopaid"}
+                <!--等待付款 开始-->
+                <div class="obl-order-wait-pay">
+                    <p class="oblowp-text">等待付款</p>
+                    <p><a class="oblowp-pay" href="{:url('order/pay?order_no='.$ordersInfo['order_no'])}"></a></p>
+                    <p><a class="oblowp-cancel delete" style="cursor:pointer"  data="{$ordersInfo['id']}" type="1"></a></p>
+                </div>
+                <!--等待付款 结束-->
+                {/case}
+                 {case value="paid"}<!--等待发货 开始-->
+                <div class="obl-order-wait-pay">
+                    <p class="oblowp-text">等待发货</p>
+                    <p><a class="obloc-buy" href="{:url('goods/lists')}"></a></p>
+                 
+                </div>
+                <!--等待付款 结束-->
+                {/case}
+                {case value="shipped"}
+                 <div class="obl-order-wait-pay">
+                 <p class="obloc-picture"><img src="{:config('theme_path')}/index/images/order_complete.png"></p>
+                   <p class="oblowp-text">已发货</p>
+                   <p><a class="obloc-buy" href="{:url('goods/lists')}"></a></p>
+                 
+                </div>
+                {/case}
+                {case value="completed"}
+                      <!--订单完成 开始-->
+                <div class="obl-order-complete">
+                    <p class="obloc-picture"><img src="{:config('theme_path')}/index/images/order_complete.png"></p>
+                    <p class="obloc-text">订单已完成</p>
+                    <p><a class="obloc-buy" href="{:url('goods/lists')}"></a></p>
+                </div>
+                <!--订单完成 结束-->
+                {/case}
+                     
+                  {/switch}
+            	
+            	
+            </div>
+        </div>
+    	<div class="order-box-right">
+        	<div class="obr-bar">订单信息</div>
+            <div class="obr-text">
+            	<div class="row">
+                	<div class="col-md-4">
+                    	<p style="margin-top:20px;">收货人信息</p>
+                    	<p style="margin-top:30px;">收货人：{$ordersInfo['consignee_name']}</p>
+                    	<p>收货地址：{$ordersInfo['address']}</p>
+                      
+                    	<p>手机号：{$ordersInfo['mobile']}</p>
+                    </div>
+                	<div class="col-md-4">
+                    	<p style="margin-top:20px;">配送信息</p>
+                    	<p style="margin-top:30px;">配送方式：
+                        {empty name="name"}
+                            暂无
+                            {else /}
+                            {$ordersInfo['express_type']}
+                        {/empty}
+                        </p>
+                    	<p>送货日期：{$ordersInfo['id']|get_delivery_time}</p>
+                    </div>
+                	<div class="col-md-4">
+                    	<p style="margin-top:20px;">付款信息</p>
+                        <p style="margin-top:30px;"class="color-red">付款金额：￥{$ordersInfo['amount']}元</p>
+                    	<p>付款方式：
+                        {switch   name="$ordersInfo['pay_type']" 
+                        }
+                         {case value="wxpay"}微信支付{/case}
+                         {case value="alipay"}支付宝支付{/case}
+                         {/switch}</p>
+                    	<p title="{$ordersInfo['id']|get_trade_no}">交易号：{$ordersInfo['id']|get_trade_no=###,20}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+     	<div style="clear:both;"></div>
+    </div>
+    
+    <!--商品列表 开始-->
+    <div class="order-list">
+    	<table class="table">
+        	<tr class="order-list-title">
+            	<td>商品详情</td>
+            	<td>状态</td>
+            	<td>单价</td>
+            	<td>数量</td>
+            	<td>商品总价</td>
+            </tr>
+            {volist name="$ordersInfo['id']|get_orders_goods" id="orderlist"}
+        	<tr class="order-list-row table-border-none">
+            	<td>
+                	<div class="olr-left">
+                    <a href="{:url('goods/detail',['id'=>$orderlist['goods_id']])}">
+          {empty name="$orderlist['cover_path']"}
+             <img src="{:config('theme_path')}/index/images/irc_defaut.png" class="order-img"  />
+              {else /}
+              <img src="{:root_path()}{$orderlist['cover_path']}" class="order-img"  />
+           {/empty}</a></div>
+                	<div class="olr-right">
+                    	<p style="margin-left:20px; margin-top:15px; font-size:16px; font-weight:bold;"><a href="#">{$orderlist['name']}</a></p>
+                    	<p style="margin-left:20px;">规格：{$orderlist['standard']}</p>
+                    </div>
+                </td>
+            	<td><span class="olr-td">
+              {switch name="ordersInfo.status" }
+                      {case value="nopaid"}未支付{/case}
+                      {case value="paid"}已支付{/case}
+                      {case value="shipped"}已发货{/case}
+                      {case value="completed"}已完成{/case}
+                     
+              {/switch}</span>
+              </td>
+            	<td><span class="olr-td color-red">￥{$orderlist['price']}元</span></td>
+            	<td><span class="olr-td color-red">{$orderlist['num']}</span></td>
+            	<td><span class="olr-td color-red">￥{$orderlist['total_money']}元</span></td>
+            </tr>
+        	{/volist}
+        	<tr class="order-list-row">
+            	<td>
+                </td>
+            	<td></td>
+            	<td></td>
+            	<td colspan="2"><span class="color-red" style="float:right; font-size:16px; font-weight:bold;">￥{$ordersInfo['amount']}元</span><span style="float:right;">订单总金额：</span></td>
+           	</tr>
+        </table>
+    </div>
+    <!--商品列表 结束-->
+  </div>
+</div>
+<!--main end-->
+
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+<!--footer start-->
+{template file="index/footer.html" /}
+<!--footer end-->
+<script>
+//删除或取消订单
+  $('.delete').click(function(){
+    id = $(this).attr('data');
+    type = $(this).attr('type');
+    $.ajax({
+       type:'post',
+       url:"{:url('order/cancel')}",
+       data:{id:id,type:type},
+       dataType:'json',
+       success: function(data) {
+            if (data.code) {
+                alert(data.msg);
+                location.href = "{:url('order/orderlists')}";
+            } else {
+                alert(data.msg);
+            }
+          },
+          error: function(request) {
+            alert("页面错误");
+        }
+    });
+  })
+</script>
+
+</body>
+</html>

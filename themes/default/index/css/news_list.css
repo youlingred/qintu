@@ -1,0 +1,197 @@
+
+a,a:hover{ 
+	text-decoration:none;
+	color:#333;
+}
+.clearfix{
+	clear: both;
+}
+
+ul li{
+	list-style-type: none;
+}
+
+.news-nav{
+	height:50px;
+	line-height: 50px;
+	border-bottom:1px solid #ccc;
+}
+.nav-title{
+	float: left;
+	height:50px;
+	font-size: 14px;
+	font-weight:bolder;
+	color:red;
+	border-bottom: 2px solid red;
+}
+.nav-category{
+	margin-left:40px;
+}
+.nav-category span{
+	color:#ccc;
+}
+.nav-nav{
+	float:right;
+	font-size:14px;
+}
+
+/*新闻列表内容*/
+.list{
+	margin-top:20px;
+}
+
+.left-list{
+	background:#fff;
+	margin-bottom: 20px;
+}
+.news-list{
+	padding: 10px;
+}
+.news-img{
+	float: left;
+	width:260px;
+}
+.news-img img{
+	width:240px;
+	height: 156px;
+}
+.news-content{
+	float: left;
+}
+.news-content p{
+	width:580px;
+}
+.news-content .c-title{
+	font-size:18px;
+	font-weight: bolder;
+}
+.news-content .c-info{
+	font-size:14px;
+	color:#ccc;
+}
+.news-content .c-info span{
+	margin-right: 50px;
+}
+.news-content .c-des{
+	font-size:12px;
+	color:#999;
+	line-height: 180%;
+	text-indent:2em;
+}
+.news-content .c-but{
+	float: right;
+	/*padding:4px 40px;
+	border:1px #ccc solid;
+	color:#ccc;
+	border-radius: 20px;*/
+	width:92px;
+	height: 30px; 
+	background: url(../images/more-off.png) no-repeat center center;
+}
+.news-content .c-but:hover{
+	float: right;
+	/*padding:4px 40px;
+	background: #FF2C4C;
+	border:1px #FF2C4C solid;
+	color:#ccc;*/
+	width:92px;
+	height: 30px; 
+	background: url(../images/more-on.png) no-repeat center center;
+}
+
+
+.right-list{
+	background: #fff;
+	margin-bottom: 20px;
+}
+.right-list .first-icon{
+	height: 85px;
+	border-bottom: 1px solid #eee;
+}
+.right-list .icon-left{
+	float:left;
+	width:50%;
+	height: 85px;
+	border-right: 1px solid #eee;
+}
+.right-list .icon-right{
+	float:left;
+	width:50%;
+	height: 85px;
+}
+.right-list .icon-1{
+	cursor: pointer;
+	text-align: center;
+	background: url(../images/icon_01.png) no-repeat center 15px;
+}
+/*.right-list .icon-hover-1{
+	cursor: pointer;
+	text-align: center;
+	background: url(../images/icon_hover_01.png) no-repeat center 15px;
+}*/
+.right-list .icon-2{
+	cursor: pointer;
+	text-align: center;
+	background: url(../images/icon_02.png) no-repeat center 15px;
+}
+/*.right-list .icon-hover-2{
+	cursor: pointer;
+	text-align: center;
+	background: url(../images/icon_hover_01.png) no-repeat center 15px;
+}*/
+.right-list .icon-3{
+	cursor: pointer;
+	text-align: center;
+	background: url(../images/icon_03.png) no-repeat center 15px;
+}
+/*.right-list .icon-hover-3{
+	cursor: pointer;
+	text-align: center;
+	background: url(../images/icon_hover_01.png) no-repeat center 15px;
+}*/
+.right-list .icon-4{
+	cursor: pointer;
+	text-align: center;
+	background: url(../images/icon_04.png) no-repeat center 15px;
+}
+/*.right-list .icon-hover-4{
+	cursor: pointer;
+	text-align: center;
+	background: url(../images/icon_hover_01.png) no-repeat center 15px;
+}*/
+.right-list .icon span{
+	display: block;
+	margin-top:55px;
+	color:#ccc;
+}
+.right-list .icon-hover span{
+	color:#FF2C4C;
+}
+.information{
+	height: 40px;
+	background: #F9F9F9;
+	line-height: 40px;
+}
+
+.information .info-title{
+	margin-left:10px;
+	font-size: 16px;
+	padding: 0 10px;
+	font-weight:bold;
+	border-left: 4px solid #FF2C4C;
+}
+.information a{
+	float: right;
+	margin-right: 20px;
+	color:#ccc;
+	font-size:12px;
+}
+
+.right-list ul{
+	padding: 14px;
+	font-size: 14px;
+	color:#999;
+}
+.right-list ul li{
+	line-height: 200%;
+}

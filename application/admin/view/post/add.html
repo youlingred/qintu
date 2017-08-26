@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>系统管理</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Msgbox -->
+  <link rel="stylesheet" href="STATIC_PATH/msgbox/css/style.css">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="STATIC_PATH/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="STATIC_PATH/dist/css/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="STATIC_PATH/dist/css/ionicons/css/ionicons.min.css">
+  <!-- fullCalendar 2.2.5-->
+  <link rel="stylesheet" href="STATIC_PATH/plugins/fullcalendar/fullcalendar.min.css">
+  <link rel="stylesheet" href="STATIC_PATH/plugins/fullcalendar/fullcalendar.print.css" media="print">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="STATIC_PATH/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="STATIC_PATH/dist/css/skins/_all-skins.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" type="text/css" href="STATIC_PATH/plugins/webuploader/css/webuploader.css" />
+  <link rel="stylesheet" type="text/css" href="STATIC_PATH/plugins/webuploader/examples/image-upload/style.css" />
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="STATIC_PATH/dist/js/html5shiv.min.js"></script>
+  <script src="STATIC_PATH/dist/js/respond.min.js"></script>
+  <![endif]-->
+  <style type="text/css">
+    label {
+    display: inline-block;
+    font-weight: 700;
+    margin-bottom: 5px;
+    max-width: 100%;
+    font-size: 12px;
+    }
+  </style>
+</head>
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+
+  {include file="common:header"}
+  <!-- Left side column. contains the logo and sidebar -->
+  {include file="common:navbar"}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        文章
+        <small>撰写新文章</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="#">文章</a></li>
+        <li class="active"><a href="#">撰写新文章</a></li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <form action="{:url('add')}" method="post" id="addPost">
+    <section class="content">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">填写内容</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="form-group">
+                <input id="title" name="title" class="form-control" placeholder="标题">
+              </div>
+              <div class="form-group">
+                <input id="name" name="name" class="form-control" placeholder="别名">
+              </div>
+              <!--<div class="form-group">
+                <input id="name" name="description" class="form-control" placeholder="描述">
+              </div>-->
+              <div class="form-group">
+                  <script type="text/plain" id="editor" name="content" style="height:500px;"></script>
+              </div>
+              <!--扩展表单-->
+              <div class="form-extend">
+
+              </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+              <div class="pull-right">
+                <button class="btn btn-success" onclick="javascript:history.back(-1);return false;">返 回</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-default draft">保存草稿</button>
+                <button type="button" class="btn btn-primary submit">发 布</button>
+              </div>
+            </div>
+            <!-- /.box-footer -->
+          </div>
+          <!-- /. box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3">
+
+          <!-- /. box -->
+          <div class="box box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">分类目录</h3>
+
+              <div class="box-tools">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              <div class="box-body">
+                <div class="form-group">
+                {:tree_to_checkbox($termTaxonomyTree)}
+                </div>
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <!-- <a>添加新分类目录</a> -->
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+          <div class="box box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">封面图</h3>
+
+              <div class="box-tools">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              <div>
+                <input id="img_list" hidden="hidden" type="text" name="cover_path"/>
+              </div>
+              <div class="box-body cover_show">
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <a href="#" data-toggle="modal" data-target="#myModal">添加封面图</a>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    </form>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  {include file="common:footer"}
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+       <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" 
+             aria-hidden="true">×
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+             封面图
+          </h4>
+       </div>
+       <div class="modal-body">
+        <div id="wrapper">
+            <div id="container">
+                <!--头部，相册选择和格式选择-->
+                <div id="uploader">
+                    <div class="queueList">
+                        <div id="dndArea" class="placeholder">
+                            <div id="filePicker"></div>
+                            <p>或将照片拖到这里，单次最多可选300张</p>
+                        </div>
+                    </div>
+                    <div class="statusBar" style="display:none;">
+                        <div class="progress" style="position:relative;">
+                            <span class="text">0%</span>
+                            <span class="percentage"></span>
+                        </div><div class="info"></div>
+                        <div class="btns">
+                            <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       </div>
+       <div class="modal-footer">
+          <button type="button" class="btn btn-primary insert_images">
+             确定
+          </button>
+          <button type="button" class="btn btn-default" 
+             data-dismiss="modal">取消
+          </button>
+       </div>
+    </div><!-- /.modal-content -->
+ </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- jQuery 2.2.0 -->
+<script src="STATIC_PATH/plugins/jQuery/jquery-1.12.0.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="STATIC_PATH/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+<script src="STATIC_PATH/bootstrap/js/bootstrap-datetimepicker.js"></script>
+<script src="STATIC_PATH/bootstrap/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<link href="STATIC_PATH/bootstrap/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+
+<script type="text/javascript">
+  var uploadPictuer     = '{:url('Upload/uploadPicture')}';
+  var ueditorUploadPath = '{:url('ueditor/index')}';
+</script>
+<!-- Page Script -->
+<script type="text/javascript" charset="utf-8" src="STATIC_PATH/plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="STATIC_PATH/plugins/ueditor/ueditor.all.min.js"> </script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script type="text/javascript" charset="utf-8" src="STATIC_PATH/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="STATIC_PATH/plugins/webuploader/dist/webuploader.js"></script>
+<script type="text/javascript" src="STATIC_PATH/plugins/webuploader/examples/image-upload/upload.js"></script>
+<script type="text/javascript">
+  $().ready(function () {
+    $('.insert_images').on('click',function () {
+        var list = new Array(); //定义一数组
+        list = $('#img_list').val().split(","); //字符分割
+        //下面使用each进行遍历
+        var text = '';
+        $.each(list,function(n,value) {
+          if (value !== null && value !== undefined && value !== '') {
+            text = text+"<div class='form-group'><img class='cover_path' width=100% style='max-height:150px;' src='ROOT_PATH"+value+"'></div>";
+          }
+        });
+        $('.cover_show').html(text);
+        uploader = "<div class='queueList'><div id='dndArea' class='placeholder'><div id='filePicker'></div><p>或将照片拖到这里，单次最多可选300张</p></div></div><div class='statusBar' style='display:none;'><div class='progress' style='position:relative;'><span class='text'>0%</span><span class='percentage'></span></div><div class='info'></div><div class='btns'><div id='filePicker2'></div><div class='uploadBtn'>开始上传</div></div></div>";
+        // 重置uploader
+        $('#uploader').html(uploader);
+        // 隐藏Modal
+        $('#myModal').modal('hide');
+    });
+    // 保存到草稿箱
+    $('.draft').click(function () {
+        $.ajax({
+          cache: true,
+          type: "POST",
+          url : '{:url('draft')}',
+          data: $('#addPost').serialize(),
+          async: false,
+            success: function(data) {
+              if (data.code) {
+                  msgok(data.msg);
+              } else {
+                  msgerr(data.msg);
+              }
+
+            },
+            error: function(request) {
+              msgerr("页面错误");
+            }
+        });
+    });
+    // 发布文章
+    $('.submit').click(function () {
+        $.ajax({
+          cache: true,
+          type: "POST",
+          url : '{:url('add')}',
+          data: $('#addPost').serialize(),
+          async: false,
+            success: function(data) {
+              if (data.code) {
+                  msgok(data.msg);
+                  setTimeout(function () {
+                    location.href = data.url;
+                  }, 1000);
+              } else {
+                  msgerr(data.msg);
+              }
+
+            },
+            error: function(request) {
+              msgerr("页面错误");
+            }
+        });
+    });
+    // ajax调用绑定表单
+    $("[name='category_ids[]']").click(function(){
+      var category_ids = '';
+      $("[name='category_ids[]']").each(function(){
+        if($(this).prop("checked")){
+          category_ids += ','+$(this).val();
+        }
+      });
+      $.ajax({
+        cache: true,
+        type: "POST",
+        url : '{:url('getBindForm')}',
+        data: {'categoryIds':category_ids},
+        async: false,
+          success: function(data) {
+            if (data.code) {
+                getForm(data.data);
+            } else {
+                $('.form-extend').html('');
+                if(data.msg) {
+                	msgerr(data.msg);
+                }
+            }
+          },
+          error: function(request) {
+            msgerr("页面错误");
+          }
+      });
+    });
+
+    // 获取表单模板
+    function getForm(formName){
+      $.ajax({
+        cache: true,
+        type: "POST",
+        url : '{:url('FormBuilder/parse')}',
+        data: {'formName':formName},
+        async: false,
+          success: function(data) {
+            if (data.code) {
+                $('.form-extend').html(data.data);
+            } else {
+                $('.form-extend').html('');
+                msgerr(data.msg);
+            }
+          },
+          error: function(request) {
+            msgerr("页面错误");
+          }
+      });
+    }
+
+  })
+</script>
+<script type="text/javascript">
+
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    var ue = UE.getEditor('editor');
+    function setContent(isAppendTo) {
+        var arr = [];
+        arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
+        UE.getEditor('editor').setContent('欢迎使用ueditor', isAppendTo);
+        msginfo(arr.join("\n"));
+    }
+</script>
+</body>
+</html>

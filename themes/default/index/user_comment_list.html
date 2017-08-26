@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>{:config('web_site_title')}</title>
+<meta name="keywords" content="{:config('web_site_keyword')}"/>
+<meta name="description" content="{:config('web_site_description')}"/>
+<!-- Bootstrap -->
+<link href="{:config('theme_path')}/index/css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="{:config('theme_path')}/index/css/common.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/user_center.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/car.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="{:config('theme_path')}/index/js/html5shiv.min.js"></script>
+    <script src="{:config('theme_path')}/index/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+{template file="index/header.html" /}
+
+<!--main start-->
+<div class="main">
+  <div class="container">
+    <div class="row">
+    <!--左栏目 start-->
+    {template file="index/header_nav.html" /}
+    <!--左栏目 end-->
+
+            <!--我的收藏 start-->
+      <div class="col-xs-9 " >
+       <div class="user-center">
+        <p class="user-title"><span>我的评论</span></p>
+        <div class="user-content user-content-center">
+          {empty name="lists"}
+           <div  style="margin-top:50px;text-align:center;color:#999;font-size:18px"><img src="{:config('theme_path')}/index/images/no_comment.png"></div>
+          {else /}
+                <table class="table refund comment-list" border="0" >
+              <tr class="refund-list " style="background:#F9F9F9">
+              <th width="10%"><input type="checkbox" class="selectAll" /><span style="margin-left:10px">全选</span>&nbsp;&nbsp;&nbsp;&nbsp;</th>    
+              <th width="35%">商品</th>
+              <th width="45%">评论内容</th>
+              <th width="10%" style="text-align:center">操作</th>
+              </tr>
+              {volist name="lists" id="list"} 
+        <tr class="goods-list">
+          <td style="padding-top:60px !important;text-align:left !important" ><input type="checkbox" class="check" name="ids" value="{$list['goods_id']}" /></td>
+          <td >
+          <a href="{:url('goods/detail',['id'=>$list['goods_id']])}">
+          {empty name="$list['cover_path']"}
+             <img src="{:config('theme_path')}/index/images/irc_defaut.png" class="order-img"  />
+              {else /}
+              <img src="{:root_path()}{$list['cover_path']}" class="order-img"  />
+           {/empty}</a>
+           <div class="refund-goods"><p class="bold">{$list['name']}</p><p class="type">规格 : {$list['standard']}</p></div></td>
+      
+          
+          <td style="padding-top:20px !important;"> 
+           {switch name="list['score']"}
+                  {case value="1"}<img src="{:config('theme_path')}/index/images/flower_1.png" alt="">{/case}
+                  {case value="2"}<img src="{:config('theme_path')}/index/images/flower_2.png" alt="">{/case}
+                  {case value="3"}<img src="{:config('theme_path')}/index/images/flower_3.png" alt="">{/case}
+                  {case value="4"}<img src="{:config('theme_path')}/index/images/flower_4.png" alt="">{/case}
+                  {case value="5"}<img src="{:config('theme_path')}/index/images/flower_5.png" alt="">{/case}
+                  {default /}<img src="{:config('theme_path')}/index/images/flower_1.png" alt="">
+              {/switch}
+          <div style="padding:10px 5px 5px 5px;color:#808080">{$list['content']}</div></td>
+          <td style="padding-top:60px !important"><span><a href="javascript:void(0)" onclick="del1({$list['goods_id']})"><img src="{:config('theme_path')}/index/images/delete.png" /></a></span></td>
+        </tr>
+      
+
+        {/volist}        
+            </table>
+         <div class="collection-table-bottom" style="background:#F9F9F9;padding:8px"><input type="checkbox" class="selectAll" /><span style="margin-left:10px ;color:#808080">全选</span>
+            <a  href="javascript:void(0)" onclick="del()">删除</a></div>            
+            <div class="page">
+                {$page}
+            </div>
+            {/empty}
+          </div>
+
+        </div>
+        </div>
+
+        <!--我的收藏 end-->
+      </div>
+    </div>
+</div>
+<!--main end-->
+
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+
+
+<!--footer start-->
+{template file="index/footer.html" /}
+<!--footer end-->
+
+
+
+<script type="text/javascript" language="javascript">
+// 删除数据
+  function del1(id){
+  $.ajax({
+     type:'post',
+     url:"{:url('comment/del')}",
+     data:{"id":id,
+          },
+     dataType:'json',
+     success: function(data) {
+                if (data.code) {
+            alert(data.msg);
+          setTimeout(function () {
+          location.href = data.url;
+        }, 1000);
+        } else {
+            alert(data.msg);
+        }
+        },
+        error: function(request) {
+                alert("页面错误");
+      }
+  });
+  
+}
+</script>
+<script type="text/javascript" language="javascript">
+// 删除数据
+  function del(){
+    var ids = new Array();//声明一个存放id的数组
+      $("[name='ids']:checked").each(function(){
+        ids.push($(this).val());
+        
+      });
+     if(ids==false){
+      alert('请选择数据');
+      return false
+     }
+  $.ajax({
+     type:'post',
+     url:"{:url('comment/delComment')}",
+     data:{"ids":ids,
+          },
+     dataType:'json',
+     success: function(data) {
+                if (data.code) {
+            alert(data.msg);
+          setTimeout(function () {
+          location.href = data.url;
+        }, 1000);
+        } else {
+            alert(data.msg);
+        }
+        },
+        error: function(request) {
+                alert("页面错误");
+      }
+  });
+  
+}
+</script>
+<script type="text/javascript">
+  $('document').ready(function(argument){
+    //全选、取消全选的事件
+    $(".selectAll").click(function(){
+      if(this.checked){
+        $(".check").each(function(){this.checked=true;});
+      }else{
+        $(".check").each(function(){this.checked=false;});
+      }
+    });
+    //设置状态方法
+    $('.setStatusSubmit').click(function(){
+      setStatus = $(".setStatus").val();
+      var ids = new Array();//声明一个存放id的数组
+      $("[name='ids']:checked").each(function(){
+        ids.push($(this).val());
+        alert(ids);
+      });
+      $.ajax({
+        cache:true,
+        type :"POST",
+        url  :'{:url('setStatus')}',
+        data :{status:setStatus,ids:ids},
+        async:false,
+           success:function(data){
+            if(data.code){
+              alert(data.msg);
+              setTimeout(function(){
+                location.href=data.url;
+              },1000);
+            } else {
+              alert(data.msg);
+            }
+           },
+           error:function(request){
+            alert("页面错误");
+           }
+      });        
+    });
+    
+      //高亮导航
+  var curWwwPath = window.document.location.href;   
+  var pathName = window.document.location.pathname; 
+  // alert($('.order-content').children('div').children('span').children('a').attr('href'));
+  $('.order-content').children('div').each(function(){
+     url = $(this).children('span').children('a').attr('href');
+     if(url == String(pathName)){
+
+        $(this).addClass('navhover');
+     }
+  });
+
+  //帮助中心
+    $('.show-sub').click(function(){
+      $($(this).parent().siblings().children('ul:visible').prev('span')).toggleClass('visted');
+      $($(this).parent().siblings().children('ul:visible')).slideToggle();
+      $($(this).parent().siblings().children('ul:visible').prev('span').children('i')).toggleClass('glyphicon-down');
+
+      $(this).toggleClass('visted');
+      $(this).next('ul').slideToggle();
+      $(this).children('i').toggleClass('glyphicon-down');
+    })
+
+  })
+</script> 
+
+</body>
+</html>

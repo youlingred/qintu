@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>{:config('web_site_title')}</title>
+<meta name="keywords" content="{:config('web_site_keyword')}"/>
+<meta name="description" content="{:config('web_site_description')}"/>
+<!-- Bootstrap -->
+<link href="{:config('theme_path')}/index/css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="{:config('theme_path')}/index/css/common.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/user_center.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/car.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="{:config('theme_path')}/index/js/html5shiv.min.js"></script>
+    <script src="{:config('theme_path')}/index/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+{template file="index/header.html" /}
+
+<!--main start-->
+<div class="main">
+  <div class="container">
+    <div class="row">
+   <!--左栏 start-->
+      <div class="col-xs-3" >
+        <div class="order">
+          <div class="order-left"><span>帮助中心</span></div>
+          <div class="help-content">
+            <div class='menu'>
+              <img src="{:config('theme_path')}/index/images/guide.png" width="18px;"><span class="show-sub">购物指南<i class="glyphicon glyphicon-chevron-down"></i></span>
+              <ul>
+                <li><a href="{:url('Article/page?name=registration')}">账号注册</a></li>
+                <li><a href="{:url('Article/page?name=process')}">购物流程</a></li>
+              </ul>
+            </div>
+            <div class='menu'><img src="{:config('theme_path')}/index/images/service.png" width="18px;"><span class="show-sub">售后服务<i class="glyphicon glyphicon-chevron-down"></i></span>
+              <ul>
+                <li><a href="{:url('Article/page?name=payment')}">先行赔付</a></li>
+                <li><a href="{:url('Article/page?name=refund')}">退换流程</a></li>
+                <li><a href="{:url('Article/page?name=complain')}">投诉举报</a></li>
+              </ul>
+            </div>
+            <div class='menu'><img src="{:config('theme_path')}/index/images/pay.png" width="18px;"><span class="show-sub">支付方式<i class="glyphicon glyphicon-chevron-down"></i></span>
+              <ul>
+                <li><a href="{:url('Article/page?name=alipay')}">支付宝</a></li>
+                <li><a href="{:url('Article/page?name=wxpay')}">微信支付</a></li>
+              </ul>
+            </div>
+            <div class='menu'><img src="{:config('theme_path')}/index/images/distribution.png" width="18px;"><span class="show-sub">配送方式<i class="glyphicon glyphicon-chevron-down"></i></span>
+              <ul>
+                <li><a href="{:url('Article/page?name=distribution')}">配送范围</a></li>
+                <li><a href="{:url('Article/page?name=freight')}">费用计算</a></li>
+              </ul>
+            </div>
+        
+      </div>
+      </div>
+      </div>
+
+      <!--左栏 end-->
+
+      <!--个人中心 start-->
+      <div class="col-xs-9 " >
+       <div class="user-center">
+        <p class="user-title"><span>{$pageInfo['title']}</span></p>
+        <div class="user-content">
+
+          
+<!--不同部分 start-->
+          <div class="pay"  id="demo" class="collapse in">
+             <p>{$pageInfo['content']}</p>
+            </div>
+
+<!--不同部分 end-->
+        
+        </div>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+<!--main end-->
+
+
+
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+<!--footer start-->
+{template file="index/footer.html" /}
+<!-- 客服 end -->
+<script>
+  window.onload = function(){
+    var divs = document.getElementsByTagName(" p");
+    var len = divs.length;
+    for(var i=0;i<len;i++){
+      divs[i].onclick = function(){
+        for(var j=0;j<len;j++){
+          divs[j].style.backgroundColor = "#FFFFFF";
+        }
+        this.style.backgroundColor = "red";
+      };
+    }
+
+    $(function(){
+      $('.show-sub').click(function(){
+      $($(this).parent().siblings().children('ul:visible').prev('span')).toggleClass('visted');
+      $($(this).parent().siblings().children('ul:visible')).slideToggle();
+      $($(this).parent().siblings().children('ul:visible').prev('span').children('i')).toggleClass('glyphicon-down');
+
+      $(this).toggleClass('visted');
+      $(this).next('ul').slideToggle();
+      $(this).children('i').toggleClass('glyphicon-down');
+    })
+    })
+
+  };
+</script>
+</body>
+</html>

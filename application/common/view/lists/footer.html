@@ -1,0 +1,62 @@
+<div class="box-footer with-border">
+  
+  {$footer_operate}
+
+  <div class="pull-right">
+  {$listContent->render()}
+  </div>
+  <!-- /.box-tools -->
+</div>
+ </div>
+          <!-- /. box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  
+  {include file="common:footer"}
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.0 -->
+<script src="http://code.jquery.com/jquery-1.12.0.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<script type="text/javascript">
+  $('document').ready(function (argument) {
+    // 全选、取消全选的事件
+    $("th .selectAll").click(function () {
+      if(this.checked){  
+       $(".check").each(function(){this.checked=true;});
+      }else{  
+       $(".check").each(function(){this.checked=false;});  
+      }
+    });
+
+    
+     {$script}
+    
+  
+    // select选中
+    $(".filterStatus").val("{$Think.get.status ?? '0'}");
+    $(".filterCategory").val("{$Think.get.category ?? '0'}");
+
+  });
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+
+</body>
+</html>

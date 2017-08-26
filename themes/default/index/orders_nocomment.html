@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>{:config('web_site_title')}</title>
+<meta name="keywords" content="{:config('web_site_keyword')}"/>
+<meta name="description" content="{:config('web_site_description')}"/>
+<!-- Bootstrap -->
+<link href="{:config('theme_path')}/index/css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="{:config('theme_path')}/index/css/common.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/user_center.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="{:config('theme_path')}/index/js/html5shiv.min.js"></script>
+    <script src="{:config('theme_path')}/index/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+{template file="index/header.html" /}
+
+<!--main start-->
+<div class="main">
+  <div class="container">
+    <div class="row">
+    <!--左栏目 start-->
+    {template file="index/header_nav.html" /}
+    <!--左栏目 end-->
+
+      <!--我的订单 start-->
+      <div class="col-xs-9" >
+       <div class="user-center">
+
+
+        <div class="order-title" ><span class="order-order">我的订单</span> 
+        
+        <div class="order-choice" >
+        <div>
+        <span><a href="{:url('order/orderLists')}">全部订单</a></span>
+        <span><a href="{:url('order/orderLists',['status'=>'nopaid'])}">待付款</a></span>
+        <span><a href="{:url('order/orderLists',['status'=>'paid'])}">待发货</a></span>
+        <span><a href="{:url('order/orderLists',['status'=>'shipped'])}">待收货</a></span>
+        <span><a href="{:url('comment/ordersnocomment')}" class="order-order">待评价</a></span>
+        </div>         
+        </div>      
+        </div>
+      
+        <div class="user-content user-content-center">
+        {empty name="lists"}
+          <div  style="margin-top:50px;text-align:center;color:#999;font-size:18px"><img src="{:config('theme_path')}/index/images/no_order.png"></div>
+          {else /}
+          <table class="table  order-list" border="0" >
+              <tr class="order-list ">
+              <!-- <th >近一周订单</th> -->
+               <th width="50%">
+               <span>全部订单</span>
+                <!-- <span class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">全部订单 <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                <li><a href="#">近一周订单</a></li>
+                <li><a href="#">近一月订单</a></li>
+                <li><a href="#">近一年订单</a></li>
+              </ul>
+              </span> -->
+              <span style="margin-left:100px">订单详情</span>
+            </th>
+              <th width="12.5%" style="text-align:center">收货人</th>
+              <th width="12.5%" style="text-align:center">金额</th>
+              <th width="12.5%" style="text-align:center">状态</th>
+              <th width="12.5%" style="text-align:center">操作</th>
+              </tr>
+          </table>
+  
+       {volist name="lists" id="list"}  
+          <table class="table  order-list" border="0">
+              <tr class="order-list clearance">
+                <td colspan="4" class="order-more" >
+                  <span style="margin-left:10px;">{$list['createtime']|date="Y-m-d",###}&nbsp;&nbsp;&nbsp;  订单号：{$list['order_no']}</span>
+                </td>  
+                <td colspan="1" class="order-no-img">
+                  
+                </td>                            
+              </tr>
+              <tr >
+                <td class="order-lists-info" width="50%" style="padding:0">
+                  <div style="padding:4px;">
+                      <div style="float:left">
+                      {empty name="$list['goods_id']"}
+                        <img style="width:100px;height:70px;" src="{:config('theme_path')}/index/images/irc_defaut.png" alt="">
+                      {else /}
+                        <img style="width:100px;height:70px;" src="{:root_path()}{$list['goods_id']|get_goods_cover}" />
+                      {/empty}
+                      </div>
+                      <div style="float:left;width:250px;margin-left:10px;">
+                        {$list['name']}<a href="{:url('comment/orderComment',['goods_id'=>$list['goods_id'],'order_id'=>$list['id']])}" style="color:red">【去评价】</a>
+                      </div>
+                      <div style="float:right;margin-right:10px;font-size:12px;"> X{$list['num']}</div>
+                      <div style="clear:both"></div>
+                  </div>
+                </td>
+                <td class="order-lists-user" width="12.5%">
+                  <span >{$list['uid']|get_userinfo=###,'username'}</span>
+                </td>
+                <td class="order-lists-money" width="12.5%">
+                  <span style="color:red">￥{$list['total_money']}</span>
+                </td>
+                <td class="order-lists-status" width="12.5%">
+                  <span><p style="color:green">交易成功</p><p><a href="{:url('order/orderDetail',['order_no'=>$list['order_no']])}">订单详情</a></p></span>
+                </td>
+                <td class="order-lists-operate" width="12.5%">
+                  已完成
+                </td>
+              </tr>
+          </table>
+        {/volist}
+        {/empty}
+      <div class="page">
+                {$page}
+      </div>
+
+    </div>
+
+        </div>
+        </div>
+
+        <!--我的订单 end-->
+      </div>
+    </div>
+</div>
+<!--main end-->
+
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script> 
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+
+<!--footer start-->
+{template file="index/footer.html" /}
+<!-- 客服 end -->
+
+
+<script>
+$('document').ready(function(argument){
+    //全选、取消全选的事件
+    $("td .selectAll").click(function(){
+      if(this.checked){
+        $(".check").each(function(){this.checked=true;});
+      }else{
+        $(".check").each(function(){this.checked=false;});
+      }
+    });
+    });
+</script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  
+    $('.order-content').children('div:first').addClass('navhover');
+       
+});  
+</script>
+</body>
+</html>

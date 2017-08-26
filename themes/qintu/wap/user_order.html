@@ -1,0 +1,195 @@
+{include file="public/qintu/header"/}
+{include file="public/qintu/nav"/}
+{php}
+	$serverList=_get_posts_by_term('user_server_list');
+	$notice=_get_post_by_name('user_notice');
+	$no_comment_orders=get_no_comment_list()
+{/php}
+<div class="row section-bg-gray section">
+ 	<div class="col-md-6 section-bg-white col-md-offset-3 title-one" style="padding: 40px">
+	   <div class="row">
+		<div class="col-sm-3 text-center">
+		    <img src="{:config('theme_path')}/wap/images/user_ico.png" style="margin-top: 30px"alt=""/>
+		    <p>{:session('wap_user_auth.nickname')}</p>
+	      <a href="{:url('common/logout')}"><button type="button" class="btn-orders btn btn-default">退出</button></a>
+		    <!--<div class="form-group" style="position: relative;margin-top: 30px;">
+	    	  <hr>
+	    	  <span style="position: absolute;top:-15px;left: 29%; font-size: 20px">服务流程</span>
+		    </div>
+		    <ul class="list-group list-no-border">
+		    	{volist name="$serverList" id="vo" key="k"}
+		    	<li class="list-group-item">
+					<span class="badge badge-gold" style="float: left;">{$k}</span>
+					{$vo.content}
+			 	</li>
+	    	{/volist}
+			</ul>
+		  <div class="text-left">
+				<label class="label-nobg">
+					特别提示：
+				</label>
+			</div>
+			<div class="text-left">
+				<label class="label-nobg">
+					{$notice.content}
+				</label>
+			</div>-->
+		</div>
+   		<div class="col-sm-9">
+   		  <div role="tabpanel">
+   		    <ul class="nav nav-tabs" role="tablist">
+   		      <!--<li role="presentation" class="active"><a href="#home1" data-toggle="tab" role="tab" aria-controls="tab1">未提交</a></li>-->
+   		      <li role="presentation"><a href="#paneTwo1" data-toggle="tab" role="tab" aria-controls="tab2">我的预定</a></li>
+	          <li role="presentation"><a href="#paneTwo2" data-toggle="tab" role="tab" aria-controls="tab2">待评价</a></li>
+   		    </ul>
+   		    <div id="tabContent1" class="tab-content">
+   		      <div role="tabpanel" class="tab-pane fade" id="home1">
+   		        <div class="row">
+  		          <div class="col-sm-12">
+   		         	 <table class="table table-striped">
+					  {volist name="cart_lists" id="list"}
+					  <tbody>
+							<tr>
+							  <!--<td class="order_no_elem" data-id="">{$list['departure_time']|date="Y-m-d h:s",###}</td>-->
+							</tr>
+							<tr>
+							  <td>
+							  <div class="col-sm-7 order_no_elem" data-id="{$list['id']}" data-goods-id="{$list['goods_id']}" data-departure-time="{$list['departure_time']}" data-man-num="{$list['man_num']}" data-child-num="{$list['child_num']}" data-name="{$list['name']}">
+							  <h4>{$list['name']}</h4>
+							  <h5>出发日期：{$list['departure_time']|date="Y-m-d",###}</h5>
+							  <h5>成人人数：{$list['man_num']}</h5>
+							  <h5>儿童人数：{$list['child_num']}</h5>
+							  </div>
+							  <div class=" td-div col-sm-5">
+							  		<div class="btn-toolbar" role="toolbar">
+										<div class="btn-group">
+											<a href="{:url('goods/detail?id='.$list['goods_id'])}"><button type="button" class="btn btn-default btn-orders">查看</button></a>
+											<button type="button" class="btn btn-default btn-orders del_cart_btn" data-orderid="{$list['id']}">删除</button>
+										 </div>
+									</div>
+							  </div>
+							  </td>
+							  
+							</tr>
+							</tr>
+					  </tbody>
+						{/volist}
+					</table>
+          	  			<div class="text-center">
+          	  				<button id="post_btn" type="button" class="btn btn-gold">提交全部心愿单</button>
+				  		</div>
+            	  </div>
+	            </div>
+              </div>
+   		      <div role="tabpanel" class="tab-pane fade in active" id="paneTwo1">
+   		        <table class="table table-striped">
+					  {volist name="order_lists" id="list"} 
+					  <tbody>
+							<tr>
+							  <td>{$list['createtime']|date="Y-m-d",###}&nbsp;&nbsp;&nbsp;  订单号：{$list['order_no']}</td>
+							</tr>
+							{volist name="$list['id']|get_orders_goods" id="orderlist"} 
+							<tr>
+							  <td>
+							  <div class="col-sm-7">
+							  <h4>{$orderlist['name']}</h4>
+							  <h5>出发日期：{$orderlist['departure_time']|date="Y-m-d",###}</h5>
+							  <h5>成人人数：{$orderlist['man_num']}</h5>
+							  <h5>儿童人数：{$orderlist['child_num']}</h5>
+							  </div>
+							  <div class=" td-div col-sm-5">
+							  		<div class="btn-toolbar" role="toolbar">
+										<div class="btn-group">
+											<a href="{:url('goods/detail?id='.$orderlist['goods_id'])}"><button type="button" class="btn btn-default btn-orders">查看</button></a>
+											<button type="button" class="btn btn-default btn-orders del_order_btn" data-orderid="{$list['id']}">删除</button>
+										 </div>
+									</div>
+							  </div>
+							  </td>
+							  
+							</tr>
+							</tr>
+							{/volist}
+					  </tbody>
+						{/volist}
+					</table>
+	          </div>
+	          <div role="tabpanel" class="tab-pane fade" id="paneTwo2">
+
+   		        <table class="table table-striped">
+					  {volist name="no_comment_orders" id="list"} 
+					  <tbody>
+							<tr>
+							  <td>{$list['createtime']|date="Y-m-d",###}&nbsp;&nbsp;&nbsp;  订单号：{$list['order_no']}</td>
+							</tr>
+							{volist name="$list['id']|get_orders_goods" id="orderlist"} 
+							<tr>
+							  <td>
+							  <div class="col-sm-7">
+							  <h4>{$orderlist['name']}</h4>
+							  <h5>出发日期：{$orderlist['departure_time']|date="Y-m-d",###}</h5>
+							  <h5>成人人数：{$orderlist['man_num']}</h5>
+							  <h5>儿童人数：{$orderlist['child_num']}</h5>
+							  </div>
+							  <div class=" td-div col-sm-5">
+							  		<div class="btn-toolbar" role="toolbar">
+										<div class="btn-group">
+											<a href="{:url('comment/orderComment',['goods_id'=>$list['goods_id'],'order_id'=>$list['id']])}"><button type="button" class="btn btn-default btn-orders">去评价</button></a>
+										 </div>
+									</div>
+							  </div>
+							  </td>
+							  
+							</tr>
+							</tr>
+							{/volist}
+					  </tbody>
+						{/volist}
+					</table>
+	          </div>
+	        </div>
+	      </div>
+        </div>
+	   </div> 
+	</div>
+</div>
+</div>
+<div class="section"></div>
+{include file="public/qintu/footer"/}
+<script type="text/javascript">
+	$('.del_cart_btn').click(function(){
+		var cart={
+			id:$(this).attr('data-orderid'),
+			type:2,
+		}
+      delCart($(this),cart);
+   });
+	$('.del_order_btn').click(function(){
+		var order={
+			id:$(this).attr('data-orderid'),
+			type:2,
+		}
+      delOrder($(this),order);
+   });
+   $('#post_btn').click(function(){
+   var carts=new Array();
+  
+  	$(".order_no_elem").each(function(key,value){
+		carts.push({
+			cart_id:$(value).attr("data-id"),
+			goods_id:$(value).attr("data-goods-id"),
+			name:$(value).attr("data-name"),
+			departure_time:$(this).attr('data-departure-time'),
+			man_num:$(this).attr('data-man-num'),
+			child_num:$(this).attr('data-child-num')
+			});
+		
+	});
+     postCarts(carts);
+   });
+   	$('#go_on_need').click(function(){
+ 		$('#need-success').modal('hide');
+ 		window.location.reload();
+   });
+</script>
+

@@ -1,0 +1,175 @@
+[ 2017-07-07T15:22:08+08:00 ] 127.0.0.1 127.0.0.1 GET HTTP://www.kintou.net/
+[ log ] www.kintou.netHTTP://www.kintou.net/ [运行时间：0.238014s][吞吐率：4.20req/s] [内存消耗：2,502.27kb] [文件加载：53]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop\core\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'www.kintou.net',
+  'accept' => '*/*',
+  'proxy-connection' => 'Keep-Alive',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop/application/index\lang\zh-cn.php
+[ info ] [ SESSION ] INIT array (
+  'prefix' => 'minishop',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] Method [ <user> public method index ] {
+  @@ D:\phpStudy\WWW\minishop\application\index\controller\Index.php 22 - 26
+}
+
+[ info ] [ VIEW ] ./themes/qintu/index/index.html [ array (
+  0 => 'userinfo',
+) ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT file
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_key_value` [ RunTime:0.013000s ]
+[ sql ] [ SQL ] SELECT `value` FROM `mini_key_value` WHERE  `collection` = 'indextheme' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `collection` = 'config.base'   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_apiconfig` [ RunTime:0.013001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_apiconfig`  [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `collection` = 'indextheme'  AND `uuid` = 'default' LIMIT 1     [ RunTime:0.000000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_navigation` [ RunTime:0.012001s ]
+[ sql ] [ SQL ] SELECT `id`,`name`,`icon`,`pid`,`sort`,`url`,`hide` FROM `mini_navigation` WHERE  `hide` = 0 ORDER BY sort   [ RunTime:0.001000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_banner` [ RunTime:0.016001s ]
+[ sql ] [ SQL ] SELECT * FROM mini_banner a LEFT JOIN mini_banner_position b ON b.id= a.position  WHERE  a.status = 1  AND a.position = 1 ORDER BY a.createtime  [ RunTime:0.003000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SELECT * FROM mini_banner a LEFT JOIN mini_banner_position b ON b.id= a.position  WHERE  a.status = 1  AND a.position = 1 ORDER BY a.createtime  [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_cate` [ RunTime:0.013001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'qdz' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_cate_relationships` [ RunTime:0.014001s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 25   [ RunTime:0.003000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods` [ RunTime:0.015001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods` WHERE  `id` IN (61,80,188,226,223,168,102,101,100,108,106,105,83,84,78,82,79,81,196,210,207,193,183,162,167,204,201,189,179,176,170,302,159,157,154,164,148,149,151,150,194,190,172,156,163,152,211,208,205,184,180,175,169,166,161,160,158,155,153,202,198,177,243,233,197,192,247,219,231,216,209,206,241,239,236,238,234,229,227,222,221,218,182,178,174,171,214,249,273,199,195,203,181,261,268,266,230,225,191,185,173,245,260,295,276,292,283,272,269,264,257,254,252,251,242,248,224,213,228,217,220,215,237,297,287,235,301,240,246,284,275,265,258,244,290,281,262,255,253,299,250,300,303,256,277,279,291,270,274,263,133,63,212,186,271,91,92,62,232,187,128,132,96,94,98,67,310,308,99,289,259,280,278,285,267,288,286,296,116,294,64,50,66,111,110,107,97,65,93,95,114,103,115,117,113,104,112,165,298,293,127,139,145,143,142,141,138,137,136,135,144,130,129,126,125,124,123,122,121,120,146,119,118,134,147,140,131,200,307,109,68,311,316,306,317,49,309,318)  AND `status` = 1  AND `is_hot` = 1 ORDER BY sort asc LIMIT 9                                                                                                                                                                                                                                                   [ RunTime:0.012001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'qtdr' LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 26   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods` WHERE  `id` IN (59,304,90,89,88,87,70,75,71,77,305,85,86,51,76,315,313,314,69,312,60)  AND `status` = 1  AND `is_hot` = 1 ORDER BY sort asc LIMIT 4                          [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'qtlp_hsps' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 70   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods` WHERE  `id` IN (318,320,319)  AND `status` = 1  AND `is_best` = 1 ORDER BY sort asc LIMIT 3        [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'ztdz' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 27   [ RunTime:0.001001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods` WHERE  `id` IN (52,57,56,54,58,55)  AND `status` = 1  AND `is_hot` = 1 ORDER BY sort asc LIMIT 3           [ RunTime:0.003000s ]
+
+---------------------------------------------------------------
+[ 2017-07-07T16:44:06+08:00 ] ::1 ::1 GET /minishop/
+[ log ] localhost/minishop/ [运行时间：0.327541s][吞吐率：3.05req/s] [内存消耗：2,505.97kb] [文件加载：53]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop\core\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'UM_distinctid=15abaf0eb5b105-0e4b7d36d-4349052c-100200-15abaf0eb5e1bd; CNZZDATA1256643218=1194298924-1489194384-%7C1489237927; Qhlb1m_admin_username=admin; ClPyke_admin_username=admin; PHPSESSID=hjn0h03h75ihur4e58eapvs9v3; opensns_db_config=think%3A%7B%22DB_PREFIX%22%3A%22ocenter_%22%2C%22DB_PORT%22%3A%223306%22%2C%22DB_PWD%22%3A%22root%22%2C%22DB_USER%22%3A%22root%22%2C%22DB_NAME%22%3A%22opensns%22%2C%22DB_HOST%22%3A%22127.0.0.1%22%2C%22DB_TYPE%22%3A%22mysqli%22%7D; opensns_OX_LOGGED_USER=_iUQBpRxd6y8tlTpnIrEXLRZqKVqrLxEeMchWPcyrIUlT6L84LsAyZbzpgdIcnsQ6MxukpMOQQEynQ6zV0saCmNcePctlIa0SqPmUMLA16RWGEgh3; opensns_wb_type=tp_value; opensns___forward__=%2Fopensns%2Findex.php%3Fs%3D%2Fadmin%2Faddons%2Findex%2Ftype%2Fall.html; CNZZDATA1702264=cnzz_eid%3D397089291-1499413457-%26ntime%3D1499413457; TS4_lang=zh-cn; TS4_TSV4_LOGGED_USER=ZRj6C2x%2BwDPvr6NRTq0sc4gFewr2Pfwi; CNZZDATA1254932726=1575418352-1499411155-http%253A%252F%252Flocalhost%252F%7C1499411155; TS4_online_update=1499414800; TS4_TSV4_ACTIVE_TIME=1499417036',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop/application/index\lang\zh-cn.php
+[ info ] [ SESSION ] INIT array (
+  'prefix' => 'minishop',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] Method [ <user> public method index ] {
+  @@ D:\phpStudy\WWW\minishop\application\index\controller\Index.php 22 - 26
+}
+
+[ info ] [ VIEW ] ./themes/qintu/index/index.html [ array (
+  0 => 'userinfo',
+) ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT file
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002001s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_key_value` [ RunTime:0.033004s ]
+[ sql ] [ SQL ] SELECT `value` FROM `mini_key_value` WHERE  `collection` = 'indextheme' LIMIT 1    [ RunTime:0.006501s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `collection` = 'config.base'   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_apiconfig` [ RunTime:0.014002s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_apiconfig`  [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `collection` = 'indextheme'  AND `uuid` = 'default' LIMIT 1     [ RunTime:0.001000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000500s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_navigation` [ RunTime:0.014002s ]
+[ sql ] [ SQL ] SELECT `id`,`name`,`icon`,`pid`,`sort`,`url`,`hide` FROM `mini_navigation` WHERE  `hide` = 0 ORDER BY sort   [ RunTime:0.006001s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011001s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_banner` [ RunTime:0.011502s ]
+[ sql ] [ SQL ] SELECT * FROM mini_banner a LEFT JOIN mini_banner_position b ON b.id= a.position  WHERE  a.status = 1  AND a.position = 1 ORDER BY a.createtime  [ RunTime:0.003500s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011001s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SELECT * FROM mini_banner a LEFT JOIN mini_banner_position b ON b.id= a.position  WHERE  a.status = 1  AND a.position = 1 ORDER BY a.createtime  [ RunTime:0.001500s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_cate` [ RunTime:0.011502s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'qdz' LIMIT 1    [ RunTime:0.000500s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_cate_relationships` [ RunTime:0.010501s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 25   [ RunTime:0.004001s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods` [ RunTime:0.012001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods` WHERE  `id` IN (61,80,188,226,223,168,102,101,100,108,106,105,83,84,78,82,79,81,196,210,207,193,183,162,167,204,201,189,179,176,170,302,159,157,154,164,148,149,151,150,194,190,172,156,163,152,211,208,205,184,180,175,169,166,161,160,158,155,153,202,198,177,243,233,197,192,247,219,231,216,209,206,241,239,236,238,234,229,227,222,221,218,182,178,174,171,214,249,273,199,195,203,181,261,268,266,230,225,191,185,173,245,260,295,276,292,283,272,269,264,257,254,252,251,242,248,224,213,228,217,220,215,237,297,287,235,301,240,246,284,275,265,258,244,290,281,262,255,253,299,250,300,303,256,277,279,291,270,274,263,133,63,212,186,271,91,92,62,232,187,128,132,96,94,98,67,310,308,99,289,259,280,278,285,267,288,286,296,116,294,64,50,66,111,110,107,97,65,93,95,114,103,115,117,113,104,112,165,298,293,127,139,145,143,142,141,138,137,136,135,144,130,129,126,125,124,123,122,121,120,146,119,118,134,147,140,131,200,307,109,68,311,316,306,317,49,309,318)  AND `status` = 1  AND `is_hot` = 1 ORDER BY sort asc LIMIT 9                                                                                                                                                                                                                                                   [ RunTime:0.014502s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'qtdr' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 26   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods` WHERE  `id` IN (59,304,90,89,88,87,70,75,71,77,305,85,86,51,76,315,313,314,69,312,60)  AND `status` = 1  AND `is_hot` = 1 ORDER BY sort asc LIMIT 4                          [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'qtlp_hsps' LIMIT 1    [ RunTime:0.000500s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 70   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods` WHERE  `id` IN (318,320,319)  AND `status` = 1  AND `is_best` = 1 ORDER BY sort asc LIMIT 3        [ RunTime:0.000500s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'ztdz' LIMIT 1    [ RunTime:0.000500s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 27   [ RunTime:0.000500s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods` WHERE  `id` IN (52,57,56,54,58,55)  AND `status` = 1  AND `is_hot` = 1 ORDER BY sort asc LIMIT 3           [ RunTime:0.002500s ]
+
+---------------------------------------------------------------
+[ 2017-07-07T16:44:33+08:00 ] ::1 ::1 GET /minishop/uploads/editor/image/20161223/1482463174435180.jpg
+[ log ] localhost/minishop/uploads/editor/image/20161223/1482463174435180.jpg [运行时间：0.112514s][吞吐率：8.89req/s] [内存消耗：1,746.42kb] [文件加载：41]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop\core\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'uploads',
+    1 => 'editor',
+    2 => 'image',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'accept' => 'image/webp,image/*,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36',
+  'referer' => 'http://localhost/miniyellow/index.php/index/goods/detail.html?id=44',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'cookie' => 'UM_distinctid=15abaf0eb5b105-0e4b7d36d-4349052c-100200-15abaf0eb5e1bd; CNZZDATA1256643218=1194298924-1489194384-%7C1489237927; Qhlb1m_admin_username=admin; ClPyke_admin_username=admin; PHPSESSID=hjn0h03h75ihur4e58eapvs9v3; opensns_db_config=think%3A%7B%22DB_PREFIX%22%3A%22ocenter_%22%2C%22DB_PORT%22%3A%223306%22%2C%22DB_PWD%22%3A%22root%22%2C%22DB_USER%22%3A%22root%22%2C%22DB_NAME%22%3A%22opensns%22%2C%22DB_HOST%22%3A%22127.0.0.1%22%2C%22DB_TYPE%22%3A%22mysqli%22%7D; opensns_OX_LOGGED_USER=_iUQBpRxd6y8tlTpnIrEXLRZqKVqrLxEeMchWPcyrIUlT6L84LsAyZbzpgdIcnsQ6MxukpMOQQEynQ6zV0saCmNcePctlIa0SqPmUMLA16RWGEgh3; opensns_wb_type=tp_value; opensns___forward__=%2Fopensns%2Findex.php%3Fs%3D%2Fadmin%2Faddons%2Findex%2Ftype%2Fall.html; CNZZDATA1702264=cnzz_eid%3D397089291-1499413457-%26ntime%3D1499413457; TS4_lang=zh-cn; TS4_TSV4_LOGGED_USER=ZRj6C2x%2BwDPvr6NRTq0sc4gFewr2Pfwi; CNZZDATA1254932726=1575418352-1499411155-http%253A%252F%252Flocalhost%252F%7C1499411155; TS4_online_update=1499414800; think_var=zh-cn; __session:0.42804683675058186:=http:; TS4_TSV4_ACTIVE_TIME=1499417065',
+)
+[ info ] [ PARAM ] array (
+  0 => '1482463174435180.jpg',
+)
+[ info ] [ LOG ] INIT file
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002501s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_key_value` [ RunTime:0.013002s ]
+[ sql ] [ SQL ] SELECT `value` FROM `mini_key_value` WHERE  `collection` = 'indextheme' LIMIT 1    [ RunTime:0.000500s ]
+
+---------------------------------------------------------------

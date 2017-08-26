@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>小微商城</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/icons-extra.css" />
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/goods_items.css">
+
+		<script src="{:config('theme_path')}/wap/js/mui.js"></script>
+		<script src="{:config('theme_path')}/wap/js/jquery.min.js"></script>
+		<script src="{:config('theme_path')}/wap/js/jquery.cookie.js"></script>
+		<script src="{:config('theme_path')}/wap/js/car.js"></script>
+	</head>
+	<body>
+		<div id="h-nav" style="position:fixed;top:45px;background:#000;z-index:9999;color:#fff;width:100%;height:100%;filter:alpha(opacity=80); -moz-opacity:0.8;-khtml-opacity: 0.8; opacity: 0.8;display:none">
+			<ul style="list-style:none;margin-left:20px;line-height:250%">
+				{:get_nav()}
+			</ul>
+		</div>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav" style="background: #FF2D4B;">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;margin-right:0;"  onclick="history.go(-1)"></a>
+			<a class="mui-icon mui-icon-extra mui-icon-extra-class mui-pull-right show-nav" style="color: #fff;margin-left:0;"></a>
+			<a class="mui-icon mui-icon-search mui-pull-right" style="color: #fff;margin-left:0;"></a>
+			<h1 class="mui-title" style="color:#fff">商品中心</h1>
+			<div class="mui-input-row mui-search" style="clear:none;height:45px;line-height:45px;color:#fff;margin:0;padding:0;display:none">
+			    <input type="search" class="mui-input-clear " placeholder="" style="color:#fff">
+			</div>
+		</header>
+		<!-- 头部结束 -->
+		<div class="main">
+			
+			<!-- <img src="{:config('theme_path')}/wap/images/test.jpg" style="height:200px" width="100%" alt=""> -->
+			<!-- <div class="div-line"></div> -->
+			<!-- <div class="div-line"></div> -->
+			<div class="mui-content mui-row mui-fullscreen">
+				<div class="mui-col-xs-3">
+					<div id="segmentedControls" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+					{volist name="$parentCate" id="data"}
+						<a href="{:url('goods/index?category='.$data['slug'])}"><span class="cate-item"  >{$data['name']}</span></a>
+					{/volist}
+					</div>
+				</div>
+				<div id="segmentedControlContents" class="mui-col-xs-9" style="background:#fff;border-left: 1px solid #c8c7cc;overflow:auto">
+						<ul class="mui-table-view mui-grid-view">
+						{volist name="$selfCate" id="data"}
+					        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+					            <a href="{:url('goods/lists?category='.$data['slug'])}">
+					            	{empty name="$data['cover_path']"}
+										<img class="mui-media-object" src="{:config('theme_path')}/wap/images/default.png">
+										{else /}
+										<img class="mui-media-object" src="{:root_path()}{$data['cover_path']}">
+									{/empty}
+					                <div class="mui-media-body">{$data['name']}</div></a>
+					        </li>
+					    {/volist}
+					    
+					    </ul>   
+				</div>
+			</div>
+		</div>
+		<!-- 底部 -->
+		{template file="wap/footer.html" /}
+		<!-- 底部结束 -->
+
+	</body>
+	<script>
+		$(function(){
+			//显示搜索框
+			$('.mui-icon-search').click(function(){
+				$(this).css('display','none');
+				$('.mui-title').css('display','none');
+				$('.mui-search').css('display','block');
+			});
+			//隐藏搜索框
+			$(".main").click(function(){
+				$('.mui-icon-search').css('display','block');
+				$('.mui-title').css('display','block');
+				$('.mui-search').css('display','none');
+			})
+			$('.show-nav').click(function(){
+				$('#h-nav').slideToggle();
+			})
+
+		})
+		
+	</script>
+</html>

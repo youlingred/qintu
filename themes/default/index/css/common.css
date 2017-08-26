@@ -1,0 +1,190 @@
+@charset "utf-8";
+/* CSS Document */
+a{outline:none;blr:expression(this.onFocus=this.blur());}
+a:focus {
+outline:none;
+-moz-outline:none;
+}
+input,textarea {
+outline:none;
+}
+body{
+	font-family:Microsoft YaHei, Verdana, Geneva, sans-serif;
+	background-color:#f0f0f0;
+}
+.container{
+	width:1220px !important;
+}
+.logo{
+	padding-bottom:10px;
+	padding-top:10px;
+	float:left;
+	display:inline;
+}
+.navbar .navbar-default{
+	margin-bottom:14px;
+}
+.navbar {
+	background-color: #ff2d4b;
+	height:58px;
+	margin-bottom:14px;
+}
+.navbar .navbar-nav li a{
+	padding-bottom:18px;
+	padding-top:18px;
+  	color:#fff;
+	font-size:16px;
+}
+.nav-active{
+	background-color: #ff6666;
+	color:#fff;
+}
+.navbar .navbar-nav .active a{
+	background-color: #ff6666;
+	color:#fff;
+}
+.navbar .navbar-nav .active a:link,.navbar .navbar-nav .active a:visited,.navbar .navbar-nav .active a:hover,.navbar .navbar-nav .active a:active{
+	background-color: #ff6666;
+	color:#fff;
+	}
+.navbar .navbar-nav li a:visited{
+	background-color: #ff2d4b;
+	color:#fff;
+	}
+.navbar .navbar-nav li a:hover{
+	background-color: #ff6666;
+	color:#fff;
+	}
+.navbar-line{
+	width:56px;
+	float:left;
+}
+.navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+    background-color: #fff;
+    color: #555;
+}
+.navbar .navbar-nav .name{
+	cursor: pointer;
+}
+.navbar .navbar-nav .dropdown-menu{
+	padding: 0;
+	margin: 0;
+	min-width:110px !important;
+}
+.navbar .navbar-nav .dropdown-menu li span{
+	margin-right:10px;
+}
+.navbar .navbar-nav .dropdown-menu li{
+	height:36px;
+	line-height: 36px;
+	text-align: center;
+	border-bottom: 1px solid #eee;
+}
+.navbar .navbar-nav .dropdown-menu li a{
+	padding: 0;
+	margin: 0;
+	color: #555;
+	height:36px;
+	line-height: 36px;
+	font-size: 14px;
+}
+.navbar .navbar-nav .dropdown-menu li a:hover{
+	color: #fff;
+}
+.custom-search{
+	margin-top:3px;
+	margin-bottom:3px;
+	width:240px;
+	height:34px;
+	background-image:url(../images/search.jpg);
+}
+.text-search{
+	margin-top:6px;
+	margin-bottom:6px;
+	margin-left:25px;
+	border:none;
+}
+.login-box,.login-register-box{
+	color:#fff;
+	height:58px;
+	line-height:58px;
+}
+.login-register-box a{
+	padding-bottom:0px !important;
+	padding-top:0px !important;
+	font-size:14px !important;
+}
+.login-register-box a:visited{
+	background-color: #ff2d4b !important;
+	color:#fff;
+}
+.login-register-box a:hover{
+	background-color: #ff2d4b !important;
+	color:#fff;
+}
+
+.login-box a{
+	padding-bottom:0px !important;
+	padding-top:0px !important;
+	font-size:14px !important;
+}
+.login-box a:visited{
+	background-color: #fff !important;
+	color:#333;
+}
+.login-box a:hover{
+	background-color: #ff2d4b !important;
+	color:#fff;
+}
+
+.carousel-control.right,.carousel-control.left{
+	background-image:none !important;
+	filter:none !important;
+}
+.footer{ margin-top:30px;}
+.footer-main{
+	background-color:#e5e5e5;
+	padding-bottom:30px;
+	padding-top:30px;
+}
+.footer-main-left{
+	float:left;
+}
+.footer-main-left ul{
+	list-style:none;
+	padding:0px;
+	margin:0px;
+}
+.footer-main-left ul li{
+	float:left;
+	margin-left:60px;
+}
+.footer-main-right{
+	float:right;
+}
+.footer-main-left .title{
+	margin-bottom:20px;
+}
+.footer-main-left .title a{
+	font-size:16px;
+	color:#333;
+}
+.footer-main-left a{
+	color:#999999;
+}
+.wap-erweima{ float:right; margin-right:60px; text-align:center}
+.wx-erweima{ float:right;margin-right:30px; text-align:center}
+.footer-bottom{ height:48px; border-top:1px solid #ff2c4c; background-color:#f0f0f0; text-align:center; line-height:48px; color:#999999}
+.page{ margin-top:40px; text-align:center;}
+.page .pagination a{ color:#333;}
+.page .pagination a:hover{background-color: #fdeff1;color:#333;}
+.page .active span{ color:#fff; background-color:#ff2c4c; border:#ff2c4c;}
+.page .active span:hover{background-color: #ff2c4c;color:#fff;}
+.color-red{ color:#ff2c4c}
+.navbar .navbar-nav .icon-shop a{
+	height: 50px;
+}
+.navbar .navbar-nav .icon-shop a:hover{
+	background-color: #ff2d4b;
+	color:#fff;
+}

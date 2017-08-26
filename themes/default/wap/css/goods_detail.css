@@ -1,0 +1,112 @@
+body {
+	font-size: 16px;
+    line-height: 18px;
+    background: #fff;
+}
+/*底部导航高亮*/
+.mui-active{
+	color: #FF2D4B!important;
+}
+.main{
+	margin-top: 45px;
+	margin-bottom: 50px;
+}
+p{margin:0;padding: 0}
+.goods_title{
+	font-size: 1em;
+	color:#000;
+	font-weight: bold;
+}
+.goods_stand{
+	margin-top: 4px;
+	font-size: 0.8em;
+	color:#999;
+}
+.goods_info{
+	padding:2px 8px;
+	font-size:0.8em;
+	color: #999;
+	height:30px;
+	line-height:30px;
+}
+.goods_info img{
+	vertical-align:middle;
+	width: 12px;
+	height: 12px;
+}
+.good_num{
+	padding:2px 8px;
+	font-size:0.8em;
+	color: #999;
+	height:30px;
+	line-height:30px;	
+}
+.minus,.plus{
+	padding:2px 8px;
+	border:1px solid #ccc;
+	cursor: pointer;
+} 
+.num{
+	padding:2px 8px;
+	border-top:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+	color:red;
+} 
+.good_but{
+	padding:8px 8px;
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+	-webkit-box-align:center;
+    -webkit-flex-flow: row;
+    flex-flow: row;
+}
+.good_but .but_buy,.good_but .but_add{
+	-webkit-box-flex: 1; 
+    -webkit-flex: 1;
+    flex: 1;
+    text-align: center;
+    border:1px solid red;
+    padding: 6px 0;
+    background: red;
+    color:#fff;
+    font-size: 0.8em;
+}
+
+.comment-detail{
+	padding:0px 8px;
+	font-size: 0.9em;
+	height:30px;
+	line-height: 30px;
+	border-bottom: 1px  solid #F9F9F9;
+}
+
+.comment-detail div span{
+	display: block;
+	float: left;
+	margin-right:20px;
+	color:#999;
+	padding: 0 2px;
+}
+.comment-detail div .active{
+	color:red;
+	border-bottom: 1px solid red;
+	font-weight: bold; 
+}
+.comment-list{
+	padding: 8px;
+	border-bottom: 1px solid #F9F9F9;
+}
+.comment-wap{
+	min-height: 150px;
+}
+.detail-wap{
+	padding: 8px;
+	font-size: 0.9em;
+	color:#999;
+	min-height: 150px;
+}
+.detail-wap img{
+	width: 100%;
+}

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>{:config('web_site_title')}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/icons-extra.css" />
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/cart.css" />
+	</head>
+
+	<body>
+
+		<style>
+			b{
+				color: #FF2D4B;
+				font-size: 18px;
+			}	
+			.mui-control-content {
+				background-color: white;
+				min-height: 215px;
+			}
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			.my-order-body{ width: 100%;}
+			.my-order-body a{ width:25%; display: block; float: left;color:#999; margin-top: 15px;}
+			.my-order-header a{color:#999}
+			.my-order-body a span{ width: 100%; float: left; text-align: center;font-size: 14px;}
+			.my-order-body a span img{ height:24px;}
+			
+</style>
+		<div id="h-nav" style="position:fixed;top:45px;background:#000;z-index:9999;color:#fff;width:100%;height:100%;filter:alpha(opacity=80); -moz-opacity:0.8;-khtml-opacity: 0.8; opacity: 0.8;display:none">
+			<ul style="list-style:none;margin-left:20px;line-height:250%">
+				{:get_nav()}
+			</ul>
+		</div>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav" style="background: #FF2D4B;">
+			<a onclick="history.go(-1)" class="mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;"></a>
+			<a class="mui-icon mui-icon-extra mui-icon-extra-class mui-pull-right" style="color: #fff;"></a>
+			<h1 class="mui-title" style="color:#fff">我的</h1>
+		</header>
+		<!-- 头部结束 -->
+		<div class="mui-content">
+			<div style='height: 10px;'></div>
+			<div class="username-box" style='background-color: #fff;height: 80px;padding: 15px 0;'>
+				<p class="mui-ellipsis" style='margin-left:15px; font-size: 18px;color:#333'>{$userInfo['nickname']}</p>
+			</div>
+			<div style='height: 10px;'></div>
+			<div class='my-order' style='background-color: #fff;height: 120px;padding: 15px 0;'>
+				<div class='my-order-header' style='float: left; width: 100%; height: 30px;border-bottom: 1px solid #f0f0f0'>
+					<span style='float: left;margin-left:15px;'>我的订单</span>
+					<a href="{:url('order/orderLists')}"><span style='float: right;margin-right:15px; font-size: 12px;'>查看全部订单 ></span></a>
+				</div>
+				<div class='my-order-body' style='float: left;'>
+					<a href="{:url('order/orderLists',['status'=>'nopaid'])}">
+						<span><img src='{:config('theme_path')}/wap/images/daifukuan.png'></span>
+						<span>待付款<b>{:get_user_order_num('nopaid')}</b></span>
+					</a>
+					<a href="{:url('order/orderLists',['status'=>'paid'])}" >
+						<span><img src='{:config('theme_path')}/wap/images/daifahuo.png'></span>
+						<span>待发货<b>{:get_user_order_num('paid')}</b></span>
+					</a>
+					<a href="{:url('order/orderLists',['status'=>'shipped'])}">
+						<span><img src='{:config('theme_path')}/wap/images/daishouhuo.png'></span>
+						<span>待收货<b>{:get_user_order_num('shipped')}</b></span>
+					</a>
+					<a href="{:url('comment/ordersNocomment')}">
+						<span><img src='{:config('theme_path')}/wap/images/flower.png'></span>
+						<span>待评价<b>{:get_user_uncomment_order_num()}</b></span>
+					</a>
+				</div>
+			</div>
+			<div style='height: 10px;'></div>
+				<ul class="mui-table-view mui-grid-view mui-grid-9" style='background-color: #fff;'>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+						<a href="{:url('collection/collection')}">
+		                    <span class="mui-icon">
+								<img src="{:config('theme_path')}/wap/images/my.png" height=30>
+							</span>
+		                    <div class="mui-media-body">我的收藏</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+						<a href="{:url('comment/CommentList')}">
+		                    <span class="mui-icon">
+								<img src="{:config('theme_path')}/wap/images/comment.png" height=30>
+							</span>
+		                    <div class="mui-media-body">我的评论</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+						<a href="{:url('cart/index')}">
+		                    <span class="mui-icon">
+								<img src="{:config('theme_path')}/wap/images/cart.png" height=30>
+							</span>
+		                    <div class="mui-media-body">购物车</div>
+						</a>
+					</li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+						<a href="{:url('Address/userAddress')}">
+		                    <span class="mui-icon">
+								<img src="{:config('theme_path')}/wap/images/address.png" height=30>
+							</span>
+		                    <div class="mui-media-body">收货地址</div>
+						</a>
+					</li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+						<a href="{:url('user/userProfile')}">
+		                    <span class="mui-icon">
+								<img src="{:config('theme_path')}/wap/images/setting.png" height=30>
+							</span>
+		                    <div class="mui-media-body">设置</div>
+						</a>
+					</li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+						<a href="{:url('article/page?name=shopping')}">
+		                    <span class="mui-icon">
+								<img src="{:config('theme_path')}/wap/images/gouwuzhinan.png"height=30>
+							</span>
+		                    <div class="mui-media-body">购物指南</div>
+						</a>
+					</li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+						<a href="{:url('article/page?name=service')}">
+		                    <span class="mui-icon">
+								<img src="{:config('theme_path')}/wap/images/shouhuofuwu.png"height=30>
+							</span>
+		                    <div class="mui-media-body">售后服务</div>
+						</a>
+					</li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+						<a href="{:url('article/page?name=payway')}">
+		                    <span class="mui-icon">
+								<img src="{:config('theme_path')}/wap/images/zhifufangshi.png" height=30>
+							</span>
+		                    <div class="mui-media-body">支付方式</div>
+						</a>
+					</li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+						<a href="{:url('article/page?name=distributionway')}">
+		                    <span class="mui-icon">
+								<img src="{:config('theme_path')}/wap/images/peisongfangshi.png" height=30>
+							</span>
+		                    <div class="mui-media-body">配送方式</div>
+						</a>
+					</li>
+		        </ul>
+			<div style='height: 10px;'></div>
+		</div>
+		
+<script src="{:config('theme_path')}/wap/js/mui.js"></script>
+<script src="{:config('theme_path')}/wap/js/jquery.min.js"></script>		
+		<!-- 底部 -->
+<div style='height: 50px;'></div>
+{template file="wap/footer.html" /}
+	 <!-- 底部结束 -->
+
+		<script>
+			$(function(){
+				$('.mui-icon-extra').click(function(){
+					$('#h-nav').slideToggle();
+				})
+			})
+		</script>
+		
+	</body>
+
+</html>

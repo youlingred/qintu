@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>Minishop电子商城</title>
+
+<!-- Bootstrap -->
+<link href="{:config('theme_path')}/index/css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="{:config('theme_path')}/index/css/common.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/goods.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/car.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+{template file="index/header.html" /}
+<!--main start-->
+<div class="main">
+  <div class="container">
+	<div class="goods-cate-bar">
+    	<div class="gcb-left">
+        	<div class="gbc-left-title">
+              全部商品
+            </div>
+        </div>
+    	<div class="gcb-right">
+        	<div class="gbc-right-list">
+            	<ul>
+                	{volist name="$parentCate" id="data" key="k"}
+                        {eq name="k" value="1"}
+                            {eq name="$parent['name']" value="$data['name']"}
+                                <li><a href="{:url('goods/lists?category='.$data['slug'])}" class="active">{$data['name']}</a></li>
+                            {else/}    
+                                <li><a href="{:url('goods/lists?category='.$data['slug'])}">{$data['name']}</a></li>
+                            {/eq}
+                        {else/}    
+                            {eq name="$parent['name']" value="$data['name']"}
+                                <li>|</li>
+                                <li><a href="{:url('goods/lists?category='.$data['slug'])}" class="active">{$data['name']}</a></li>
+                            {else/}    
+                                <li>|</li>
+                                <li><a href="{:url('goods/lists?category='.$data['slug'])}">{$data['name']}</a></li>
+                            {/eq}
+                        {/eq}
+                    {/volist}
+                </ul>
+            </div>
+            <div class="gcb-right-order">
+            	<ul>
+                	<li><a href="{:url('goods/lists?category='.$categoryInfo['slug'])}"><img src="{:config('theme_path')}/index/images/11.png"></a><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&type=2')}"><img src="{:config('theme_path')}/index/images/2.png"></a></li>
+                        {switch name="$sort"}
+                            {case value="default"}
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=priceup&type=2')}">价格 </a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=scoreup&type=2')}">评分 </a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=sellup&type=2')}">销量 </a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=default&type=2')}" style="color:red">默认</a></li>
+                            {/case}
+                            {case value="sellup"}
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=priceup&type=2')}">价格 </a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=scoreup&type=2')}">评分</a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=selldown&type=2')}">销量 <img style="margin-top:-2px;" src="{:config('theme_path')}/index/images/arrow_11.png"></a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=default&type=2')}" style="color:red">默认</a></li>
+                            {/case}
+                            {case value="selldown"}
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=priceup&type=2')}">价格 </a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=scoreup&type=2')}">评分 </a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=sellup&type=2')}">销量 <img style="margin-top:-2px;" src="{:config('theme_path')}/index/images/arrow_1.png"> </a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=default&type=2')}" style="color:red">默认</a></li>
+                            {/case}
+                            {case value="scoreup"}
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=priceup&type=2')}">价格 </a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=scoredown&type=2')}">评分 <img style="margin-top:-2px;" src="{:config('theme_path')}/index/images/arrow_11.png"></a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=sellup&type=2')}">销量 </a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=default&type=2')}" style="color:red">默认</a></li>
+                            {/case}
+                            {case value="scoredown"}
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=priceup&type=2')}">价格 </a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=scoreup&type=2')}">评分 <img style="margin-top:-2px;" src="{:config('theme_path')}/index/images/arrow_1.png"></a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=sellup&type=2')}">销量 </a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=default&type=2')}" style="color:red">默认</a></li>
+                            {/case}
+                            {case value="priceup"}
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=pricedown&type=2')}">价格 <img style="margin-top:-2px;" src="{:config('theme_path')}/index/images/arrow_11.png"></a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=scoreup&type=2')}">评分 </a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=sellup&type=2')}">销量 </a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=default&type=2')}" style="color:red">默认</a></li>
+                            {/case}
+                            {case value="pricedown"}
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=priceup&type=2')}">价格 <img style="margin-top:-2px;" src="{:config('theme_path')}/index/images/arrow_1.png"></a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=scoreup&type=2')}">评分 </a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=sellup&type=2')}">销量 </a></li>
+                                <li><a href="{:url('goods/lists?category='.$categoryInfo['slug'].'&sort=default&type=2')}" style="color:red">默认</a></li>
+                            {/case}
+                            {default /}
+                        {/switch}
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="goods-cate-box">
+		<div class="gc-box-left">
+        	<div class="goods-subcate-bar">
+            	<ul>
+                	{volist name="$selfCate" id="data" key="k"}
+                        {eq name="k" value="1"}
+                            {eq name="$categoryInfo['name']" value="$data['name']"}
+                                <li><a href="{:url('goods/lists?category='.$data['slug'])}" class="active">{$data['name']}</a></li>
+                            {else/}    
+                                <li><a href="{:url('goods/lists?category='.$data['slug'])}">{$data['name']}</a></li>
+                            {/eq}
+                        {else/}    
+                            {eq name="$categoryInfo['name']" value="$data['name']"}
+                                <li>|</li>
+                                <li><a href="{:url('goods/lists?category='.$data['slug'])}" class="active">{$data['name']}</a></li>
+                            {else/}    
+                                <li>|</li>
+                                <li><a href="{:url('goods/lists?category='.$data['slug'])}">{$data['name']}</a></li>
+                            {/eq}
+                        {/eq}
+                    {/volist}  
+                </ul>
+                <div style="clear:both;"></div>
+            </div>
+            <div class="goods-cate-list">
+				<div class="row" style="margin-left:-5px;">
+					
+
+
+                    {volist name="list" id="data" }
+                    <div class="line-style">
+                    	<div class="line-style-left">
+                        	<a href="#">
+                             {empty name="$data['cover_path']"}
+                                <img width="266" height="167" src="{:config('theme_path')}./index/images/irc_defaut.png">
+                                {else /}
+                                <img width="266" height="167" src="{:root_path()}{$data['cover_path']}">
+                                {/empty}   
+                            </a>
+                        </div>
+                    	<div class="line-style-right">
+                        	<div style="width:610px; float:left;">
+                            	<div style="float:left;">
+                            		<a style="font-size:18px; font-weight:bold; color:#333333;"  href="#">{$data['name']}</a>
+                            	</div> 
+                            	<a href="#"><img style="float:right; margin-right:20px;" dataname="{$data['name']}" dataprice="{$data['price']}" dataid="{$data['id']}" class="addcar" src="{:config('theme_path')}/index/images/shopping_cart_big.png"></a>
+                            </div>
+                        	<div style="width:610px; float:left; margin-top:10px;color:#666666;font-size:16px;">规格：{$data['standard']}</div>
+                        	<div style="width:610px; float:left; height:40px;">
+                            	<div style="float:left; color:#ff2c4c; font-size:16px; margin-top:20px;">
+                            		<img src="{:config('theme_path')}/index/images/sales_heat_big.png"> 月销量:{$data['sell_num']}
+                            	</div>
+                            	<div style="float:right;">
+                            		<a style="font-size:38px; font-weight:bold; color:#333333;margin-right:20px;color:#ff2c4c;"  href="#">￥{$data['price']}</a>
+                            	</div> 
+                            </div>
+                        	<div style="width:610px; float:left; margin-top:10px;color:#666666;font-size:16px;">
+                            	<div style="float:left; color:#ff2c4c; font-size:16px; margin-top:20px;">
+                            		<img src="{:config('theme_path')}/index/images/collection_big.png"> 888
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <img src="{:config('theme_path')}/index/images/evaluation_big.png">
+                                    <img src="{:config('theme_path')}/index/images/evaluation_big.png">
+                                    <img src="{:config('theme_path')}/index/images/evaluation_big.png">
+                                    <img src="{:config('theme_path')}/index/images/evaluation_big.png">
+                                    <img src="{:config('theme_path')}/index/images/evaluation_big.png">
+                            	</div>
+                            	<div style="float:right;margin-top:15px;">
+                            		<a id="more" class="more-big-off" href="#"> </a>
+                            	</div> 
+                            </div>
+                            
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+                    {/volist}
+                    
+            	</div>
+            </div>
+            <div class="page">
+				{$page}
+            </div>
+        </div>
+        
+		<div class="gc-box-right">
+        	<div class="gcbr-bar">
+            	<div class="gcbrb-left">推荐商品</div>
+            </div>
+            <div class="gcbr-box">
+            	{banner name='banner' pos="1"}
+                <div class="gcbr-box-item">
+                    <a href="{:url($banner.link)}">
+                    <img class="gcbrbi-conimg" src="{:root_path()}{$banner.banner_path}"/></a>
+                </div>
+                {/banner}
+            </div>
+
+        </div>
+    </div>
+    
+    
+    
+  </div>
+</div>
+<!-- 购物车begin -->
+<div class="car">
+  <div class="car-wap">
+  <div class="car-top">
+    <span>购物车</span>
+    <span id="car-clear">[清空]</span>
+  </div>
+  <div class="car-list">
+    <table class="table" id="table">
+      <tr class="th">
+        <td class="car-list-product">产品</td>
+        <td class="car-list-num">数量</td>
+        <td class="car-list-price th">单价</td>
+      </tr>
+    </table>
+  </div>
+  </div>
+  <div class="car-footer">
+    <div id="car-icon"><i id="end"></i>共<span id="money">0.00</span>元</div>
+    <div>去结算</div>
+  </div>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script> 
+<!-- 购物车 -->
+<script src="{:config('theme_path')}/index/js/jquery.cookie.js"></script>
+<script type="text/javascript">
+    var car_path = '{:config('theme_path')}/index/images/';
+</script>
+<script src="{:config('theme_path')}/index/js/jquery.car.js"></script>
+<!-- 购物车end -->
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+<!--main end-->
+<!--footer start-->
+{template file="index/footer.html" /}
+<!--footer end-->
+
+<script>
+$(function(){
+	$('.goods-item').hover(function(){
+		$('.mark',this).fadeIn();
+		$('.more',this).fadeIn();
+	},function(){
+		$('.mark',this).fadeOut();
+		$('.more',this).fadeOut();
+	});
+	//图片放大效果 开始
+	$(".gcbr-box-item").hover(function() {
+		$(this).find(".gcbrbi-conimg").stop().animate({"width":222,"height":271});
+	}, function() {
+		$(this).find(".gcbrbi-conimg").stop().animate({"width":201,"height":261});
+	})
+	//图片放大效果 结束
+   
+    //加入购物车
+    $('.addcar').on('click',addProduct);
+});
+</script>
+<script>
+$(document).ready(function(e) {
+    $("div #more").hover(function(){
+		$(this).removeClass("more-big-off");
+		$(this).addClass("more-big-on");
+	},function(){
+		$(this).removeClass("more-big-on");
+		$(this).addClass("more-big-off");
+	});
+});
+</script>
+
+
+</body>
+</html>

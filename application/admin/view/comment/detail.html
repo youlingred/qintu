@@ -1,0 +1,235 @@
+{include file="common:head"}
+<link rel="stylesheet" type="text/css" href="STATIC_PATH/plugins/webuploader/css/webuploader.css" />
+<link rel="stylesheet" type="text/css" href="STATIC_PATH/plugins/webuploader/examples/image-upload/style.css" />
+<script src="STATIC_PATH/plugins/jQuery/jquery-1.9.1.min.js"></script>
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+  <style type="text/css">
+    label {
+    display: inline-block;
+    font-weight: 700;
+    margin-bottom: 5px;
+    max-width: 100%;
+    font-size: 12px;
+    }
+  </style>
+{include file="common:header"}
+<!-- Left side column. contains the logo and sidebar -->
+{include file="common:navbar"}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+       评论管理
+        <small>审核评论</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{:url('admin/index/index')}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{:url('admin/comment/index')}">评论管理</a></li>
+        <li class="active"><a href="{:url('admin/comment/detail')}">审核评论</a></li>
+      </ol>
+    </section>
+ 
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">审核评论</h3>
+              
+            </div>
+            <div class="box-body no-padding">
+              <form method="post"  action="{:url('admin/comment/edit')}" id="comment">
+                <div class="box-body">
+                    <input type="hidden" id="comment_id" class="" value="{$commentInfo.id}" />
+                    <div class="form-group">
+                    <label for="link_name" id="uname_label" class="">
+                      操作用户
+                    </label>
+                    <input class="form-control" id="comment_uid" name="comment_uid" value="{$commentInfo.uid|get_userinfo=###,'username'}" placeholder="操作用户" type="text" readonly="text">
+                    <input name="id" hidden="hidden" value="{$commentInfo.uid|get_userinfo=###,'username'}">
+                  </div>
+                  <div class="form-group">
+                    <label for="link_name" id="uname_label" class="">对应文章id</label>
+                    <input class="form-control" id="comment_name" name="comment_name" value="{$commentInfo['id']}" placeholder="对应文章id" type="text" readonly="text">
+                    <input name="id" hidden="hidden" value="{$commentInfo['id']}">
+                  </div>
+                  <div class="form-group">
+                    <label for="comment_order" class="">订单号</label>
+                    <input class="form-control" id="comment_order" name="comment_order" value="{$commentInfo['order_id']}" placeholder="订单号" type="text" readonly="text">
+                  </div> 
+                  <div class="form-group">
+                    <label for="comment_order" class="">评论内容</label>
+
+                    <textarea class="form-control" id="comment_order" name="comment_order" value="" placeholder="评论内容" type="text" readonly="text" style="height:100px;width:100%;" >{$commentInfo['content']}</textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="comment_createtime" class="">评论时间</label>
+                    <input class="form-control" id="comment_createtime" name="comment_createtime" value="{$commentInfo['createtime']|date='Y-m-d H:i:s',###}" placeholder="评论时间" type="text/plain" readonly="time">
+                  </div>                 
+                  <div class="form-group">
+                    <label for="target" class="">审核状态</label>
+                    <select class="form-control" id="approved" name="approved">
+                      {eq name="commentInfo.approved" value="0"}
+                        <option value="0" selected="selected">待审核</option>
+                        <option value="1">已审核</option> 
+                      {else /}
+                        <option value="0" >待审核</option>
+                        <option value="1" selected="selected">已审核</option>  
+                      {/eq}  
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="description" class="">商品评分</label>
+                    <input class="form-control" name="description" id="description" value="{$commentInfo['score']}分" placeholder="商品评分" type="text" readonly="text">
+                  </div>
+                  <div class="form-group">
+                    <label for="visible" class="">显示</label>
+                    <select class="form-control" id="visible" name="visible">
+                      {eq name="commentInfo.status" value="1"}
+                        <option value="-1" >删除</option>
+                        <option value="1"  selected="selected">正常</option> 
+                      {else /}
+                        <option value="-1" selected="selected">删除</option>
+                        <option value="1" >正常</option>   
+                      {/eq}           
+                    </select>
+                  </div>                                    
+                  <div class="pull-right">
+                    <button class="btn btn-success" onclick="javascript:history.back(-1);return false;">返 回</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-primary submit">确 定</button>
+                  </div>
+                </div>
+              </form>
+
+<script type="text/javascript"> 
+    //修改审核、状态
+    $('.submit').click(function(){
+      var id       = $("#comment_id").val();
+      var approved = $("#approved").val();
+      var visible  = $("#visible").val();
+      $.ajax({
+        cache:true,
+        type :"POST",
+        url  :'{:url('comment/edit')}',
+        data :{
+          "approved"  :approved,
+          "visible"   :visible,
+          "id"        :id
+        },
+        async:false,
+           success:function(data){
+            if(data.code){
+              msgok(data.msg);
+              setTimeout(function(){
+                location.href=data.url;
+              },1000);
+            } else {
+              msgerr(data.msg);
+            }
+           },
+           error:function(request){
+            msgerr("页面错误");
+           }
+      });        
+    });
+
+</script>
+             
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /. box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  
+  {include file="common:footer"}
+</div>
+<!-- ./wrapper -->
+<script type="text/javascript">
+  var uploadPictuer     = '{:url('Upload/uploadPicture')}';  
+</script>
+
+<script type="text/javascript" src="STATIC_PATH/plugins/webuploader/dist/webuploader.js"></script>
+<script type="text/javascript" src="STATIC_PATH/plugins/webuploader/examples/image-upload/upload.js"></script>
+<!-- jQuery 2.2.0 -->
+
+<script src="STATIC_PATH/plugins/jQueryUI/jquery-ui.min.js"></script>
+<script type="text/javascript">
+  $('document').ready(function (argument) {
+    $('#addCategoryFormSubmit').click(function () {
+      $.ajax({
+        cache: true,
+        type: "POST",
+        url : $('#addCategoryForm').attr('action'),
+        data: $('#addCategoryForm').serialize(),
+        async: false,
+        success: function(data) {
+          if (data.code) {
+              msgok(data.msg);
+              setTimeout(function () {
+                location.href = data.url;
+              }, 1000);
+          } else {
+              msgerr(data.msg);
+          }
+
+        },
+        error: function(request) {
+        msgerr("页面错误");
+        }
+      });
+
+    });
+
+    $('.insert_images').on('click',function () {
+      var list = new Array(); //定义一数组
+      list = $('#img_list').val().split(","); //字符分割
+      //下面使用each进行遍历
+      var text = '';
+      $.each(list,function(n,value) {
+        if (value !== null && value !== undefined && value !== '') {
+          text = text+"<div class='form-group'><img class='cover_path' style='max-height:150px;' src='ROOT_PATH"+value+"'></div>";
+          $('#img_list').val(value);
+        }
+      });
+      $('.cover_show').empty();
+      $('.cover_show').html(text);
+      uploader = "<div class='queueList'><div id='dndArea' class='placeholder'><div id='filePicker'></div></div></div><div class='statusBar' style='display:none;'><div class='progress' style='position:relative;'><span class='text'>0%</span><span class='percentage'></span></div><div class='info'></div><div class='btns'><div class='uploadBtn'>开始上传</div></div></div>";
+      // 重置uploader
+      $('#uploader').html(uploader);
+      // 隐藏Modal
+      $('#myModal').modal('hide');
+    });
+  });
+</script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="STATIC_PATH/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

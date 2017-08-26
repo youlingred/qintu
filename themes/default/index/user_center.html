@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>{:config('web_site_title')}</title>
+<meta name="keywords" content="{:config('web_site_keyword')}"/>
+<meta name="description" content="{:config('web_site_description')}"/>
+<!-- Bootstrap -->
+<link href="{:config('theme_path')}/index/css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="{:config('theme_path')}/index/css/common.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/user_center.css" rel="stylesheet">
+<!-- <link href="{:config('theme_path')}/index/css/car.css" rel="stylesheet"> -->
+<!--[if lt IE 9]>
+    <script src="{:config('theme_path')}/index/js/html5shiv.min.js"></script>
+    <script src="{:config('theme_path')}/index/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+{template file="index/header.html" /}
+
+<!--main start-->
+<div class="main" style=" ">
+  <div class="container">
+    <div class="row">
+    <!--左栏目 start-->
+    {template file="index/header_nav.html" /}
+    <!--左栏目 end-->
+     
+      <!--个人中心 start-->
+      <div class="col-xs-9 " >
+       <div class="user-center">
+        <p class="user-title"><span>个人中心</span></p>
+        <div class="user-content">
+          <div class="information-title"><span>您的基本信息</span></div>
+          
+<!--不同部分 start-->
+          <div class="information">
+            <img src="{:config('theme_path')}/index/images/help_icon_02.png" />
+            <div class="information-text">
+              <p>会员名 :<span>{empty name="userinfo"}
+                  未设置
+                  {else /}
+                  {$userinfo['username']}
+                  {/empty}</span></p>
+              <p>绑定手机号 :<span style="margin-left:20px">{empty name="userinfo"}
+                  未设置
+                  {else /}
+                  {$userinfo['mobile']}
+                  {/empty}</span></p>
+              <p class="login-time">上次登录时间 :&nbsp;&nbsp;&nbsp; 
+              {empty name="userinfo"}
+                  这是您首次登陆
+                  {else /}
+                  {$userinfo['last_login']|date="Y-m-d H:i:s",###}
+                  {/empty}</p>
+            </div>
+            
+          </div>
+          <!--安全服务 start-->
+          <div class="information-title" style="margin-top:150px"><span>您的安全服务</span></div>
+          <div class="safety">
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <table class="table" style="margin-top:20px;">
+                <tr>
+                  <td width="15%" style="padding-top:20px;padding-bottom:20px">
+                    <div><img src="{:config('theme_path')}/index/images/completed.png" width="30px" height="30px" /></div>
+                    <div style="margin-top:6px;color:#999">已设置</div>
+                  </td>
+                  <td width="15%"><div style="margin-top:10px;">登录密码</div></td>
+                  <td width="50%"><div style="padding-right:20px;margin-top:10px;">安全性高的密码可以使账号更安全,建议您定期更换密码,且设置一个包含数字、字幕组合的密码,并且长度大于6位</div></td>
+                  <td width="20%"><a href="{:url('user/editPassword')}" class="u-safe-button">修改</a></td>
+                </tr>
+                <tr>
+                  <td  style="padding-top:20px;padding-bottom:20px">
+                    <div><img src="{:config('theme_path')}/index/images/completed.png" width="30px" height="30px" /></div>
+                    <div style="margin-top:6px;color:#999">已绑定</div>
+                  </td>
+                  <td><div style="margin-top:10px;">手机号</div></td>
+                  <td><div style="padding-right:20px;margin-top:10px;">绑定手机号可用于账户登录,找回密码</div></td>
+                  <td><a href="{:url('user/editMobile')}" class="u-safe-button">修改</a></td>
+                </tr>
+                <tr>
+                  <td style="padding-top:20px;padding-bottom:20px">
+                    <div><img src="{:config('theme_path')}/index/images/completed.png" width="30px" height="30px" /></div>
+                    <div style="margin-top:6px;color:#999">已设置</div>
+                  </td>
+                  <td><div style="margin-top:10px;">个人资料</div></td>
+                  <td><div style="padding-right:20px;margin-top:10px;">显示您的个人信息,昵称、邮箱等</div></td>
+                  <td><a href="{:url('user/editProfile')}" class="u-safe-button">修改</a></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+
+
+<!--           <div class="col-xs-1" >
+          </div>
+
+           <div class="col-xs-3 safety-left" >            
+              <img src="{:config('theme_path')}/index/images/completed.png" width="30px" height="30px" />
+              <p class="safety-font">已设置</p>
+              <div class="safety-pass">
+              <p style="font-size:16px">登录密码</p>
+             </div>
+            </div>
+            <div class="col-xs-5"  >
+              <div class="safety-center">
+              <p>安全性高的密码可以使账号更安全,建议您定期更换密码,且设置一个包含数字、字幕组合的密码,并且长度大于6位</p>
+              </div>
+            </div>
+
+            <div class="col-xs-3">
+            <div class="safety-right">
+            <a href="#" onclick="window.location.href='{:url('user/editPassword')}'"><button type="button"class="safety-button"onmouseover="this.style.backgroundColor='#FF2D4B';this.style.color='#FFF'" 
+             onmouseout="this.style.backgroundColor='';this.style.color='#808080'">修改</button></a>
+              </div>
+            </div>
+            <div class="bottom-line"></div>
+          </div>
+        
+          <div class="safety">
+          <div class="col-xs-1" >
+          </div>
+           <div class="col-xs-3 safety-left" >            
+              <img src="{:config('theme_path')}/index/images/completed.png" width="30px" height="30px" />
+              <p class="safety-font">已绑定</p>
+              <div class="safety-pass">
+              <p style="font-size:16px;">手机号</p>
+             </div>
+            </div>
+            <div class="col-xs-5">
+              <div class="safety-center">
+              <p>绑定手机号可用于账户登录,找回密码</p>
+              </div>
+            </div>
+
+            <div class="col-xs-3">
+            <div class="safety-right"style="margin-left:40px">
+            <a href="#"onclick="window.location.href='{:url('user/editMobile')}'">
+            <button type="button"class="safety-button"onmouseover="this.style.backgroundColor='#FF2D4B';this.style.color='#FFF'" 
+             onmouseout="this.style.backgroundColor='';this.style.color='#808080'">修改</button></a>
+            </div>
+            </div>
+            <div class="bottom-line"></div>
+          </div>
+          
+          <div class="safety">
+          <div class="col-xs-1" >
+          </div>
+           <div class="col-xs-3 safety-left" >            
+              <img src="{:config('theme_path')}/index/images/completed.png" width="30px" height="30px" />
+              <p class="safety-font">已设置</p>
+              <div class="safety-pass">
+              <p style="font-size:16px;">个人资料</p>
+             </div>
+            </div>
+            <div class="col-xs-5">
+              <div class="safety-center">
+              <p>显示您的个人信息,昵称、邮箱等</p>
+              </div>
+            </div>
+
+            <div class="col-xs-3">
+            <div class="safety-right"style="margin-left:40px">
+            <a href="#"onclick="window.location.href='{:url('user/editProfile')}'">
+            <button type="button"class="safety-button"onmouseover="this.style.backgroundColor='#FF2D4B';this.style.color='#FFF'" 
+             onmouseout="this.style.backgroundColor='';this.style.color='#808080'">修改</button></a>
+            </div>
+            </div>
+            <div class="bottom-line"></div> -->
+          </div>
+
+<!--不同部分 end-->
+        
+        </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+</div>
+<!--main end-->
+
+
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script>  
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+<!--footer start-->
+{template file="index/footer.html" /}
+<!--footer end-->
+
+
+<script>
+  // window.onload = function(){
+  //   var divs = document.getElementsByTagName(" p");
+  //   var len = divs.length;
+  //   for(var i=0;i<len;i++){
+  //     divs[i].onclick = function(){
+  //       for(var j=0;j<len;j++){
+  //         divs[j].style.backgroundColor = "#FFFFFF";
+  //       }
+  //       this.style.backgroundColor = "red";
+  //     };
+  //   }
+  // };
+
+  $('.u-safe-button').mouseover(function(){
+    $(this).addClass('u-safe-button-hover');
+  })
+   $('.u-safe-button').mouseout(function(){
+    $(this).removeClass('u-safe-button-hover');
+  })
+
+  //帮助中心
+  $(function(){
+    //高亮导航
+    var curWwwPath = window.document.location.href;   
+    var pathName = window.document.location.pathname; 
+    // alert($('.order-content').children('div').children('span').children('a').attr('href'));
+    $('.account-content').children('div').each(function(){
+       url = $(this).children('span').children('a').attr('href');
+       if(url == String(pathName)){
+
+          $(this).addClass('navhover');
+       }
+    });
+
+    //帮助中心
+      $('.show-sub').click(function(){
+        $($(this).parent().siblings().children('ul:visible').prev('span')).toggleClass('visted');
+        $($(this).parent().siblings().children('ul:visible')).slideToggle();
+        $($(this).parent().siblings().children('ul:visible').prev('span').children('i')).toggleClass('glyphicon-down');
+
+        $(this).toggleClass('visted');
+        $(this).next('ul').slideToggle();
+        $(this).children('i').toggleClass('glyphicon-down');
+      })
+  })
+</script>
+</body>
+</html>

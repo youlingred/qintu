@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>{:config('web_site_title')}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/icons-extra.css" />
+
+	</head>
+
+	<body onload="loaded()">
+
+		<style>
+			.mui-control-content {
+				background-color: white;
+				min-height: 215px;
+			}
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			.mui-search .mui-placeholder .mui-icon{font-size: 16px; color:#FF2D4B; float:right;margin-right: 2px;}
+			.mui-search.mui-active::before {
+				display: block;
+				font-size: 16px;
+				color:#FF2D4B;
+				left: 5px;
+				margin-right: 0;
+				right: auto;
+			}
+			.mui-segmented-control.mui-scroll-wrapper .mui-control-item{padding:0; margin:0 10px;}
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+				border-bottom: 2px solid #fe2d4c;
+				color: #fe2d4c;
+			}
+			.header-form{ margin-top:-28px;}
+			.goods-cate{padding: 10px 8px;}
+			.goods-cate a{color:#999999;font-size: 12px;}
+			.hot-goods{ background: #fff; margin-top: 10px; padding-bottom: 0px; padding-left: 15px; padding-right: 15px; padding-top: 10px;}
+			.line{ margin-top:0px !important; padding:0 4px;}
+			.line1,.line2{ margin-top:8px !important; padding:0 4px; margin-bottom:5px;}
+			.line2{ text-align: left; height: 15px; line-height: 15px;}
+			.line a{ font-size: 14px; float: left;color:#333;}
+			.line1 a{font-size: 14px; float: left;}
+			.line2 a{font-size:12px;float: left;color:#999;}
+			.goods-box{ display: block; border: 1px solid #e5e5e5;}
+			.news-box{margin:0 4px; border-bottom: 1px solid #e5e5e5;}
+			.mui-table-view::before {
+				background-color: #fff !important;
+			}
+			.mui-table-view::after {
+				background-color: #fff !important;
+			}
+			.mui-active {
+				color: #ff2d4b !important;
+			}
+		</style>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav" style="background: #FF2D4B;">
+			<a href='{:url('index')}'><img src='{:config('theme_path')}/wap/images/logo_index.png' height=20 style='margin-top:12px;'></a>
+          	{if condition="session('wap_user_auth.nickname')"}
+				<a href='{:url('user/userCenter')}' class="mui-pull-right" style="color: #fff; font-size: 12px;margin-top: 12px;">个人中心</a>
+          	{else/}
+				<a href='{:url('base/register')}' class="mui-pull-right" style="color: #fff; font-size: 12px;margin-top: 12px;">注册</a>
+				<a class="mui-pull-right" style="color: #fff; font-size: 12px;margin-top: 12px;">&nbsp;|&nbsp;</a>
+				<a href='{:url('base/login')}' class="mui-pull-right" style="color: #fff; font-size: 12px;margin-top: 12px;">登录</a>
+			{/if}
+			<form class='header-form'>
+				<div class="mui-input-row mui-search" style="width:50%;top:-4px;left: 50%;transform: translate(-50%);">
+					<input type="search" class="mui-input-clear" style="background-color: white;border-radius: 50px; height: 22px;" placeholder="">
+				</div>
+			</form>
+		</header>
+		<!-- 头部结束 -->
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<div class="mui-scroll" id="scroller">
+					{nav name = "nav"}
+						<a href="{:url($nav['url'])}" class="mui-control-item">
+							{$nav.name}
+						</a>
+					{/nav}
+				</div>
+			</div>
+			<div style='height:2px;'></div>
+			<div class="mui-slider" id="slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<!--支持循环，需要重复图片节点-->
+					{banner name='banner' pos="3"}
+						<div class="mui-slider-item {eq name="key" value="0"}mui-slider-item-duplicate{/eq}"><a href="{:url($banner.link)}"><img src="{:root_path()}{$banner.banner_path}" /></a></div>
+					{/banner}
+				</div>
+				<div class="mui-slider-indicator">
+					{banner name='banner' pos="3"}
+						<div class="mui-indicator {eq name="key" value="0"}mui-active{/eq}"></div>
+					{/banner}
+				</div>
+			</div>
+			<!--商品分类开始-->
+			<div class="mui-row" style='text-align: center; background-color: #fff;'>
+				<div class="mui-row" style='margin: 0 auto; width: 330px;'>
+					<div class="mui-col-sm-2">
+						<div class="mui-table-view-cell mui-media goods-cate">
+								<p><a href='{:url('goods/lists','category=cabbage')}'><img height=50 src="{:config('theme_path')}/wap/images/icon_11.png"></a></p>
+								<p><a href='{:url('goods/lists','category=cabbage')}'>蔬菜类</a></p>
+						</div>
+					</div>
+					<div class="mui-col-sm-2">
+						<div class="mui-table-view-cell  mui-media goods-cate">
+								<p><a href='{:url('goods/lists','category=ganguo')}'><img height=50 src="{:config('theme_path')}/wap/images/icon_22.png"></a></p>
+								<p><a href='{:url('goods/lists','category=ganguo')}'>干果类</a></p>
+						</div>
+					</div>
+					<div class="mui-col-sm-2">
+						<div class="mui-table-view-cell  mui-media goods-cate">
+								<p><a href='{:url('goods/lists','category=apple')}'><img height=50 src="{:config('theme_path')}/wap/images/icon_33.png"></a></p>
+								<p><a href='{:url('goods/lists','category=apple')}'>水果类</a></p>
+						</div>
+					</div>
+					<div class="mui-col-sm-2">
+						<div class="mui-table-view-cell  mui-media goods-cate">
+								<p><a href='{:url('goods/lists','category=guazi')}'><img height=50 src="{:config('theme_path')}/wap/images/icon_44.png"></a></p>
+								<p><a href='{:url('goods/lists','category=guazi')}'>零食类</a></p>
+						</div>
+					</div>
+					<div class="mui-col-sm-2">
+						<div class="mui-table-view-cell  mui-media goods-cate">
+								<p><a href='{:url('goods/index')}'><img height=50 src="{:config('theme_path')}/wap/images/icon_5.png"></a></p>
+								<p><a href='{:url('goods/index')}'>更多</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--商品分类结束-->
+			<div class="mui-row">
+				<div class="mui-col-xs-12 hot-goods">
+		    		<span style="float:left;border-left: 2px solid #fe2d4c;padding-left:8px;"><a href='{:url('goods/index')}' style='font-size: 16px;color:#333;background: #fff;'>热销商品</a></span>
+					<span style="float:right;"><a href='{:url('goods/index')}' style='font-size: 12px;color:#999;background: #fff;'>更多</a></span>
+				</div>
+			</div>
+		    <ul class="mui-table-view mui-grid-view">
+				{hotgoods name='goods' num='4'}
+		        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+		            <a href="{:url('goods/detail','id='.$goods.id)}">
+						<div class='goods-box'>
+							<img class="mui-media-object" style='height:105px;width: 160px;' src="{:root_path()}{$goods.cover_path}">
+							<div class="mui-media-body line"><a>{$goods.name}</a></div>
+							<div class="mui-media-body line1">
+								<span style='float:left;color:#fe2d4c;'>￥{$goods.price}{notempty name="goods.score"} / 赠积分{$goods.score}{/notempty}</span>
+								<span style='float: right;'><a href="{:url('goods/detail','id='.$goods.id)}"><img width=14 src="{:config('theme_path')}/wap/images/index-cart.png"></a></span>
+							</div>
+						</div>
+					</a>
+				</li>
+				{/hotgoods}
+		    </ul>
+			<div style='height: 10px;'></div>
+		    <ul class="mui-table-view mui-grid-view">
+				{subcateposts name='post' cateid='4' num='2'}
+					<li class="mui-table-view-cell mui-media mui-col-xs-6">
+						<a href="{:url('article/detail',['id'=>$post.id,'category'=>$post.category])}">
+							<img class="mui-media-object" style='height:100px;width: 170px;' src="{$post.uuid|get_posts_cover}">
+							<div class="mui-media-body line"><a>{$post.title}</a></div>
+							<p class="line2"><a>{$post.uuid|get_val=###,'description',20}</a></p>
+						</a>
+					</li>
+				{/subcateposts}
+		        <li class="mui-table-view-cell mui-media mui-col-xs-12"><div class='news-box'></div></li>
+		    </ul>
+
+			<div class="mui-row" style='text-align: center; background-color: #fff; margin-top:-10px;'>
+				<div class="mui-col-xs-12">
+					<div class="mui-table-view-cell">
+						<div style='width: 100px; margin:0 auto;height: 14px; line-height: 14px;'>
+							<a href='{:url('article/lists','category=news')}' style='float:left; color:#fe2d4c;font-size: 12px;margin-left:15px;'>更多资讯</a>
+							<img style='float:left; margin-left: 5px; height: 15px;' src="{:config('theme_path')}/wap/images/index-more.png" />
+						</div>
+					</div>
+				</div>
+				<!--<div class="mui-col-xs-2">
+					<div class="mui-table-view-cell">
+						<div style='height: 14px; line-height: 14px;color:#e5e5e5;'>
+							|
+						</div>
+					</div>
+				</div>
+				<div class="mui-col-xs-5">
+					<div class="mui-table-view-cell">
+						<div style='width: 100px; float: left; height: 14px; line-height: 14px;'>
+							<a style='float:left; color:#fe2d4c;font-size: 12px;margin-left:15px;'>换一批</a>
+							<img style='float:left;margin-left: 5px;height: 15px;' src="{:config('theme_path')}/wap/images/shuaxin.png" />
+						</div>
+					</div>
+				</div>-->
+			</div>
+			<div style='height: 10px;'></div>
+			<div style='height: 80px; background-color: #fff; padding: 10px 0; text-align: center;'>
+				<p><a href='{:url('article/page','name=address')}'>联系我们</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='{:url('article/page','name=company')}'>企业简介</a></p>
+				<p>copyright 2016 迁安深蓝信息技术有限公司</p>
+			</div>
+			<div style='height: 10px;'></div>
+		</div>
+		<!-- 底部 -->
+		<div style='height: 50px;'></div>
+		<script type="text/javascript" src="{:config('theme_path')}/wap/js/iscroll.js"></script>
+		<script src="{:config('theme_path')}/wap/js/mui.js"></script>
+		<script src="{:config('theme_path')}/wap/js/jquery.min.js"></script>
+		{template file="wap/footer.html" /}
+		<!-- 底部结束 -->
+		<script type="text/javascript">
+			$('document').ready(function(){
+				$('.mui-control-item').click(function(){
+					location.href = $(this).attr('href');
+				});
+			})
+
+			var slider = mui("#slider");
+			document.getElementById("switch").addEventListener('toggle', function(e) {
+				if (e.detail.isActive) {
+					slider.slider({
+						interval: 5000
+					});
+				} else {
+					slider.slider({
+						interval: 0
+					});
+				}
+			});
+			var myScroll;
+			function loaded () {
+				myScroll = new IScroll('.mui-scroll-wrapper', { scrollX: true, scrollY: false, mouseWheel: true, click: true, tap: true });
+			}
+			document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+		</script>
+	</body>
+
+</html>

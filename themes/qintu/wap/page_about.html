@@ -1,0 +1,37 @@
+{include file="public/qintu/header"/}
+{include file="public/qintu/nav"/}
+{php}
+	$list=_get_posts_by_term('about');
+{/php}
+<div class="row section-bg-gray section">
+<div class="col-md-6 col-md-offset-3 section-bg-white section-about">
+   <div role="tabpanel">
+    <ul class="nav nav-tabs" role="tablist">
+    	{volist name="list" id="vo" key="k"}
+    		{eq name="k" value="1"}
+    		   <li role="presentation" class="active"><a href="#{$vo.name}" data-toggle="tab" role="tab" aria-controls="tab{$k-1}">{$vo.title}</a></li>
+    		{else/}
+    			 <li role="presentation"><a href="#{$vo.name}" data-toggle="tab" role="tab" aria-controls="tab{$k-1}">{$vo.title}</a></li>
+    		{/eq}
+    	{/volist}
+    </ul>
+    <div id="tabContent1" class="tab-content">
+    	{volist name="list" id="vo" key="k"}
+    	{eq name="k" value="1"}
+      		<div role="tabpanel" class="tab-pane fade in active" id="{$vo.name}">
+      	{else/}
+    		<div role="tabpanel" class="tab-pane fade in" id="{$vo.name}">
+		{/eq}
+         <img width="100%" src="{:config('theme_path')}/wap/images/about_pic_{$k}.jpg?ver={:__VERSION__}"> 
+         <div class="col-sm-12 content">
+        	{$vo.content}
+        </div>
+      </div>
+      {/volist}
+    </div>
+  </div>
+</div>
+</div>
+<div class="section"></div>
+{include file="public/qintu/footer"/}
+

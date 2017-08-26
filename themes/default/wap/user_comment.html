@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>{:config('web_site_title')}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/icons-extra.css" />
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/cart.css" />
+	</head>
+
+	<body>
+
+		<style>
+			.mui-control-content {
+				background-color: white;
+				min-height: 215px;
+			}
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			.mui-table-view::before {
+				background-color: #fff;
+			}
+			.mui-table-view::after {
+				background-color: #f0f0f0;
+			}
+			.goods-cate a{ width:20%; display:block; float: left; height:40px; line-height:40px;background-color: #fff; color:#333;text-align: center;font-size: 14px;}
+			.goods-cate .active{background-color: #FF2D4B;color:#fff;}
+		</style>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav" style="background: #FF2D4B;">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;"onclick="history.go(-1)"></a>
+			<a href="javascript:submit()" class="mui-pull-right" style="color: #fff;font-size: 14px; height: 45px; line-height: 45px;">完成</a>
+			<h1 class="mui-title" style="color:#fff">发表评论</h1>
+		</header>
+		<!-- 头部结束 -->
+		<div class="mui-content">
+			<div style='height: 15px;'></div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+
+				{empty name="$postInfo['cover_path']"}
+					<img src="{:config('theme_path')}/wap/images/goods1.png" height='60' style='float:left;margin-right:10px;'>
+					{else /}
+					<img src="{:root_path()}{$postInfo['cover_path']}" height='60' style='float:left;margin-right:10px;'>
+					{/empty}
+					<div class="mui-media-body">
+						<p class="mui-ellipsis goods-name"><a style='float:left;' href="{:url('goods/detail',['id'=>$postInfo['goods_id']])}">{$postInfo['name']}</a></p>
+						<p class="mui-ellipsis goods-standard">规格：{$postInfo['standard']}</p>
+						<p class="mui-ellipsis goods-price"><span class='price'>￥{$postInfo['price']}</span></p>
+					</div>
+
+				</li>
+			</ul>
+			<div style=' background-color: #fff;'>
+				<div style='height: 10px;'></div>
+				<div class='goods-checkbox' style='margin-right: 10px;'>
+					<span style='font-size: 14px; color:#333;margin-left: 15px;margin-top:4px;float: left'>评分</span>
+				</div>
+				<span class="mui-pull-right" style='font-size: 12px; color:#999;margin-top:4px;'>
+					<span class="mui-pull-right comment-flower" style='margin-right: 15px;font-size: 12px;' ><img src='{:config('theme_path')}/wap/images/flower-on.png' data="on" style='height:16px; margin-top:5px;' /><img src='{:config('theme_path')}/wap/images/flower.png' data="off" style='height:16px; margin-top:5px;' /><img src='{:config('theme_path')}/wap/images/flower.png' data="off" style='height:16px; margin-top:5px;' /><img src='{:config('theme_path')}/wap/images/flower.png' data="off" style='height:16px; margin-top:5px;' /><img src='{:config('theme_path')}/wap/images/flower.png' data="off" style='height:16px; margin-top:5px;' /></span>
+				</span>
+				<div style='clear:both;'></div>
+				<div style="margin: 10px 15px;font-size: 12px;" class="mui-input-row">
+					<textarea  placeholder="请输入评论内容" rows="5" id="content" onkeyup="ta(this)"  maxlength="100" title="最多可输入100个字符"></textarea>
+				</div>
+
+				<input type="hidden" id="order_id" value="{$postInfo['order_id']}" />
+		        <input type="hidden" id="goods_id" value="{$postInfo['goods_id']}" />
+		        <input type="hidden" id="score" value="1" />
+			</div>
+			<div style='height: 15px;'></div>
+		</div>
+<script src="{:config('theme_path')}/wap/js/mui.js"></script>
+<script src="{:config('theme_path')}/wap/js/jquery.min.js"></script>		
+		<!-- 底部 -->
+<div style='height: 50px;'></div>
+{template file="wap/footer.html" /}
+	 <!-- 底部结束 --> 
+
+		
+<script type="text/javascript" language="javascript">
+
+	$(function(){
+		var img_of = "{:config('theme_path')}/wap/images/flower.png";
+		var img_on = "{:config('theme_path')}/wap/images/flower-on.png";
+		$('.comment-flower img').click(function(){
+			status = $(this).attr('data');
+			if(status=='on'){
+				$(this).attr('src',img_of);
+				$(this).attr('data','off');
+				$(this).prevAll('img').attr('src',img_on);
+				$(this).prevAll('img').attr('data','on');
+				$(this).nextAll('img').attr('src',img_of);
+				$(this).nextAll('img').attr('data','off');
+			}else{
+				$(this).attr('src',img_on);
+				$(this).attr('data','on');
+				$(this).prevAll('img').attr('src',img_on);
+				$(this).prevAll('img').attr('data','on');
+				$(this).nextAll('img').attr('src',img_of);
+				$(this).nextAll('img').attr('data','off');
+			}
+			$(this).parent().children('img').first().attr('src',img_on).attr('data','on');
+			score= $(this).parent().children('img[data="on"]').length;
+			$("#score").val(score);
+		})
+	})
+
+
+// 提交数据
+   function submit(){
+    var goods_id =$("#goods_id").val();
+    var order_id =$("#order_id").val();
+    var content  =$("#content").val();
+    var score    =$("#score").val();
+
+  $.ajax({
+    type:'post',
+    url:"{:url('comment/orderComment')}",
+    data:{"goods_id" :goods_id,
+           "order_id":order_id,
+           "content" :content,
+           "score"   :score,
+        },
+    dataType:'json',
+    success: function(data) {
+        if (data.code) {
+          	alert(data.msg);
+          	setTimeout(function () {
+	          location.href = data.url;
+	        }, 1000);
+        } else {
+            alert(data.msg);
+        }
+	},
+    error: function(request) {
+            alert("页面错误");
+  	}
+	});
+  
+   }
+
+
+</script>
+<script type="text/javascript">
+	function ta(obj){
+		var val=$(obj).val().length;
+		if(val==100){
+			alert("至多输入100个字符！");
+			$(obj).val($(obj).val().substring(0,100))
+			}
+	}
+</script> 
+	</body>
+
+</html>

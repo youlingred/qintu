@@ -1,0 +1,173 @@
+{include file="public/qintu/header"/} {include file="public/qintu/nav"/}
+<?php
+	$product1_list=_get_goods_best_list('qtlp_hsps',6,'sortup');
+	$man_list=_get_goods_list('qtlp_hpdr',4,'sortup');
+	$product2_list=_get_goods_hot_list('qtlp_hsps',3,'sortup');
+	$product3_list=_get_goods_list('qtlp_hp_bottoms',4,'sortup');
+	$post = _get_post_by_name('post-hptc');
+?>
+<style type="text/css">
+	.col-sm-3,
+	.col-sm-4 {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	
+	.thumbnail {
+		margin-bottom: 10px;
+		position: relative;
+	}
+	.modal-content {
+		-webkit-box-shadow: none;
+		box-shadow: none;
+		border: none;
+	}
+	
+	.btn-circle {
+		border-radius: 40px;
+	}
+	.share_btn {
+		position: absolute;
+		right: 20%;
+		top: 350px;
+	}
+	.title-one .txt{
+		font-size: 14px;
+	}
+	.caption .c-title {
+		font-size: 16px;
+	}
+	.caption .description{
+		font-size: 14px;
+	}
+	.layui-layer-btn .layui-layer-btn0{
+		border-color: #414141;
+   		background-color: #414141;
+	}
+</style>
+<img class="img-responsive" src="{:config('theme_path')}/index/images/banner_hsps.jpg?ver={:__VERSION__}">
+<div class="row section-bg-white section-one">
+	<div class="col-md-8 col-md-offset-2 title-one">
+		<p class="text-center title" style="margin-top: 20px;"><img src="{:config('theme_path')}/index/images/ico_hsps.png?ver={:__VERSION__}"></p>
+		<p class="text-center txt">独特的视觉为您诠释幸福的意义，用全新的摄影理念，带来不一样的视觉盛宴。</p>
+		<div class="row">
+			{volist name="product1_list" id="vo"}
+			<div class="col-sm-4">
+				<!--<a href="">-->
+				<div class="thumbnail">
+					{empty name="$vo['cover_path']"}
+					<img src="{:config('theme_path')}/index/images/Thumbnail_Placeholder.png" alt="{$vo['name']}"> {else /}
+					<img class="zoomify" src="{:root_path()}{$vo['cover_path']}">{/empty}
+					<p class="item-overlay text-center">{$vo['label_area']}</p>
+				</div>
+				<!--</a>-->
+			</div>
+			{/volist}
+		</div>
+		<p class="text-center" style="margin-top: 20px"><button id="notice_btn" type="button" class="btn btn-circle btn-gray" style="width: 150px;">婚纱拍摄套餐</button></p>
+		<div id="notice_content" style="display:none;padding: 0 50px;">{$post['content']}</div>
+	</div>
+</div>
+</div>
+<div class="row section-bg-white section">
+	<div class="col-md-8 col-md-offset-2 title-one">
+		<p class="text-center title" style="margin-top: 20px;">摄影师会根据您的个性量身打造</p>
+		<p class="text-center txt">在亲途旅拍你可以任意选择专业摄影师、化妆师直到找到属于自己的风格。</p>
+		<div class="row">
+			{volist name="man_list" id="vo"}
+			<div class="col-sm-3">
+				<!--<a href="">-->
+				<div class="thumbnail">
+					{empty name="$vo['cover_path']"}
+					<img src="{:config('theme_path')}/index/images/Thumbnail_Placeholder.png" alt="{$vo['name']}"> {else /}
+					<img src="{:root_path()}{$vo['cover_path']}" alt="{$vo['name']}"> {/empty}
+					<div class="caption text-center">
+						<p class="c-title">{$vo.name}</p>
+						<p class="description">{$vo.description}</p>
+					</div>
+				</div>
+				<!--</a>-->
+			</div>
+			{/volist}
+		</div>
+
+	</div>
+</div>
+</div>
+<div class="row section-bg-white section no-padding">
+	<div class="col-md-8 col-md-offset-2 title-one">
+		<p class=" title-two">摄影作品
+			<a href="{:url('goods/lists?category=qtlp_hsps')}"><span class="txt-lookmore">更多作品>></span></a></p>
+		<div class="row">
+			{volist name="product2_list" id="vo"}
+			<div class="col-sm-4">
+				<!--<a href="">-->
+				<div class="thumbnail">
+					{php} $daren=_get_qtdr_person($vo['share_child_id']); {/php}
+					{empty name="$vo['cover_path']"} 
+					<img src="{:config('theme_path')}/index/images/Thumbnail_Placeholder.png" alt="{$vo['name']}"> {else /}
+					<img src="{:root_path()}{$vo['cover_path']}" alt="{$vo['name']}"> {/empty}
+					<p class="item-overlay text-center">来自{$daren['name']}</p>
+				</div>
+				<!--</a>-->
+			</div>
+			{/volist}
+		</div>
+	</div>
+</div>
+</div>
+<div class="row section-bg-white section">
+	<div class="col-sm-8 col-sm-offset-2 title-one">
+		<p class="text-center title">与您相约在日本
+			<span class="txt-lookmore"><button id="share_btn" type="button" class="btn btn-circle btn-pink">推荐给朋友</button>
+				<div id="share_qrcode" class="m-pop-up">
+					<p class="m-tt">分享到微信朋友圈</p>
+					<div id="qrcode" class="m-ewm"></div>
+					<p class="m-ct text-left">打开微信，使用「扫一扫」打开页面后，通过右上角的操作即可分享到朋友圈。</p>
+				</div>
+			</span>
+		</p>
+		<p class="text-center txt">亲途与你与他（她）共同完成一次难忘的旅拍。</p>
+		
+		<div class="row">
+			{volist name="product3_list" id="vo"}
+			<div class="col-sm-3">
+				<!--<a href="">-->
+				<div class="thumbnail">
+					{empty name="$vo['cover_path']"}
+					<img src="{:config('theme_path')}/index/images/Thumbnail_Placeholder.png" alt="{$vo['name']}"> {else /}
+					<img src="{:root_path()}{$vo['cover_path']}" alt="{$vo['name']}"> {/empty}
+					<div class="caption text-center">
+						<p class="c-title">{$vo.name}</p>
+						<p class="description">{$vo.description}</p>
+					</div>
+				</div>
+				<!--</a>-->
+			</div>
+			{/volist}
+		</div>
+	</div>
+</div>
+</div>
+<div class="row section-bg-gray section">
+	<div class="col-md-8 col-md-offset-2 title-one text-center">
+		<img src="{:config('theme_path')}/index/images/hsps_banner_2.jpg?ver={:__VERSION__}" width="100%	">
+		<a href="{:url('article/page?name=lxgp')}">
+			<button type="button" class="btn btn-lg btn-default" style="top: 60%;
+    left: 45%;
+    position: absolute;
+    background: rgba(0,0,0,0.0);
+    color: #FFF;">旅行跟拍</button>
+		</a>
+	</div>
+</div>
+<div class="section"></div>
+{include file="public/qintu/post-hunpai"/}
+<div class="section"></div>
+{include file="public/qintu/footer"/}
+<script src="{:config('theme_path')}/index/js/page_qtlp_hsps.js?ver={:__VERSION__}"></script>
+<script>
+     $(function() {
+	$('.zoomify').zoomify();
+});
+</script>

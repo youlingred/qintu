@@ -1,0 +1,9 @@
+/* side 客服样式*/
+.side ul li{ list-style:none;}
+.side ul{ padding:0px; margin:0px;}
+.side{position:fixed;width:54px;height:275px;right:0;top:214px;z-index:100;}
+.side ul li{width:54px;height:54px;float:left;position:relative;/*border-bottom:1px solid #444;*/ margin-bottom:14px;}
+.side ul li .sidebox{position:absolute;width:54px;height:54px;top:0;right:0;transition:all 0.3s;background:#fff;opacity:0.8;filter:Alpha(opacity=80);color:#ccc;font:14px/54px "微软雅黑";overflow:hidden;}
+.side ul li .sidetop{width:54px;height:54px;line-height:54px;display:inline-block;background:#fff;opacity:0.8;filter:Alpha(opacity=80);transition:all 0.3s;}
+.side ul li .sidetop:hover{background:#ff2d4b;opacity:1;filter:Alpha(opacity=100);}
+.side ul li img{float:left;}

@@ -1,0 +1,30 @@
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel" style="height:40px;">
+        <div class="pull-left info">
+          <p>{:Session('admin_user_auth.username')} <a href="#"><i class="fa fa-circle text-success"></i> </a></p>
+        </div>
+      </div>
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu">
+        <li class="header">导航</li>
+        {volist name='menuTree' id='vo'}
+        <li class="{$vo.id|get_menu_navbar_active} treeview">
+          <a href="{$vo.url}">
+            <i class="{$vo.icon}"></i> <span>{$vo.name}</span> <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          {notempty name="vo._child"}
+          <ul class="treeview-menu">
+            {volist name="vo['_child']" id="sub"}
+                <li class="{$sub.id|get_menu_navbar_active}"><a href="{$sub.url|url}"><i class="{$sub.icon}"></i>{$sub.name}</a></li>
+            {/volist}
+          </ul>
+          {/notempty}
+        </li>
+        {/volist}
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

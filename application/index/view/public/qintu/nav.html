@@ -1,0 +1,197 @@
+<div class="hidden">
+	<img src="{:config('theme_path')}/index/images/about_pic_4.jpg"/>
+</div>
+<div id="backtotop" class="backtotop">
+	<i class="glyphicon glyphicon-circle-arrow-up"></i>
+</div>
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+			<a class="navbar-brand" href="{:url('index/index')}"><img src="{:config('theme_path')}/index/images/logo.jpg?ver={:__VERSION__}"/></a>
+		</div>
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="defaultNavbar1">
+			<ul class="nav navbar-nav">
+				{nav tree="true" name = "nav"} 
+				{if condition="isset($nav['_'])"}
+				<li class="dropdown">
+					<a href="#" style="background-color: white;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$nav['name']}<span class="caret"></span></a>
+					<ul class="dropdown-menu" style="min-width: 0px; top:80%">
+						{volist name="nav['_']" id="vo" key="k" }
+						<li style="margin-top: 10px;">
+							<a href="{:url($vo['url'])}">{$vo.name}</a>
+						</li>
+						{/volist}
+					</ul>
+				</li>
+				{else/}
+				<li>
+					<a href="{:url($nav['url'])}">{$nav.name}</a>
+				</li>
+				{/if} 
+				{/nav}
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a>4000-530-586</a>
+						</li>
+						{if condition="session('index_user_auth')"}
+						<li class="dropdown user-login"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="user-ico glyphicon glyphicon-user" aria-hidden="true"></span><span class="caret"></span></a>
+				          <ul class="dropdown-menu" role="menu">
+				            <li><a href="{:url('order/orderLists')}">我的预订</a></li>
+				            <li class="divider"></li>
+				            <li><a href="{:url('common/logout')}">退出</a></li>
+				          </ul>
+				        </li>
+				        {else/}
+						<li>
+							<div class="register">
+								<a data-toggle="modal" data-target="#user-login">登录</a>
+        						<a data-toggle="modal" data-target="#user-reg">注册</a>
+							</div>
+						</li>
+						{/if}
+					</ul>
+		</div>
+		<!-- /.navbar-collapse -->
+	</div>
+	<!-- /.container-fluid -->
+</nav>
+<div style="height:73px"></div>
+<!-- 登录框 -->
+<div class="modal fade" id="user-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document" style="margin-top: 8%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">登录</h4>
+      </div>
+      <div class="modal-body">
+     	 <form id="form-login" role="form" class="reg-login-form" action="{:url('base/login')}">
+			<div class="form-group">
+				<label for="name">手机号</label>
+				<input type="text" class="form-control" id="key" name="key" 
+					   placeholder="请输入手机号">
+			</div>
+			<div class="form-group">
+				<label for="name">密码</label>
+				<input type="password" class="form-control" id="password" name="password" 
+					   placeholder="请输入密码">
+			</div>
+			<div class="checkbox">
+				<label>
+				  <input type="checkbox" name="rememberMe" id="rememberMe">记住我
+				</label>
+			  </div>
+			<div class="text-center">
+				<button type="submit" class="btn btn-gold btn-full">提交</button>
+			</div>
+			<div class="form-group">
+				<p class="help-block text-left">还没有账号？<span role="button" data-toggle="modal" data-target="#user-reg" data-dismiss="modal" class="btn btn-default" style="position: absolute;right: 20px">注册</span></p>
+			</div>
+		</form>
+   	  </div>	
+    </div>
+  </div>
+</div>
+<!-- 登录框结束-->
+<!-- 注册框 -->
+<div class="modal fade" id="user-reg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel1">注册账号</h4>
+      </div>
+      <div class="modal-body">
+     	 <form id="form-reg" class="reg-login-form" action="{:url('base/register')}">
+			<div class="form-group">
+				<label for="name">手机号</label>
+				<input type="text" class="form-control" name="mobile" 
+					   placeholder="请输入手机号">
+			</div>
+			<div class="form-group">
+				<label for="name">昵称</label>
+				<input type="text" class="form-control" name="nickname" 
+					   placeholder="请输入昵称">
+			</div>
+			<div class="form-group">
+				<label for="name">密码</label>
+				<input type="password" class="form-control" name="password" 
+					   placeholder="请输入密码">
+			</div>
+			<div class="form-group">
+				<label for="name">确认密码</label>
+				<input type="password" class="form-control" name="repassword" 
+					   placeholder="请再次输入密码">
+			</div>
+			<div class="form-group">
+				<p class="help-block text-center">我已阅读并同意<span class="txt-red">亲途旅行的隐私政策</span></p>
+			</div>
+			<div class="text-center">
+				<button type="submit" class="btn btn-gold btn-full">注册</button>
+			</div>
+			<div class="form-group">
+				<p class="help-block text-center">已有亲途账号?<span role="button" class="txt-red" data-toggle="modal" data-target="#user-login" data-dismiss="modal">登录</span></p>
+			</div>
+		</form>
+   	  </div>
+    </div>
+  </div>
+</div>
+<!-- 注册框结束-->
+<!-- 加入心愿单提示框-->
+<div class="modal fade" id="add-success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+  <div class="modal-dialog" role="document" style="margin-top: 8%;">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom:none;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+			<div class="form-group text-center">
+				<img src="{:config('theme_path')}/index/images/ico_alert_success.png">
+			</div>
+			<div class="form-group">
+				<p class="help-block text-center">可在<span class="txt-red">我的旅行</span>中提交所有心愿行程</p>
+				<!--<p class="help-block text-center">我们会在<span class="txt-red">2小时之内</span>与您取得联系</p>-->
+			</div>
+			<div class="text-center">
+				<button id="go_on" class="btn btn-gold btn-lg" style="width:200px">继续逛逛</button>
+				<button id="lookOrder_1" class="btn btn-gold btn-lg" style="width:200px">查看我的全部心愿</button>
+			</div>
+			<div class="form-group">
+				
+			</div>
+   	  </div>
+    </div>
+  </div>
+</div>
+<!-- 加入心愿单提示框结束-->
+<!-- 提交需求单提示框-->
+<div class="modal fade" id="need-success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+  <div class="modal-dialog" role="document" style="margin-top: 8%;">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom:none;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+			<div class="form-group text-center">
+				<img src="{:config('theme_path')}/index/images/ico_alert_success.png">
+			</div>
+			<div class="form-group">
+				<h3 class="text-center">恭喜您提交成功</h3>
+				<p class="help-block text-center">我们会在<span class="txt-red">2小时之内</span>与您取得联系</p>
+			</div>
+			<div class="text-center">
+				<button id="go_on_need" class="btn btn-gold btn-lg" style="width:200px">继续逛逛</button>
+			</div>
+			<div class="form-group">
+				
+			</div>
+   	  </div>
+    </div>
+  </div>
+</div>
+<!-- 提交需求单提示框结束-->

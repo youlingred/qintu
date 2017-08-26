@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>{:config('web_site_title')}</title>
+<meta name="keywords" content="{:config('web_site_keyword')}"/>
+<meta name="description" content="{:config('web_site_description')}"/>
+<!-- Bootstrap -->
+<link href="{:config('theme_path')}/index/css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="{:config('theme_path')}/index/css/common.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/user_center.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="{:config('theme_path')}/index/js/html5shiv.min.js"></script>
+    <script src="{:config('theme_path')}/index/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+
+{template file="index/header.html" /}
+<!--main start-->
+<div class="main">
+  <div class="container">
+    <div class="row">
+ <!--左栏目 start-->
+    {template file="index/header_nav.html" /}
+    <!--左栏目 end-->
+
+      <!--支付方式 start-->
+      <div class="col-xs-9 " >
+       <div class="user-center">
+        <p class="user-title"><span>修改登录密码</span></p>
+        <div class="user-content">
+          
+          <div class="pay"  id="demo" class="collapse in">
+           <form action="" method="POST"style="margin-left:50px">
+              <table class="input-table" style="margin-left:20px;margin-top:20px">
+                <tr>
+                    <td><p for="txtname">旧密码 :</p></td>
+                    <td><input type="password"  placeholder="请输入旧密码" id="password" /></td>
+                </tr>
+                <tr>
+                    <td><p for="txtpswd">新密码 :</p></td>
+                    <td><input type="password"  placeholder="请输入新密码" id="newpassword" /></td>
+                </tr>
+                <tr>
+                    <td><p for="txtpswd">确认密码 :</p></td>
+                    <td><input type="password"  placeholder="请再次输入密码" id="repassword" /></td>
+                </tr>
+                <tr>
+                    <td colspan=2>
+                        <button type="button" id="submit" class="password_submit" >修改</button>
+                    </td>
+                </tr>
+            </table>
+           
+          </form>
+            </div>
+           
+          </div>
+
+        </div>
+        </div>
+
+        <!--支付方式 end-->
+      </div>
+    </div>
+</div>
+<!--main end-->
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+<!--footer start-->
+{template file="index/footer.html" /}
+<!--footer end-->
+
+
+<script type="text/javascript" language="javascript">
+// 提交数据
+$(function(){
+  $("#submit").click(function(){
+    var password     =$("#password").val();
+    var newpassword  =$("#newpassword").val();
+    var repassword   =$("#repassword").val();
+  $.ajax({
+     type:'post',
+     url:"{:url('user/editPassword')}",
+     data:{"password":password,
+           "newpassword":newpassword,   
+           "repassword":repassword,
+          },
+     dataType:'json',
+     success: function(data) {
+                if (data.code) {
+            alert(data.msg);
+          setTimeout(function () {
+          location.href = data.url;
+        }, 1000);
+        } else {
+            alert(data.msg);
+        }
+        },
+        error: function(request) {
+                alert("页面错误");
+      }
+  });
+  
+   })
+})
+
+</script>
+</body>
+</html>

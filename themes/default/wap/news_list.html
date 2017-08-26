@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>小微商城</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/mui.min.css">
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/news.css">
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/icons-extra.css" />
+		<script src="{:config('theme_path')}/wap/js/jquery.min.js"></script>
+		<script src="{:config('theme_path')}/wap/js/mui.js"></script>
+		<script>
+			$(function(){
+				$('.show-nav').click(function(){
+					$('#h-nav').slideToggle();
+				})
+			})
+		</script>
+	</head>
+	<body>
+
+	<div id="h-nav" style="position:fixed;top:45px;background:#000;z-index:9999;color:#fff;width:100%;height:100%;filter:alpha(opacity=80); -moz-opacity:0.8;-khtml-opacity: 0.8; opacity: 0.8;display:none">
+		<ul style="list-style:none;margin-left:20px;line-height:250%">
+			{:get_nav()}
+		</ul>
+	</div>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav" style="background: #FF2D4B;">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;" onclick="history.go(-1)"></a>
+			 <a class="mui-icon mui-icon-extra mui-icon-extra-class mui-pull-right show-nav" style="color: #fff;"></a>
+			<h1 class="mui-title" style="color:#fff">{$categoryInfo['pid']|get_parent_category="name"}</h1>
+		</header>
+		<!-- 头部结束 -->
+		<div class="main">
+		<div class="news-nav">
+		{volist name="$categoryInfo['pid']|get_self_category" id="data" key="k"}
+			<a href="{:url('Article/lists?category='.$data['slug'])}">
+			{eq name="k" value="1"}
+	          {eq name="$categoryInfo['name']" value="$data['name']"}
+	            <span class="title-active">{$data['name']}</span>
+	          {else/} 
+	            <span class="">{$data['name']}</span>
+	          {/eq} 
+	        {else/}
+		        {eq name="$categoryInfo['name']" value="$data['name']"}
+	            &nbsp;&nbsp;&nbsp;&nbsp;<span class="title-active">{$data['name']}</span>
+	          {else/}
+	            &nbsp;&nbsp;&nbsp;&nbsp;<span class="">{$data['name']}</span>
+	          {/eq}  
+	        {/eq}
+	        </a>
+		{/volist}
+<!-- 			<span class="title-active">新闻中心</span>
+			&nbsp;&nbsp;&nbsp;&nbsp;<span>行业资讯</span> -->
+		</div>
+		<div class="news-list">
+			<ul class="mui-table-view">
+			{volist name="list" id="data"}
+			    <li class="mui-table-view-cell mui-media">
+			        <a href="{:url('Article/detail?id='.$data['id'].'&category='.$categoryInfo['slug'])}">
+			            <img class="mui-media-object mui-pull-left" src="{$data['uuid']|get_posts_cover}">
+			            <div class="mui-media-body">
+			                <span class="media-title">{$data['title']}</span>
+			                <p class="media-info">日期：{$data['updatetime']|date='Y-m-d',###}	<span>浏览量：{$data['view']}</span></p>
+			                <p class='mui-ellipsis'>{$data['uuid']|get_val=###,'description',85}</p>
+			            </div>
+			        </a>
+			    </li>
+			{/volist}   
+			</ul>
+		</div>
+		<div class="div-line"></div>
+		<div class="page">
+			{$page}
+			<!-- <span>上一页</span>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>第1/5页</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span>下一页</span> -->
+		</div>
+		<div class="div-line"></div>
+		<div class="footer">
+			<p><span>联系我们</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>企业介绍</span></p>
+			<p><span>copyright©2016&nbsp;&nbsp;&nbsp;&nbsp;珍良缘农副食品超商有限公司</span></p>
+		</div>
+		</div>
+		<!-- 底部 -->
+		{template file="wap/footer.html" /}
+		<!-- 底部结束 -->
+
+	</body>
+</html>

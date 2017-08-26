@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>{:config('web_site_title')}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/icons-extra.css" />
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/login.css" />
+		
+	</head>
+
+	<body>
+
+		<style>
+			.mui-control-content {
+				background-color: white;
+				min-height: 215px;
+			}
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}			
+		</style>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav" style="background: #F9F9F9;">
+			<a onclick="history.go(-1)" class="mui-icon mui-icon-left-nav mui-pull-left" style="color: #FF6600;"></a>
+			<a class="mui-icon mui-icon-extra mui-icon-extra-class mui-pull-right" style="color: #FF6600;"></a>
+			<h1 class="mui-title" style="color:#FF6600">会员登录</h1>
+		</header>
+		<!-- 头部结束 -->
+		<div class="mui-content" style="height:200px">
+		  <div class="main">
+		   <div class="head">
+		   	 <a href='#'><img src="{:config('theme_path')}/wap/images/logo1.png" height=25 style=''></a><a href="{:url('base/login')}"><span class="line_left">会员登录</span></a>
+		   </div>
+		   <form action="" method="POST">
+		   <div  style="margin-top:60px;">
+		   	<div>
+					<input type="text" class="pass-img  prev-user"id="username" placeholder="请输入手机号/用户名">
+			</div>
+			<div style="margin-top:-5px !important" >
+					<input type="password" id="password" class="pass-img prev-pass" style="height:60px;padding-left:50px;" placeholder="请输入密码">
+			</div>
+
+
+		   </div>
+
+		   <button type="button" class="login-button" id="submit" >登录</button>
+
+		   </form>
+			<div class="forget-pass">
+				<a href="{:url('base/getPassword')}"><span >忘记密码?</span></a><a href="{:url('base/register')}"><span style="float:right">免费注册</span></a>
+			</div>
+
+	<!-- 		<div style="margin-top:50px">
+			<p style="text-align:center">使用第三方登录</p>
+			
+			<div class="login_index">
+            <a href="{:url('OpenAuth/login',['type' => 'sina'])}"  target="_blank"><img src="{:config('theme_path')}/wap/images//wb.png" /></a>
+            <a href="{:url('OpenAuth/login',['type' => 'wechat'])}" target="_blank"><img src="{:config('theme_path')}/wap/images//wx.png" /></a>
+            <a href="{:url('OpenAuth/login',['type' => 'qq'])}"  target="_blank"><img src="{:config('theme_path')}/wap/images//qq.png" /></a></div>
+			</div> -->		
+		  
+		
+		<!-- 底部 -->
+		<div style='height: 10px;'></div>
+			<div style='height: 80px; margin-top:100px; text-align: center;'>
+				<p><a>联系我们</a>&nbsp;&nbsp;&nbsp;&nbsp;<a>企业介绍</a></p>
+				<p>copyright 2016 &nbsp;&nbsp;珍良缘农副食品超商有限公司</p>
+			</div>
+			<div style='height: 10px;'></div>
+			
+		<!-- 底部结束 -->
+	</div>
+	</div>
+
+<script src="{:config('theme_path')}/wap/js/jquery.min.js"></script>
+<script type="text/javascript">
+
+  $('#submit').click(function(){
+  var key = $("#username").val();
+  var password = $("#password").val();
+  if(key ==""||key =="请输入手机号/用户名")
+  {
+     alert("请输入手机号或用户名");
+     return false;  
+  }
+  if(password ==""||password =="请输入密码")
+  {
+     alert("请输入密码");
+     return false;  
+  }
+  $.ajax({
+    type:"post",
+    url:"{:url('base/login')}",
+    data:{"key":key,"password":password},
+    dataType:'json',
+    success: function(data) {
+            if (data.code) {
+              $('#submit').text('登录中...')
+              setTimeout(function () {
+                location.href = data.url;
+              }, 1000);
+            } else {
+              alert(data.msg);
+            }
+
+          },
+          error: function(request) {
+            alert("页面错误");
+          },
+     });
+
+});
+</script>
+
+	</body>
+
+</html>

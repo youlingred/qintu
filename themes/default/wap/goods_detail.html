@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>小微商城</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/mui.min.css">
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/goods_detail.css">
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/car.css">
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/icons-extra.css" />
+		<script src="{:config('theme_path')}/wap/js/mui.js"></script> 
+		<script src="{:config('theme_path')}/wap/js/jquery.min.js"></script>
+		<script src="{:config('theme_path')}/wap/js/jquery.cookie.js"></script>
+		<script type="text/javascript">
+		    var car_path = '{:config('theme_path')}/wap/images/';
+		</script>
+		<script src="{:config('theme_path')}/wap/js/car.js"></script>
+	</head>
+	<body>
+		<div id="h-nav" style="position:fixed;top:45px;background:#000;z-index:9999;color:#fff;width:100%;height:100%;filter:alpha(opacity=80); -moz-opacity:0.8;-khtml-opacity: 0.8; opacity: 0.8;display:none">
+			<ul style="list-style:none;margin-left:20px;line-height:250%">
+				{:get_nav()}
+			</ul>
+		</div>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav" style="background: #FF2D4B;">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;margin-right:0;" onclick="history.go(-1)"></a>
+			<a class="mui-icon mui-icon-extra mui-icon-extra-class mui-pull-right show-nav" style="color: #fff;margin-left:0;"></a>
+			<h1 class="mui-title" style="color:#fff">商品中心</h1>
+		</header>
+		<!-- 头部结束 -->
+		<div class="main">
+			{empty  name="$data['photo_path_1']"}
+	        	<img src="{:config('theme_path')}/wap/images/nopic.jpg" style="width:100%;" alt="">
+	        {else /}
+	        	<img src="{:root_path()}{$data['photo_path_1']}" style="width:100%;" alt="">
+	        {/empty}
+			<div style="padding:4px 8px">
+				<div class="goods_title">{$data['name']}</div>
+				<div class="goods_stand">规格:{$data['standard']}</div>
+			</div>
+			<div class="goods_info">
+				<span>价格:<span style="color:red;">￥<b>{$data['price']}{notempty name="data.score"} / 赠积分{$data.score}{/notempty}</b></span></span>
+				<span style="float:right;margin-right:10px;">
+				<span ><img src="{:config('theme_path')}/wap/images/{$data['id']|wap_collection_ico}" class="collection" data="{$data['id']}" style="cursor: pointer;"></span> <span style="color:#F0F0F0">|</span> <span style="color:red"><img src="{:config('theme_path')}/wap/images/hot.png" alt=""> 总销量 {$data['sell_num']}</span> <span style="color:#F0F0F0">|</span> <span style="color:red"><img src="{:config('theme_path')}/wap/images/flower-on.png" alt=""> 评分 {$data['score_num']}</span>
+				</span>
+			</div>
+			<div class="good_num">
+				<span>数量：</span>
+				<span>
+				<span class="minus minus-item">-</span><span class="num" id="list_{$data['id']}">0</span><span class="plus addcar" dataname="{$data['name']}" dataprice="{$data['price']}" dataid="{$data['id']}">+</span>
+				</span>
+			</div>
+			<div class="good_but">
+				<div class="but_add "  id="buy-now" dataname="{$data['name']}" dataprice="{$data['price']}" dataid="{$data['id']}">立即购买</div>
+				<div style="width:20px"></div>
+				<div class="but_add  addcar" dataname="{$data['name']}" dataprice="{$data['price']}" dataid="{$data['id']}" >加入购物车</div>
+			</div>
+			<div style="width:100%;height:10px;background:#F0F0F0;">
+			</div>
+			<div class="comment-detail">
+				<div><span id="ds_detail" class="active">产品详情</span><span id="ds_comment">评价</span></div>
+			</div>
+			<div style="clear:both"></div>
+			<div class="detail-wap">
+				{$data['content']}
+			</div>
+			<div class="comment-wap" style="display:none">
+				{empty  name="$comment"}
+		        <div style="padding:10px;background:#fff;font-size:0.9em;color:#999">
+		            暂无评论
+		        </div>
+		        {else/}
+		        {volist name="$comment" id="list"}
+				<div class="comment-list">
+					<p><span style="margin-right:20px;font-size:0.9em">{$list['uid']|get_userinfo=###,'nickname'}</span>
+					{switch name="list.score"}
+                      {case value="1"}<img src="{:config('theme_path')}/wap/images/flower_1.png" height="12px" alt="">{/case}
+                      {case value="2"}<img src="{:config('theme_path')}/wap/images/flower_2.png" height="12px" alt="">{/case}
+                      {case value="3"}<img src="{:config('theme_path')}/wap/images/flower_3.png" height="12px" alt="">{/case}
+                      {case value="4"}<img src="{:config('theme_path')}/wap/images/flower_4.png" height="12px" alt="">{/case}
+                      {case value="5"}<img src="{:config('theme_path')}/wap/images/flower_5.png" height="12px" alt="">{/case}
+                      {default /}<img src="{:config('theme_path')}/index/images/flower_1.png" alt="">
+                  {/switch}
+					<span style="float:right;font-size:0.9em">{$list['createtime']|date='Y-m-d',###}</span></p>
+					<p style="margin:2px 0;font-size:0.9em">{$list['content']}</p>
+				</div>
+				{/volist}
+				{/empty}
+				<div class="page">
+	                {$page}
+	          	</div>
+			</div>
+			
+		</div>
+		<!-- 底部 购物车-->
+		<div class="car-header">
+			<div><span class="car-title">购物车</span><span class="car-clear">[清空]</span></div>
+			<div style="clear:both"></div>
+			<div>
+				<table  style="width:100%">
+					<tr>
+						<td width="55%" style="text-align:left;padding-left:4px">名称</td>
+						<td width="15%" style="color:red">单价</td>
+						<td width="30%">数量</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="car">
+			<div class="car-info"><img id="car-logo" src="{:config('theme_path')}/wap/images/shopping_cart_big.png" alt=""><span class="mui-badge mui-badge-danger" style="display:none">1</span>&nbsp;&nbsp;共<span id="money">0.00</span>元</div>
+			<div class="car-go">去结算</div>
+		</div>
+		<!-- 底部结束 -->
+
+	</body>
+	<script>
+		$(function(){
+
+			//检测是否有列表数据
+			hasList();
+
+			$('.mui-icon-search').click(function(){
+				$(this).css('display','none');
+				$('.mui-title').css('display','none');
+				$('.mui-search').css('display','block');
+			});
+
+			//显示隐藏购物车
+			$('.car-info').click(function(){
+			 	$('.car-header').slideToggle();
+			})
+			$('.addcar').on('click',addProductDetail);
+			// 点击减号
+			$('.minus-item').on('click',function(){
+		  		//设置购物车显示
+		  		id = $(this).next('span').next('span').attr('dataid');
+		  		sub(id);
+			})
+			//清空购物车
+			$('.car-clear').click(function(){
+				clear();
+			})
+			//去结算
+			$('.car-go').click(function(){
+				location.href ="{:url('cart/index')}";
+			})
+			//立即购买
+			$('#buy-now').click(function(){
+				url = "{:url('cart/index')}";
+				buyNow(url,$(this));
+			})
+			
+			//评论和详情
+			$('#ds_comment').click(function(){
+				$(this).addClass('active');
+				$('#ds_detail').removeClass('active');
+				$('.comment-wap').css('display','block');
+				$('.detail-wap').css('display','none');
+			})
+			$('#ds_detail').click(function(){
+				$(this).addClass('active');
+				$('#ds_comment').removeClass('active');
+				$('.detail-wap').css('display','block');
+				$('.comment-wap').css('display','none');
+			})
+
+			$('.show-nav').click(function(){
+				$('#h-nav').slideToggle();
+			})
+
+			 //收藏
+		    $('.collection').click(function(){
+		        id = $(this).attr('data');
+		        uid = "{:session('wap_user_auth.uid')}";
+		        path = "{:config('theme_path')}/wap/images/";
+		        collection = $(this);
+		        num = collection.parent().text();
+		        if(uid){
+		            $.ajax({
+		              cache: true,
+		              type: "POST",
+		              url : '{:url('collection')}',
+		              data: {id:id},
+		              async: false,
+		                success: function(data) {
+		                  if (data.code) {
+		                      alert(data.msg);
+		                      collection.attr('src',path+data.data.img);
+		                  } else {
+		                      alert(data.msg);
+		                  }
+
+		                },
+		                error: function(request) {
+		                  alert("页面错误");
+		                }
+		            });
+		        }else{
+		            alert('请先登录');
+		        }
+		        
+		    })
+
+		})
+	</script>
+</html>

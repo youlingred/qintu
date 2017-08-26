@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>Minishop电子商城</title>
+
+<!-- Bootstrap -->
+<link href="{:config('theme_path')}/index/css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="{:config('theme_path')}/index/css/common.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/goods_detail.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/car.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="{:config('theme_path')}/index/js/html5shiv.min.js"></script>
+    <script src="{:config('theme_path')}/index/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+{template file="index/header.html" /}
+<!--main start-->
+<div class="main">
+  <div class="container">
+    <!-- 产品导航 -->
+    <div class="goods-nav">
+      <div class="nav-title">{$categoryInfo['name']}</div>
+      <span class="nav-nav"><a href="{:url('index/index')}">首页</a> / <a href="{:url('goods/lists?category=cabbage')}">商品中心</a> / 详情</span>
+    </div>
+    <!-- 产品导航结束 -->
+    <!-- 产品详情 -->
+    <div class="row list">
+      <!-- 左侧列表 -->
+      <div class="left fl">
+        <div class="show">
+              <!-- <div class="show-img fl">
+                <img src="./images/01.png" alt="">
+              </div> -->
+              <div id="preview" class="spec-preview  fl"> 
+				<span class="jqzoom">
+        {empty  name="$data['photo_path_1']"}
+          <img jqimg="{:config('theme_path')}./index/images/nopic.jpg" src="{:config('theme_path')}./index/images/nopic.jpg" />
+        {else /}
+          <img jqimg="{:root_path()}{$data['photo_path_1']}" src="{:root_path()}{$data['photo_path_1']}" />
+        {/empty}
+        </span> 
+			  </div>
+              <div class="show-info fl">
+                <div class="info-title">
+                  <div>{$data['name']}</div>
+                  <span>规格：{$data['standard']}</span>
+                </div>
+                <div class="info-content">
+                  <div class="c-info">
+                    <span class="c-money">￥{$data['price']}</span>
+                    <span>配送：
+                      <span id="city-list">
+                        <select class="prov"></select> 
+                        <select class="city" disabled="disabled"></select>
+                        <select class="dist" disabled="disabled"></select>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="c-num">
+                    <div>库存数量 : </div>
+                    <span >{$data['num']}</span>
+                    <span style="margin-left:30px;color:#FE0000">
+                      {notempty name="$data['score']"}
+                        赠积分{$data['score']}
+                      {/notempty}
+                    </span>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="c-star">
+                    <span class="c-flower">
+                    {switch name="data.score_num"}
+                        {case value="1"}<img src="{:config('theme_path')}/index/images/flower_1.png" alt="">{/case}
+                        {case value="2"}<img src="{:config('theme_path')}/index/images/flower_2.png" alt="">{/case}
+                        {case value="3"}<img src="{:config('theme_path')}/index/images/flower_3.png" alt="">{/case}
+                        {case value="4"}<img src="{:config('theme_path')}/index/images/flower_4.png" alt="">{/case}
+                        {case value="5"}<img src="{:config('theme_path')}/index/images/flower_5.png" alt="">{/case}
+                        {default /}<img src="{:config('theme_path')}/index/images/flower_1.png" alt="">
+                    {/switch}
+                    </span>|<span class="c-collection collection" data="{$data['id']}" style="cursor: pointer;">人气收藏 <span>{$data['id']|get_collection_count}</span></span>|<span class="c-sale">总售量 {$data['sell_num']}</span>
+                  </div>
+                  <div class="c-but">
+                    <span class="pointer" id="buy-now" dataname="{$data['name']}" dataprice="{$data['price']}" dataid="{$data['id']}">立即购买</span>
+                    <span class="pointer addcar" dataname="{$data['name']}" dataprice="{$data['price']}" dataid="{$data['id']}">加入购物车</span>
+                  </div>
+                  <div class="c-img">
+                    <div class="spec-scroll"> <!--暂时关闭左右移动 <a class="prev">&lt;</a> <a class="next">&gt;</a> -->
+      						  <div class="items">
+      						    <ul>
+                        {notempty  name="$data['photo_path_1']"}
+                            <li><img bimg="{:root_path()}{$data['photo_path_1']}" src="{:root_path()}{$data['photo_path_1']}" onmousemove="preview(this);"></li>
+                        {/notempty}
+                        {notempty  name="$data['photo_path_2']"}
+                            <li><img bimg="{:root_path()}{$data['photo_path_2']}" src="{:root_path()}{$data['photo_path_2']}" onmousemove="preview(this);"></li>
+                        {/notempty}
+                        {notempty  name="$data['photo_path_3']"}
+                            <li><img bimg="{:root_path()}{$data['photo_path_3']}" src="{:root_path()}{$data['photo_path_3']}" onmousemove="preview(this);"></li>
+                        {/notempty}
+
+      						    </ul>
+      						  </div>
+      						</div>
+      						<div class="clearfix"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+        </div>
+        <!-- 详情和评论 -->
+        <div class="product-comment" style="width:960px;">
+          <span id="show-detail" class="span-actived">产品详情</span>
+          <span id="show-comment">评价</span>
+        </div>
+        <div class="detail-wap" style="width:960px;">
+          {$data['content']}
+        </div>
+        <div class="comment-wap" style="width:960px;">
+          {empty  name="$comment"}
+          <div style="padding:20px;background:#fff">
+            暂无评论
+          </div>
+          {else/}
+          {volist name="$comment" id="list"}
+          <div class="commont">
+            <div class="commont-list">
+                <div class="commont-info">
+                  <span class="comment-phone">{$list['uid']|get_userinfo=###,'nickname'}</span>
+                  <span class="comment-flower">
+                  {switch name="list.score"}
+                      {case value="1"}<img src="{:config('theme_path')}/index/images/flower_1.png" alt="">{/case}
+                      {case value="2"}<img src="{:config('theme_path')}/index/images/flower_2.png" alt="">{/case}
+                      {case value="3"}<img src="{:config('theme_path')}/index/images/flower_3.png" alt="">{/case}
+                      {case value="4"}<img src="{:config('theme_path')}/index/images/flower_4.png" alt="">{/case}
+                      {case value="5"}<img src="{:config('theme_path')}/index/images/flower_5.png" alt="">{/case}
+                      {default /}<img src="{:config('theme_path')}/index/images/flower_1.png" alt="">
+                  {/switch}
+                  {$list['score']}分</span>
+                  <span class="comment-time">{$list['createtime']|date='Y-m-d',###}</span>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="commont-content">
+                  <span>{$list['content']}</span>
+                </div>
+            </div>
+          </div>
+          {/volist}
+          <div class="page">
+                {$page}
+          </div>
+          {/empty}
+          
+        </div>
+        
+        <!-- 详情和评论结束 -->
+      </div>
+      <!-- 左侧列表 end  -->
+      <!-- 右侧内容 -->
+      <div class="right fr">
+        <div class="hot-title"><span>最新产品</span></div>
+        {newgoods num="2" name="list"}
+        <div class="hot-items">
+          <div class="hot-img">
+          {empty name="$data['cover_path']"}
+              <a href="{:url('goods/detail?id='.$list['id'])}"><img src="{:config('theme_path')}./index/images/irc_defaut.png" alt=""></a>
+          {else/}
+              <a href="{:url('goods/detail?id='.$list['id'])}"><img src="{:root_path()}{$list['cover_path']}" alt=""></a>
+          {/empty}
+          </div>
+          <p>{$list['name']}</p>
+        </div>
+        {/newgoods}
+        <div class="hot-title mt20"><span>总体评分</span></div>
+        <div class="score-list">
+            <div class="hot-score fl"><span>{$data['score_num']}</span></div>
+            <div class="hot-info fl"><div>
+              {switch name="data.score_num"}
+                  {case value="1"}<img src="{:config('theme_path')}/index/images/flower_1.png" alt="">{/case}
+                  {case value="2"}<img src="{:config('theme_path')}/index/images/flower_2.png" alt="">{/case}
+                  {case value="3"}<img src="{:config('theme_path')}/index/images/flower_3.png" alt="">{/case}
+                  {case value="4"}<img src="{:config('theme_path')}/index/images/flower_4.png" alt="">{/case}
+                  {case value="5"}<img src="{:config('theme_path')}/index/images/flower_5.png" alt="">{/case}
+                  {default /}<img src="{:config('theme_path')}/index/images/flower_1.png" alt="">
+              {/switch}
+            </div><div>共{$total_comment}条评论</div></div>
+            <div class="clearfix"></div>
+            <div class="score-bar">
+              <div class="skillbar clearfix " data-percent="{$star_5}%">
+                <div class="skillbar-title"><span>5分</span></div>
+                <div class="skillbar-bar"></div>
+                <div class="skill-bar-percent">{$star_5}%</div>
+              </div>
+              <div class="skillbar clearfix " data-percent="{$star_4}%">
+                <div class="skillbar-title"><span>4分</span></div>
+                <div class="skillbar-bar"></div>
+                <div class="skill-bar-percent">{$star_4}%</div>
+              </div>
+              <div class="skillbar clearfix " data-percent="{$star_3}%">
+                <div class="skillbar-title"><span>3分</span></div>
+                <div class="skillbar-bar"></div>
+                <div class="skill-bar-percent">{$star_3}%</div>
+              </div>
+              <div class="skillbar clearfix " data-percent="{$star_2}%">
+                <div class="skillbar-title"><span>2分</span></div>
+                <div class="skillbar-bar"></div>
+                <div class="skill-bar-percent">{$star_2}%</div>
+              </div>
+              <div class="skillbar clearfix " data-percent="{$star_1}%">
+                <div class="skillbar-title"><span>1分</span></div>
+                <div class="skillbar-bar"></div>
+                <div class="skill-bar-percent">{$star_1}%</div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <!-- 右侧内容结束 -->
+    </div>
+    <!-- 产品详情结束 -->
+  </div>
+</div>
+<!-- 购物车begin -->
+<div class="car">
+  <div class="car-wap">
+  <div class="car-top">
+    <span>购物车</span>
+    <span id="car-clear">[清空]</span>
+  </div>
+  <div class="car-list">
+    <table class="table" id="table">
+      <tr class="th">
+        <td class="car-list-product">产品</td>
+        <td class="car-list-num">数量</td>
+        <td class="car-list-price th">单价</td>
+      </tr>
+    </table>
+  </div>
+  </div>
+  <div class="car-footer">
+    <div id="car-icon"><i id="end"></i>共<span id="money">0.00</span>元</div>
+    <a href="{:url('cart/index?type=step1')}" id="go"><div class="go">去结算</div></a>
+  </div>
+</div>
+<!-- 购物车end -->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+<!-- 城市选择 -->
+<script type="text/javascript">
+    var city_path = '{:config('theme_path')}/index/js/';
+</script>
+<script src="{:config('theme_path')}/index/js/jquery.cityselect.js"></script>
+<!-- 放大 -->
+<script src="{:config('theme_path')}/index/js/jquery.jqzoom.js"></script>
+<script src="{:config('theme_path')}/index/js/zoom.js"></script>
+<!-- 购物车 -->
+<script src="{:config('theme_path')}/index/js/jquery.cookie.js"></script>
+<script type="text/javascript">
+    var car_path = '{:config('theme_path')}/index/images/';
+    var uid = "{:session('index_user_auth.uid')}";
+    var login_url = "{:url('Base/login')}";
+    var forget_url = "{:url('base/getPassword')}";
+    var reg_url = "{:url('base/register')}";
+</script>
+<script src="{:config('theme_path')}/index/js/jquery.car.js"></script>
+<script src="STATIC_PATH/plugins/layer/layer.js"></script>
+<!--main end-->
+<!--footer start-->
+{template file="index/footer.html" /}
+<!--footer end-->
+
+
+<script>
+
+	$(function(){
+	 	//地区联动
+    $("#city-list").citySelect({
+      prov:"北京",
+      nodata:"none"
+    });
+
+    //评分条
+    $('.skillbar').each(function(){
+      $(this).find('.skillbar-bar').animate({
+        width:$(this).attr('data-percent')
+      },6000);
+    });
+
+    //商品详情和评论切换
+    $('#show-comment').click(function(){
+      $(this).addClass('span-actived');
+      $('#show-detail').removeClass('span-actived');
+      $('.comment-wap').css('display','block');
+      $('.detail-wap').css('display','none');
+    });
+    $('#show-detail').click(function(){
+      $(this).addClass('span-actived');
+      $('#show-comment').removeClass('span-actived');
+      $('.detail-wap').css('display','block');
+      $('.comment-wap').css('display','none');
+    });
+
+    //加入购物车
+    $('.addcar').on('click',addProduct);
+    //立即购买
+    $('#buy-now').click(function(){
+      url = "{:url('cart/index?type=step1')}";
+      buyNow(url,$(this));
+    })
+        //收藏
+    $('.collection').click(function(){
+        id = $(this).attr('data');
+        uid = "{:session('index_user_auth.uid')}";
+        collection = $(this);
+        num = collection.children('span').text();
+        if(uid){
+            $.ajax({
+              cache: true,
+              type: "POST",
+              url : '{:url('collection')}',
+              data: {id:id,num:num},
+              async: false,
+                success: function(data) {
+                  if (data.code) {
+                      alert(data.msg);
+                      collection.children('span').text(data.data.num);
+                  } else {
+                      alert(data.msg);
+                  }
+
+                },
+                error: function(request) {
+                  alert("页面错误");
+                }
+            });
+        }else{
+            alert('请先登录');
+        }
+        
+    })
+
+	})
+</script>
+</body>
+</html>

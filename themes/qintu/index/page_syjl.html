@@ -1,0 +1,136 @@
+{include file="public/qintu/header"/}
+{include file="public/qintu/nav"/}
+<style type="text/css">
+	/*.modal-dialog{
+		width: 500px;
+	}*/
+	.thumbnail{
+		background-color: white;
+	}
+	.title{
+		font-weight:bold ;
+	}
+	.person-modal{
+		position: absolute;
+	    z-index: 1000;
+	    /*width: 500px;*/
+	    right: 150px;
+	    top: 15%;
+	    margin-left: -300px;
+	}
+	@media screen and (max-width: 600px) {
+	    .person-modal{
+	    	position: initial;
+	    	margin-left: 0;
+	    }
+	}
+	.modal-content {
+		-webkit-box-shadow: none;
+		box-shadow: none;
+		border: none;
+	}
+</style>
+<div class="row banner">
+<!-- 需求框 -->
+<!--<div tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" class="person-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+     	 <form id="form-need" class="reg-login-form" action="{:url('index/postBusiness')}">
+     	 	<div class="form-group">
+				<label for="name"><span class="txt-red">*</span>姓名</label>
+				<input type="text" class="form-control" name="name" 
+					   placeholder="请输入姓名">
+			</div>
+			<div class="form-group">
+				<label for="name"><span class="txt-red">*</span>手机</label>
+				<input type="text" class="form-control" name="mobile" 
+					   placeholder="请输入手机号">
+			</div>
+			<div class="form-group">
+				<label for="name">微信</label>
+				<input type="text" class="form-control" name="wx" 
+					   placeholder="请输入微信号">
+			</div>
+			<div class="form-group">
+				<label for="name">备注</label>
+				 <textarea name="description" rows="2" placeholder="我想咨询商务访问" class="form-control"></textarea>
+			</div>
+			<div class="form-group"> </div>
+			<div class="text-center">
+				<button id="submit" type="submit" class="btn btn-gold btn-full">提交需求单</button>
+			</div>
+			<div class="form-group">
+				<p class="text-center" style="margin-top: 20px;">我们的客服会尽快与您取得联系</p>
+			</div>
+		</form>
+   	  </div>
+    </div>
+  </div>
+</div>-->
+<!-- 需求框结束-->
+</div>
+<?php
+	$post = _get_post_by_name('post-syjl');
+	$post_gyzz = _get_post_by_name('post-gyzz');
+	$post_shfw = _get_post_by_name('post-shfw');
+	$post_dmwh = _get_post_by_name('post-dmwh');
+	$post_shlx = _get_post_by_name('post-shlx');
+	$post_jqrzz = _get_post_by_name('post-jqrzz');
+?>
+<img class="img-responsive" src="{:config('theme_path')}/index/images/banner_syjl.jpg?ver={:__VERSION__}">
+<div class="row section section-bg-white">
+	<div class="col-sm-6 col-sm-offset-3 title-one">
+		<p class="text-center title">{$post['title']}</p>
+		  <p class="text-center txt">{$post['content']}</p>
+<div class="row" style="margin-top: 70px;margin-bottom: 70px;">
+	 <div class="col-sm-4">
+	 	<div class="thumbnail" style="margin-top: 70px;">
+			<img src="{:config('theme_path')}/index/images/pic_syjl_1.jpg">
+			<div class="text-center">
+			  <h4 class="title">{$post_gyzz['title']}</h4>
+			  {$post_gyzz['content']}
+			</div>
+		  </div>
+	 </div>
+	 <div class="col-sm-4">
+	 	<div class="thumbnail">
+			<img src="{:config('theme_path')}/index/images/pic_syjl_2.jpg">
+			<div class="text-center">
+			  <h4 class="title">{$post_shfw['title']}</h4>
+			  {$post_shfw['content']}
+			</div>
+		  </div>
+		 <div class="thumbnail">
+			<img src="{:config('theme_path')}/index/images/pic_syjl_3.jpg">
+			<div class="text-center">
+			  <h4 class="title">{$post_dmwh['title']}</h4>
+			  {$post_dmwh['content']}
+			</div>
+		  </div> 
+	 </div>
+	 <div class="col-sm-4" style="margin-top: 20px;">
+	 	<div class="thumbnail">
+			<img src="{:config('theme_path')}/index/images/pic_syjl_4.jpg">
+			<div class="text-center">
+			  <h4 class="title">{$post_shlx['title']}</h4>
+			  {$post_shlx['content']}
+			</div>
+		  </div>
+		 <div class="thumbnail">
+			<img src="{:config('theme_path')}/index/images/pic_syjl_5.jpg">
+			<div class="text-center">
+			  <h4 class="title">{$post_jqrzz['title']}</h4>
+			  {$post_jqrzz['content']}
+			</div>
+		  </div>
+	 </div>
+	  </div>
+	</div>
+</div>
+<div class="section"></div>
+{include file="public/qintu/post-syjl"/}
+<div class="section"></div>
+{include file="public/qintu/footer"/}
+<script src="{:config('theme_path')}/index/js/page_syjl.js?ver={:__VERSION__}"></script>
+

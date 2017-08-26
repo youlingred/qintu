@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>{:config('web_site_title')}</title>
+<meta name="keywords" content="{:config('web_site_keyword')}"/>
+<meta name="description" content="{:config('web_site_description')}"/>
+<!-- Bootstrap -->
+<link href="{:config('theme_path')}/index/css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="{:config('theme_path')}/index/css/common.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/news_detail.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="{:config('theme_path')}/index/js/html5shiv.min.js"></script>
+    <script src="{:config('theme_path')}/index/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+{template file="index/header.html" /}
+
+<div class="banner">
+  <div class="container">
+      {banner name='banner' pos="4"}
+        <div><a href="{:url($banner.link)}"><img src="{:root_path()}{$banner.banner_path}" width="{$banner.width}" height="{$banner.height}" /></a></div>
+      {/banner}
+  
+  </div>
+</div>
+<!--main start-->
+<div class="main">
+  <div class="container">
+    <div class="title-index">
+    <div class="red">
+      <p>
+      {volist name="$pidInfo['id']|get_self_page" id="data" key="k"}
+        {eq name="k" value="1"}
+          {eq name="$pageInfo['title']" value="$data['title']"}
+            <a href="{:url('Article/page?name='.$data['name'])}" style="color:#FF2D4B">{$data['title']}</a>
+          {else/} 
+            <a href="{:url('Article/page?name='.$data['name'])}">{$data['title']}</a>
+          {/eq} 
+        {else/}
+          {eq name="$pageInfo['title']" value="$data['title']"}
+            <span>|</span></p><p><a href="{:url('Article/page?name='.$data['name'])}" style="color:#FF2D4B">{$data['title']}</a>
+          {else/}
+            <span>|</span></p><p><a href="{:url('Article/page?name='.$data['name'])}">{$data['title']}</a>
+          {/eq}  
+        {/eq}
+      {/volist}
+      </p>
+    </div>
+    <div style="float:right">首页 
+    {notempty name="pidInfo"}
+    / {$pidInfo['title']} 
+    {/notempty}
+    / {$pageInfo['title']}</div>
+    </div>
+
+  <div class="content">
+    <div class="row">
+      <div class="col-xs-9" >
+        <div class="content-index" >
+          <h3>{$pageInfo['title']}</h3>
+          <div class="bottom-line"></div>
+          <div class="content-text">
+              {$pageInfo['content']}
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-3" >
+        <div class="news">
+          <!--行业资讯 开始-->
+        <div class="hyzx-bar-box">
+          <div class="hbb-left">行业资讯</div>
+          <div class="hbb-right"><a href="{:url('Article/lists?category=info')}">更多</a></div>
+        </div>
+          <div class="news-content">
+              {cateposts name="list" cateid='2' num="10"}
+                <p><a href="{:url('Article/detail?id='.$list['id'].'&category=info')}">{$list['title']|msubstr=0,12}</a></p>
+              {/cateposts}
+          </div>          
+        </div>
+        <!--行业资讯 结束-->
+        <div class="" style="padding:10px;background:#fff;">
+            <div id="map" style="width:256px;height:300px;"></div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<!--main end-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+<!--footer start-->
+{template file="index/footer.html" /}
+<!--footer end-->
+
+<!-- 地图   -->
+{if condition="config('baidu_map_ak')"}
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak={:config('baidu_map_ak')}">
+</script>
+<script type="text/javascript"> 
+var map = new BMap.Map("map");          // 创建地图实例  
+var point = new BMap.Point({:config('baidu_map_lon')},{:config('baidu_map_lat')});  // 创建点坐标  
+map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别
+map.enableScrollWheelZoom(true);          //开启缩放
+map.enableDragging();           //开启拖拽
+var marker = new BMap.Marker(point);        // 创建标注    
+map.addOverlay(marker);        
+</script> 
+{else /} 
+  <script>
+    str = "<img src='{:config('theme_path')}/index/images/map.jpg' alt='' width='255' height='300' >";
+    $('#map').append(str);
+  </script>
+{/if}
+
+
+ 
+</body>
+</html>

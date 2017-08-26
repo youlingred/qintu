@@ -1,0 +1,19 @@
+<div class="form-group">
+    <label>{$title}</label>
+ 	<div class="controls">
+		<input class="form-control time" name="{$name}" value="{$data}" placeholder="{$placeholder}" type="text">
+	</div>
+	<script type="text/javascript">
+	   
+	    $(function(){
+		    $('.time').datetimepicker({
+		        format: 'yyyy-mm-dd hh:ii',
+		        language:"zh-CN",
+		        minView:2,
+		        startDate: "2000-02-14 10:00",
+		        autoclose:true
+		    });
+		    showTab();
+		});
+	</script>            
+</div>

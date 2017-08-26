@@ -1,0 +1,459 @@
+{include file="public/qintu/header"/}
+{include file="public/qintu/nav"/}
+<?php
+	$top_cate_info = get_top_cate_info($categoryInfo['id']);
+	$top_cate_url=get_nav_info($top_cate_info['name'])['url'];
+	$nearby_list=_get_goods_nearby_list($data,'qdz_tese_djty');
+	$shares=_get_qtdr_share_list($data['share_master_id']);
+	$daren=_get_qtdr_person($data['share_child_id']);
+?>
+<!--$nearby_list=_get_goods_nearby_list($data['label_area'],$top_cate_info['slug']);-->
+<!--<a><div id="car_container" class="pull-right bag-right {eq name="top_cate_info.slug" value="ztdz"}hidden{/eq}" id="bag">
+	<span id="car_num" class="badge badge-red">0</span>
+</div></a>-->
+<style>
+	.img-responsive{
+		width: 100%;
+	}
+	hr{
+		margin-top: 0px;
+   		margin-bottom: 0px;
+	}
+	.order-container{
+	    position: fixed;
+	    height: 80px;
+	    bottom: 0px;
+	    width: 100%;
+	    background-color: #fff;
+	    z-index: 180;
+	    border-top: 1px solid #e5e5e5;
+	    padding-top: 15px;
+	}
+	.btn-50{
+		width:50%;
+	}
+	.btn-90{
+		width:90%;
+	}
+	.btn-lg, .btn-group-lg > .btn{
+		border-radius: 20px;
+	}
+	.img-responsive{
+		width: auto;
+	}
+	.content hr{
+		margin-bottom: 10px;
+	}
+	
+	.nav-tabs > li > a{
+		width:70px;
+		font-size: 16px;
+		font-weight: bold;
+		border: none;
+		border-bottom: 1px solid #FFFFFF;
+    	border-bottom-width: thick;
+	}
+	.nav-tabs > li:first-child a{
+		left: 60%;
+	}
+	.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+		border: none;
+		border-bottom: 1px solid #cda62f;
+    	border-bottom-width: thick;
+	}
+	.share .title{
+		font-weight: bold;
+	    font-size: 18px;
+	    color: #525252;
+	    line-height: 1.2em;
+	}
+	.share .price{
+		font-weight: bold;
+	    font-size: 16px;
+	    color: #d9534f;
+	    line-height: 1.2em;
+	}
+	.btn-circle{
+		border-radius: 40px;
+	}
+	.share .person{
+		font-weight: normal;
+		font-size: 14px;
+		padding-left: 20px;
+	}
+	.share .span-ico{
+		margin-right: 20px;
+	}
+	.product-comment{
+	background:#F9F9F9;
+	margin-top: 20px;
+	padding-left:10px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 16px;
+}
+.product-comment span{
+	height: 40px;
+	padding:4px 10px;
+	margin-right: 20px; 
+	cursor: pointer;
+}
+.product-comment .span-actived{
+	border-bottom: 2px solid #FF2D4B; 
+	color:#FF0024;
+
+}
+.detail-wap{
+	background: #fff;
+	padding: 20px;
+	
+}
+.comment-wap{
+	display: none;
+}
+.commont{
+	background: #fff;
+	border-bottom: dashed 1px #eee; 
+}
+.commont .commont-info span{
+	margin-top:20px;
+	margin-left:20px;
+	margin-right:20px;
+	display: block;
+	color: #666;
+}
+.commont .commont-info .comment-phone{
+	float: left;
+}
+.commont .commont-info .comment-flower{
+	float: left;
+}
+.commont .commont-info .comment-flower img{
+	margin-right: 20px;
+	margin-top: -4px;
+}
+.commont .commont-info .comment-time{
+	float: right;
+}
+.commont .commont-content{
+
+	padding: 20px;
+	word-wrap: break-word;
+}
+</style>
+	<div class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3 title-one section-bg-white {eq name="top_cate_info.slug" value="qtdr"}hidden{/eq}" style="top: 10px;">
+	  <div id="carousel" class="carousel slide" data-ride="carousel">
+		<ol class="carousel-indicators">
+			{notempty  name="$data['photo_path_1']"}
+				<li data-target="#carousel" data-slide-to="0" class="active"></li>
+			{/notempty}
+			{notempty  name="$data['photo_path_2']"}
+				<li data-target="#carousel" data-slide-to="1"></li>
+			{/notempty}
+			{notempty  name="$data['photo_path_3']"}
+				<li data-target="#carousel" data-slide-to="2"></li>
+			{/notempty}
+		</ol>
+		<div class="carousel-inner" role="listbox">
+			{notempty  name="$data['photo_path_1']"}
+				<div class="item active">
+					<div class="item">
+						<img class="center-block img-responsive" src="{:root_path()}{$data['photo_path_1']}"> </div>
+				</div>
+			{/notempty}
+			{notempty  name="$data['photo_path_2']"}
+				<div class="item">
+					<div class="item">
+						<img class="center-block img-responsive" src="{:root_path()}{$data['photo_path_2']}"> </div>
+				</div>
+			{/notempty}
+			{notempty  name="$data['photo_path_3']"}
+				<div class="item">
+					<div class="item">
+						<img class="center-block img-responsive" src="{:root_path()}{$data['photo_path_3']}"> </div>
+				</div>
+			{/notempty}
+		</div>
+	</div>
+	  <div class="row section">
+	
+	  <div class="row  product-card">
+		<div class="col-sm-7 product-card-right">
+		  	<p class="product-detail-title">{$data['name']}</p>
+		  	<p class="text-left label-wrap" style="height: 25px;"> 
+		  		<?php
+					$labels = explode("|", $data['label_tese']);
+				?>
+		  		{volist name="labels" id="label" }
+					{if condition="$label"}
+						<span class="label label-default">{$label}</span>
+					{/if}
+				{/volist}
+		  	</p>
+		  		<!--<div class="col-sm-4">
+	  			 <?php
+					$labels = explode("|", $data['label_quan']);
+				?>
+		  		{volist name="labels" id="label" }
+					{if condition="$label"}
+						<span id="quan_help" class="label label-danger">{$label}</span>
+					{/if}
+				{/volist}
+		  		</div>-->
+		  	<div class="row">
+		  		<div class="col-sm-12">
+		  			{php}
+		  				$price_txt=floor($data['price']);
+						if(($price_txt/10000)>1){
+							$price_txt=floor($price_txt);
+							$w=floor($price_txt/10000);
+							$ww=$price_txt%10000;
+							$price_txt=$w.'万'.($ww>0?$ww:"");
+						}
+						$val_key=$exchange_rate;
+						$price_rmb=floor($data['price']/$val_key);
+		  			{/php}
+		  			<p id="price_txt" class="product-detail-title txt-red" data-rmb="{$price_txt}">{$price_txt}元<small>人/起</small></p>
+		  		</div>
+		  	
+	  		  	<!--<div class="col-sm-3 txt-red no-padding {eq name="top_cate_info.slug" value="ztdz"}hidden{/eq}">
+					<span id="price_help" class="label label-danger badge bg-red">?</span>
+		  			起价说明
+		  		</div>-->
+		  	</div>
+		  	<hr>
+		  	<div class="row">
+	  		  <div class="col-sm-5 detail_form_item">
+				<p>选择日期</p>
+				<div class="col-sm-12 no-padding">
+					<div class="input-group date form_date col-sm-12" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+						<input id="departure_time" class="form-control" size="16" type="text" value="" readonly>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					</div>
+				</div>
+	  	      </div>
+  		  	   <div class="col-sm-3 detail_form_item">
+				<p>成人</p>
+				<div class="col-sm-12 no-padding">
+					<div class="input-group spinner" data-trigger="spinner">
+					  <input id="man_num" type="text" class="form-control text-center" value="1" data-min="1" data-rule="percent">
+					  <div class="input-group-addon">
+						<a href="javascript:;" class="spin-up" data-spin="up"><span class="glyphicon glyphicon-triangle-top"></span></a>
+						<a href="javascript:;" class="spin-down" data-spin="down"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
+					  </div>
+					</div>
+				</div>
+  		  	   </div>
+  		  	   <div class="col-sm-4 detail_form_item">
+				<p style="max-height: 35px">儿童（0~4周岁）</p>
+				<div class="col-sm-12 no-padding">
+					<div class="input-group spinner" data-trigger="spinner">
+					  <input id="child_num" type="text" class="form-control text-center" value="0" data-min="0" data-rule="percent">
+					  <div class="input-group-addon">
+						<a href="javascript:;" class="spin-up" data-spin="up"><span class="glyphicon glyphicon-triangle-top"></span></a>
+						<a href="javascript:;" class="spin-down" data-spin="down"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
+					  </div>
+					</div>
+				</div>
+  		  	   </div>
+		  	</div>
+		  	<div class="row hidden">
+		  		
+				<div class="col-sm-12 sum_btns text-right">
+                    <button id="addOrder" type="button" class="btn btn-gold" dataname="{$data['name']}" dataid="{$data['id']}">加入心愿单</button>
+				</div>
+			</div>
+		</div>
+	  </div>
+</div>
+</div>
+
+<div class="row section {eq name="top_cate_info.slug" value="qtdr"}hidden{/eq}">
+	<div class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3 col-lg-6 col-lg-offset-3 title-one section-bg-white">
+	  <div class="row content">
+	  {$data['content']}
+	  {notempty name="daren"}
+	  <hr/>
+		<p style="line-height: 1.75em;">
+			<span style="font-size: 24px; line-height: 1.75em;">
+				<span style="color: rgb(255, 192, 0); font-size: 24px; line-height: 28px;">
+					▎
+				</span>
+				达人介绍
+			</span><br>
+		</p>
+	    	<div class="share">
+	    		<p class="title person"><span class="span-ico"><img src="{:root_path()}{$daren['photo_path_1']}" class="img-circle" style="width:50px;height:50px;"/></span>{$daren.name}<a href="{:url('goods/detail?id='.$daren['id'])}"><span class="txt-lookmore"><button type="button" class="btn btn-md btn-gold btn-circle">了解达人</button></span></a></p>
+	    		<p class="description">{$daren.description}</p>
+	    	</div>
+		{/notempty}
+	  </div>
+	</div>
+</div>
+<div class="row section {eq name="top_cate_info.slug" value="qtdr"}hidden{/eq}">
+	
+	<div class="col-sm-6 col-md-offset-3 title-one">
+		<hr />
+		  <p class="text-center title" style="font-size: 18px;">用户评价</p>
+		  <p class="text-center txt"  style="font-size: 12px;">共{$total_comment}条评论</p> 
+	      {volist name="$comment" id="list"}
+          <div class="commont">
+            <div class="commont-list">
+                <div class="commont-info">
+                  <span class="comment-phone">{$list['uid']|get_userinfo=###,'nickname'}</span>
+                  <span class="comment-flower">
+                  {switch name="list.score"}
+                      {case value="1"}<img src="{:config('theme_path')}/index/images/flower_1.png" alt="">{/case}
+                      {case value="2"}<img src="{:config('theme_path')}/index/images/flower_2.png" alt="">{/case}
+                      {case value="3"}<img src="{:config('theme_path')}/index/images/flower_3.png" alt="">{/case}
+                      {case value="4"}<img src="{:config('theme_path')}/index/images/flower_4.png" alt="">{/case}
+                      {case value="5"}<img src="{:config('theme_path')}/index/images/flower_5.png" alt="">{/case}
+                      {default /}<img src="{:config('theme_path')}/index/images/flower_1.png" alt="">
+                  {/switch}
+                  {$list['score']}分</span>
+                  <span class="comment-time">{$list['createtime']|date='Y-m-d',###}</span>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="commont-content">
+                  <span>{$list['content']}</span>
+                </div>
+            </div>
+          </div>
+          {/volist}
+	</div>
+</div>
+<!--{eq name="top_cate_info.slug" value="qdz"}
+{include file="public/qintu/post-cost"/}
+{include file="public/qintu/post-question"/}
+{/eq}
+{eq name="top_cate_info.slug" value="ztdz"}
+{include file="public/qintu/post-cost-ztdz"/}
+{include file="public/qintu/post-question-ztdz"/}
+{/eq}-->
+{eq name="top_cate_info.slug" value="qtdr"}
+	<div class="row section qtdr-section-top text-center">
+		<img src="{:root_path()}{$data['photo_path_1']}" class="img-circle" style="width:150px;height:150px;">
+		<div class="caption text-center" style="margin-top: 20px;">
+			<p class="c-title" style="font-weight: bold">{$data.name}<span style="font-weight: normal;font-size: 14px;position: absolute;">&nbsp;&nbsp;&nbsp;&nbsp;<img src="{:config('theme_path')}/index/images/yanzheng.png"/>已验证</span></p>		
+			<if condition="{$data.label_area}">
+				<p >{$data.label_area}</p>
+			</if>
+			<p >{$data.description}</p>
+		</div>
+		<!--<button id="share_btn" type="button" class="btn btn-md btn-gold btn-circle share_btn">推荐给朋友</button>
+			<div id="share_qrcode" class="m-pop-up">
+				<p class="m-tt">分享到微信朋友圈</p>
+				<div id="qrcode" class="m-ewm"></div>
+				<p class="m-ct">打开微信，使用「扫一扫」打开页面后，通过右上角的操作即可分享到朋友圈。</p>
+			</div>-->
+	</div>
+	<div class="row section">
+	<div class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3 col-lg-6 col-lg-offset-3 title-one section-bg-white">
+	  	<div role="tabpanel">
+		  	<ul class="nav nav-tabs text-justify" role="tablist">
+		    	<li style="width: 50%;margin-bottom:0px;" role="presentation" class="active"><a href="#分享" data-toggle="tab" role="tab" aria-controls="tab1">分享</a></li>
+		    	<li style="width: 50%;margin-bottom:0px;" role="presentation"><a href="#发现" data-toggle="tab" role="tab" aria-controls="tab2">发现</a></li>		    		
+		    </ul>
+		    <div id="tabContent1" class="tab-content">
+		      	<div role="tabpanel" class="tab-pane fade in active" id="分享">
+			        <div class="col-sm-12 content">
+			        	{$data.content}
+			        	<hr/>
+			        	<p style="line-height: 1.75em;">
+			        		<span style="font-size: 24px; line-height: 1.75em;">
+			        			<span style="color: rgb(255, 192, 0); font-size: 24px; line-height: 28px;">
+			        				▎
+			        			</span>
+			        			达人分享
+			        		</span><br>
+			        	</p>
+			        	{volist name="$shares" id="vo"}
+				        	{php}
+			  				$price_txt=floor($vo['price']);
+							if(($price_txt/10000)>1){
+								$price_txt=floor($price_txt);
+								$w=floor($price_txt/10000);
+								$ww=$price_txt%10000;
+								$price_txt=$w.'万'.($ww>0?$ww:"");
+							}
+				  			{/php}
+				        	<div class="share">
+				        		<p class="title">{$vo.name}<a href="{:url('goods/detail?id='.$vo['id'])}"><span class="txt-lookmore"><button type="button" class="btn btn-md btn-gold btn-circle">查看体验</button></span></a></p>
+				        		<p class="price">{$price_txt}元</p>
+				        		<p class="description">{$vo.description}</p>
+				        	</div>
+			        		<div class="row product-preview">
+								{notempty  name="$vo['photo_path_1']"}
+				                    <div class="col-sm-4 no-padding">
+				                    	<img src="{:root_path()}{$vo['photo_path_1']}" class="img-thumbnail img-responsive" alt="">
+				                    </div>
+				                {/notempty}
+				                {notempty  name="$vo['photo_path_2']"}
+				                    <div class="col-sm-4 no-padding">
+				                    	<img src="{:root_path()}{$vo['photo_path_2']}" class="img-thumbnail img-responsive" alt="">
+				                    </div>{/notempty}
+				                {notempty  name="$vo['photo_path_3']"}
+				                    <div class="col-sm-4 no-padding">
+				                    	<img src="{:root_path()}{$vo['photo_path_3']}" class="img-thumbnail img-responsive" alt="">
+				                    </div>{/notempty}
+						  	</div>
+			        		<hr/>
+			        	{/volist}
+			        </div>
+		      	</div>
+		      	<div role="tabpanel" class="tab-pane fade in " id="发现">
+			        <div class="col-sm-12 content">
+			        	{$data.discover}
+			        	
+			        </div>
+		      	</div>
+		    </div>
+		  </div>
+	</div>
+	</div>
+</div>
+{/eq}
+<div class="row section {eq name="top_cate_info.slug" value="qtdr"}hidden{/eq}">
+	<div class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3 title-one section-bg-white" style="padding-top: 20px">
+		<p class="text-center title">推荐体验</p>
+	  <div class="row">
+	  	{volist name="nearby_list" id="vo"}
+		<div class="col-sm-6">
+		  <a href="{:url('goods/detail?id='.$vo['id'])}">
+			  <div class="thumbnail thumbnail-qdz-detail-bottom">
+			  	{empty name="$vo['cover_path']"}
+					<img src="{:config('theme_path')}/wap/images/Thumbnail_Placeholder.png" alt="{$vo['name']}">
+				{else /}
+                	<img src="{:root_path()}{$vo['cover_path']}" alt="{$vo['name']}">
+                {/empty}
+				<div class="caption text-center">
+				<p class="c-title">{$vo.name}</p>	
+				  <p class="description">{$vo.description}</p>
+				  <p class="text-left label-wrap"> 
+				  	<?php
+						$labels = explode("|", $vo['label_tese']);
+					?>
+			  		{volist name="labels" id="label" }
+						{if condition="$label"}
+							<span class="label label-default">{$label}</span>
+						{/if}
+					{/volist}
+				  	</p>
+				</div>
+			  </div>
+			  </a>
+		</div>
+		{/volist}
+	  </div>
+</div>
+</div>
+<div class="section"></div>
+{include file="public/qintu/footer"/}
+<div class="order-container text-center {eq name="top_cate_info.slug" value="qtdr"}hidden{/eq}">
+	<div class="btn-group btn-group-lg {eq name="top_cate_info.slug" value="ztdz"}hidden{/eq}" style="width: 90%;">
+	    <button id="lookOrder" type="button" class="btn btn-gold btn-50">查看全部</button>
+	    <button id="addOrder_btn" type="button" class="btn btn-danger btn-50">申请预订</button>
+	</div>
+	<button id="postOrder" type="button" class="btn btn-lg btn-gold btn-90  {neq name="top_cate_info.slug" value="ztdz"}hidden{/neq}">申请预订</button>
+</div>
+<script src="{:config('theme_path')}/wap/js/goods_detail.js?ver={:__VERSION__}"></script>

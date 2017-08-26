@@ -1,0 +1,99 @@
+{include file="public/qintu/header"/}
+{include file="public/qintu/nav"/}
+<style>
+	.person-form .form-group{
+		margin-bottom: 0px;
+	}
+	.person-modal{
+		position: absolute;
+	    z-index: 1000;
+	    left: 52%;
+	    margin-left: -300px;
+	}
+	@media screen and (max-width: 600px) {
+	    .person-modal{
+	    	position: initial;
+	    	margin-left: 0;
+	    }
+	}
+</style>
+<div class="row banner">
+<!-- 需求框 -->
+<div tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" class="person-modal" style="padding: 20px;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title" id="myModalLabel1">预约您的专属旅行</h4>
+      </div>
+      <div class="modal-body">
+     	 <form id="form-need" class="person-form" action="{:url('index/postPerson')}">
+     	 	<div class="form-group">
+				<label for="name"><span class="txt-red">*</span>姓名</label>
+				<input type="text" class="form-control" name="name" 
+					   placeholder="请输入姓名">
+			</div>
+			<div class="form-group">
+				<label for="name"><span class="txt-red">*</span>手机</label>
+				<input type="text" class="form-control" name="mobile" 
+					   placeholder="请输入手机号">
+			</div>
+			<div class="form-group">
+				<label for="name"><span class="txt-red">*</span>邮箱</label>
+				<input type="text" class="form-control" name="email" 
+					   placeholder="请输入邮箱">
+			</div>
+			<div class="form-group">
+				<label for="name">目的地</label>
+				<input type="text" class="form-control" name="reached" 
+					   placeholder="请输入目的地">
+			</div>
+			<div class="form-group">
+				<label for="name">出行日期</label>
+			  <input type="text" class="form-control" name="out_date" 
+					   placeholder="请输入出行日期 如：2017/03/08">
+			</div>
+			<div class="form-group">
+				<label for="name">出行天数</label>
+			  <input type="text" class="form-control" name="out_days" 
+					   placeholder="请输入出行天数 如：2~25">
+			</div>
+			<div class="form-group">
+				<div class="col-lg-6 no-padding">
+				<label for="name">成人</label>
+				<input type="text" class="form-control" name="man" 
+					   placeholder="请输入成人人数">
+				</div>
+				<div class="col-lg-6 no-padding">
+				<label for="name">儿童</label>
+				<input type="text" class="form-control" name="children"
+					   placeholder="请输入儿童人数">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="name">人均预算</label>
+				 <div class="form-control" style="height: 60px;">
+					 <input type="radio" class="toggle" name="cost" value="￥10000以下">￥10000以下</input>
+					 <input type="radio" class="toggle" name="cost" value="￥10000-￥30000">￥10000-￥30000</input>
+					 <input type="radio" class="toggle" name="cost" value="￥30000-￥50000">￥30000-￥50000</input>
+					 <input type="radio" class="toggle" name="cost" value="￥50000以上">￥50000以上</input>
+				 </div>
+			</div>
+			<div class="form-group">
+				<label for="name">备注</label>
+				 <textarea name="description" rows="2" placeholder="您的特殊需求" class="form-control"></textarea>
+			</div>
+			<div class="form-group"> </div>
+			<div class="text-center">
+				<button id="submit" type="submit" class="btn btn-gold btn-full" style="margin-top: 10px;"> 提交需求单</button>
+			</div>
+		</form>
+   	  </div>
+    </div>
+  </div>
+</div>
+<!-- 需求框结束-->
+</div>
+ <img class="img-responsive" src="{:config('theme_path')}/wap/images/banner_srdz.jpg?ver={:__VERSION__}">
+{include file="public/qintu/footer"/}
+<script src="{:config('theme_path')}/wap/js/page_srdz.js?ver={:__VERSION__}"></script>
+

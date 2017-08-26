@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>{:config('web_site_title')}</title>
+<meta name="keywords" content="{:config('web_site_keyword')}"/>
+<meta name="description" content="{:config('web_site_description')}"/>
+
+<!-- Bootstrap -->
+<link href="{:config('theme_path')}/index/css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="{:config('theme_path')}/index/css/common.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/cart.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="{:config('theme_path')}/index/js/html5shiv.min.js"></script>
+    <script src="{:config('theme_path')}/index/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+{template file="index/header.html" /}
+<!--main start-->
+<div class="main">
+  <div class="container">
+	<div class="notify-box">
+    	<p>
+        	<div class="nb-left">
+            	<img src="{:config('theme_path')}/index/images/ok.png">
+            </div>
+        	<div class="nb-right">
+            	<p style="color:#fe2d4c; font-size:24px; ">{$content}</p>
+            	<p style="margin-top:-8px;">邮寄至：{$ordersInfo['address']}&nbsp;&nbsp;&nbsp; {$ordersInfo['consignee_name']} 收 &nbsp;&nbsp;&nbsp;{$ordersInfo['mobile']}</p>
+            </div>
+        </p>
+        <div style="clear:both; height:20px;"></div>
+    	<p class="more-info">
+        	<a href="{:url('Order/orderDetail',['order_no'=>$ordersInfo['order_no']])}">查看订单详情</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a href="{:url('Order/orderLists')}">我的订单</a>
+        </p>
+    	<p style="border-top:1px solid #ccc; margin-top:30px; padding-top:15px;">
+        	安全提醒：下单后，请勿相信任何办理退款的信息
+        </p>
+    </div>
+  </div>
+</div>
+<!--main end-->
+
+<!--help start-->
+{template file="index/help.html" /}
+<!--help end-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+<!--footer start-->
+{template file="index/footer.html" /}
+<!--footer end-->
+<script>
+	$(document).ready(function(e) {
+		$(".gwzn").hover(function(){
+			$(this).attr('src','{:config('theme_path')}/index/images/help_icon_011.png');
+		},function(){
+			$(this).attr('src','{:config('theme_path')}/index/images/help_icon_01.png');
+		});
+		$(".shfw").hover(function(){
+			$(this).attr('src','{:config('theme_path')}/index/images/help_icon_022.png');
+		},function(){
+			$(this).attr('src','{:config('theme_path')}/index/images/help_icon_02.png');
+		});
+		$(".zffs").hover(function(){
+			$(this).attr('src','{:config('theme_path')}/index/images/help_icon_033.png');
+		},function(){
+			$(this).attr('src','{:config('theme_path')}/index/images/help_icon_03.png');
+		});
+		$(".psfs").hover(function(){
+			$(this).attr('src','{:config('theme_path')}/index/images/help_icon_044.png');
+		},function(){
+			$(this).attr('src','{:config('theme_path')}/index/images/help_icon_04.png');
+		});
+    });
+	
+</script>
+</body>
+</html>

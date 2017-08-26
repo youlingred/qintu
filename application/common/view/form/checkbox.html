@@ -1,0 +1,18 @@
+<div class="form-group">
+	<label>{$title}</label>
+	{volist name="option" id="vo"}
+		{in name="$key" value="$data"}
+          <div class="checkbox">
+            <label>
+				      <input name="{$name}[]" value="{$key}" type="checkbox" checked="checked" class="{$class}">&nbsp;&nbsp;{$vo}
+            </label>
+          </div>
+		{else/}
+          <div class="checkbox">
+            <label>
+				      <input name="{$name}[]" value="{$key}" type="checkbox" class="{$class}">&nbsp;&nbsp;{$vo}
+            </label>
+          </div>
+		{/in}
+	{/volist}
+</div>

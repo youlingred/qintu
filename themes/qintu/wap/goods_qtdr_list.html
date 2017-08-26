@@ -1,0 +1,105 @@
+{include file="public/qintu/header"/}
+{include file="public/qintu/nav"/}
+	
+<?php
+	$qtdr_best_list=_get_goods_best_list('qtdr',3,'sortup');
+?>
+<style>
+	.btn{
+		color: #999;
+		width: 100%;
+		border-radius:0;
+		background-color: white;
+	}
+	.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus{
+		background-color: #f6776e;
+	}
+	.thumbnail{
+		margin-bottom:0;
+	}
+</style>
+<img class="img-responsive" src="{:config('theme_path')}/wap/images/banner_qtdr.jpg?ver={:__VERSION__}">
+<a name="pos"></a>
+<div class="row section-bg-gray section no-padding">
+	<div class="col-md-8 col-md-offset-2 title-one">
+		<div class="row select-main" style="height: 50px;padding-top: 10px;">
+			{volist name="selfCates" id="data" key="i"}
+			<div class="dropdown" style="float: left; width: 100%;">
+				<button type="button" class="btn dropdown-toggle" id="dropdownMenu" 
+					data-toggle="dropdown">
+					{$parentCates[$key]['name']}
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+				{volist name="data" id="vo" key="k"}
+					<?php
+						$url_str=str_replace($categoryInfos[$i-1]['slug'],$vo['slug'],$category);
+					?>
+				    {eq name="$categoryInfos[$i-1]['name']" value="$vo['name']"}
+						<li role="presentation" class="active">
+							<a role="menuitem" tabindex="-1" href="{:url('goods/lists?category='.$url_str.'&sort='.$sort)}#pos">{$vo['name']}</a>
+						</li>
+                    {else/}    
+                        <li role="presentation">
+							<a role="menuitem" tabindex="-1" href="{:url('goods/lists?category='.$url_str.'&sort='.$sort)}#pos">{$vo['name']}</a>
+						</li>
+                    {/eq} 
+       			 {/volist}  
+               	</ul>
+       		</div>
+            {/volist}
+		</div>
+		<div class="row" style="margin-top: 10px;">
+			{volist name="list" id="data" }
+			<div class="col-sm-3">
+				<a href="{:url('goods/detail?id='.$data['id'])}">
+					<div class="thumbnail">
+						{empty name="$data['cover_path']"}
+							<img src="{:config('theme_path')}/wap/images/Thumbnail_Placeholder.png" alt="{$data['name']}">
+						{else /}
+                        	<img src="{:root_path()}{$data['cover_path']}" alt="{$data['name']}">
+                        {/empty}
+						<div class="caption text-center">
+							<p class="c-title">{$data.name}</p>	
+							<p class="description">{$data.description}</p>
+							<?php
+								$labels = explode("|", $data['label_tese']);
+							?>
+							<!--<p class="text-left label-wrap"> 
+								{volist name="labels" id="label" }
+									{if condition="$label"}
+										<span class="label label-default">{$label}</span>
+									{/if}
+								{/volist}
+							</p>-->
+							<?php
+								$shares=_get_qtdr_share_list($data['share_master_id']);	
+								$shares_num=count($shares);
+								$total_comment=get_total_comment($data['id'])
+							?>
+							<div style="color: #717171;">
+								<div style="float: right;">{$shares_num}个分享内容</div>
+								<!--<div style="float: right">{$total_comment}条评论</div>-->
+								<div style="clear: both;"></div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			{/volist}
+		</div>
+		<nav class="text-center" aria-label="Page navigation">
+			{$page}
+		</nav>
+	</div>
+</div>
+<div class="section"></div>
+{include file="public/qintu/footer"/}
+<script type="text/javascript">
+	$("#getnow").click(function(){
+		
+		var goURL=$("#best_person li.active").attr("data-master-id");
+		location=goURL;
+		
+	});
+</script>

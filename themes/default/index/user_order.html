@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>{:config('web_site_title')}</title>
+<meta name="keywords" content="{:config('web_site_keyword')}"/>
+<meta name="description" content="{:config('web_site_description')}"/>
+<!-- Bootstrap -->
+<link href="{:config('theme_path')}/index/css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="{:config('theme_path')}/index/css/common.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/user_center.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+    <script src="{:config('theme_path')}/index/js/html5shiv.min.js"></script>
+    <script src="{:config('theme_path')}/index/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+{template file="index/header.html" /}
+
+<!--main start-->
+<div class="main">
+  <div class="container">
+    <div class="row">
+    <!--左栏目 start-->
+    {template file="index/header_nav.html" /}
+    <!--左栏目 end-->
+
+      <!--我的订单 start-->
+
+      <div class="col-xs-9 " >
+       <div class="user-center">
+
+
+        <div class="order-title" ><span class="order-order">我的订单</span> 
+        
+        <div class="order-choice" >
+        <span data="all"><a href="{:url('order/orderLists')}">全部订单</a></span>
+        <span data="nopaid"><a href="{:url('order/orderLists',['status'=>'nopaid'])}">待付款</a></span>
+        <span data="paid"><a href="{:url('order/orderLists',['status'=>'paid'])}">待发货</a></span>
+        <span data="shipped"><a href="{:url('order/orderLists',['status'=>'shipped'])}">待收货</a></span>
+        <span><a href="{:url('comment/ordersnocomment')}">待评价</a></span>
+
+        </div>         
+        </div>      
+          
+        <div class="user-content user-content-center">
+        {empty name="lists"}
+          <div  style="margin-top:50px;text-align:center;color:#999;font-size:18px"><img src="{:config('theme_path')}/index/images/no_order.png"></div>
+          {else /}
+          <table class="table  order-list" border="0" >
+              <tr class="order-list ">
+              <!-- <th >近一周订单</th> -->
+               <th width="50%">
+               <span>全部订单</span>
+                <!-- <span class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">全部订单 <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                <li><a href="#">近一周订单</a></li>
+                <li><a href="#">近一月订单</a></li>
+                <li><a href="#">近一年订单</a></li>
+              </ul>
+              </span> -->
+              <span style="margin-left:100px">订单详情</span>
+            </th>
+              <th width="12.5%" style="text-align:center">收货人</th>
+              <th width="12.5%" style="text-align:center">金额</th>
+              <th width="12.5%" style="text-align:center">状态</th>
+              <th width="12.5%" style="text-align:center">操作</th>
+              </tr>
+          </table> 
+<!--****************************************-->
+      {volist name="lists" id="list"}            
+          <table class="table  order-list" border="0">
+              <tr class="order-list clearance">
+                <td colspan="4" class="order-more" >
+                  <span style="margin-left:10px;">{$list['createtime']|date="Y-m-d",###}&nbsp;&nbsp;&nbsp;  订单号：{$list['order_no']}</span>
+                </td>  
+                <td colspan="1" class="order-no-img">
+                  <img src="{:config('theme_path')}/index/images/delete.png" class="delete" data="{$list['id']}" type="2" style="cursor:pointer" />
+                </td>                            
+              </tr>
+              <tr >
+                <td class="order-lists-info" width="50%" style="padding:0">
+                {volist name="$list['id']|get_orders_goods" id="orderlist" key="k"} 
+                {eq name="k" value="1"}
+                  <div style="padding:4px;">
+                      <div style="float:left">
+                      {empty name="$orderlist['cover_path']"}
+                        <img style="width:100px;height:70px;" src="{:config('theme_path')}/index/images/irc_defaut.png" alt="">
+                      {else /}
+                        <img style="width:100px;height:70px;" src="{:root_path()}{$orderlist['cover_path']}" alt="">
+                      {/empty}
+                      </div>
+                      <div style="float:left;width:250px;margin-left:10px;">{$orderlist['name']}
+                      {eq name="list.status" value="completed"}
+                      {switch   name="$orderlist['is_comment']" }
+                        {case value="1"}【已评价】{/case}
+                        {case value="-1"} <a href="{:url('comment/ordercomment',['goods_id'=>$orderlist['goods_id'],'order_id'=>$list['id']])}" style="color:red">【去评价】</a>{/case}
+                      {/switch}
+                      {/eq}
+                      </div>
+                      <div style="float:right;margin-right:10px;font-size:12px;"> X{$orderlist['num']} </div>
+                      <div style="clear:both"></div>
+                  </div>
+                {else /}
+                  <div style="padding:4px;" class="order-line">
+                      <div style="float:left">
+                      {empty name="$orderlist['cover_path']"}
+                        <img style="width:100px;height:70px;" src="{:config('theme_path')}/index/images/irc_defaut.png" alt="">
+                      {else /}
+                        <img style="width:100px;height:70px;" src="{:root_path()}{$orderlist['cover_path']}" alt="">
+                      {/empty}
+                      </div>
+                      <div style="float:left;width:250px;margin-left:10px;">{$orderlist['name']}
+                      {eq name="list.status" value="completed"}
+                      {switch   name="$orderlist['is_comment']" }
+                        {case value="1"}【已评价】{/case}
+                        {case value="-1"} <a href="{:url('comment/ordercomment',['goods_id'=>$orderlist['goods_id'],'order_id'=>$list['id']])}" style="color:red">【去评价】</a>{/case}
+                      {/switch}
+                      {/eq}
+                      </div>
+                      <div style="float:right;margin-right:10px;font-size:12px;"> X{$orderlist['num']} </div>
+                      <div style="clear:both"></div>
+                  </div>
+                {/eq}
+                {/volist}
+                </td>
+                <td class="order-lists-user" width="12.5%">
+                  <span ><a href="">{$list['uid']|get_userinfo=###,'username'}</a></span>
+                </td>
+                <td class="order-lists-money" width="12.5%">
+                  <span style="color:red"><a href="">￥{$list['amount']}</a></span>
+                </td>
+                <td class="order-lists-status" width="12.5%">
+                  {switch   name="$list['status']" }
+                      {case value="nopaid"}          
+                        <p>未支付</p>{/case}
+                      {case value="paid"}
+                        <p>已支付</p>
+                      {/case}
+                      {case value="shipped"}
+                        <span><p style="color:#ff2c4c">派件中</p></span>
+                        {/case}
+                      {case value="completed"}
+                        <p style="color:green">交易成功</p>
+                      {/case}     
+                  {/switch}
+                  <p><a href="{:url('order/orderDetail',['order_no'=>$list['order_no']])}">订单详情</a></p>
+                </td>
+                <td class="order-lists-operate" width="12.5%">
+                  {switch   name="$list['status']" }
+                      {case value="nopaid"}
+                        <p class='delete' data="{$list['id']}" type="1" style="cursor:pointer">取消订单</p>{/case}
+                      {case value="paid"}
+                        <p>等待发货</p>{/case}
+                      {case value="shipped"}
+                        <span><p><a href="javascript:confirmOrders({$list['order_no']})">确认收货</a></p></span>{/case}
+                      {case value="completed"}
+                          <p>已完成</p>
+                      {/case}
+                  {/switch}
+                </td>
+              </tr>
+          </table>
+      {/volist}
+<!--****************************************-->   
+      <div class="page">
+            {$page}
+      </div>
+    {/empty}
+          </div>
+        </div>
+        </div>
+
+        <!--我的订单 end-->
+      </div>
+    </div>
+</div>
+<!--main end-->
+
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+<!--footer start-->
+{template file="index/footer.html" /}
+<!-- footer end -->
+
+
+<script type="text/javascript">
+
+  $('document').ready(function(argument){
+    //全选、取消全选的事件
+    $(".selectAll").click(function(){
+      if(this.checked){
+        $(".check").each(function(){this.checked=true;});
+      }else{
+        $(".check").each(function(){this.checked=false;});
+      }
+    });
+    
+
+  })
+</script> 
+<script type="text/javascript" language="javascript">
+// 确认收货
+  function confirmOrders($order_no){
+  $.ajax({
+     type:'post',
+     url:"{:url('order/confirmOrders')}",
+     data:{"order_no":$order_no,
+          },
+     dataType:'json',
+     success: function(data) {
+                if (data.code) {
+            alert(data.msg);
+          setTimeout(function () {
+          location.href = data.url;
+        }, 1000);
+        } else {
+            alert(data.msg);
+        }
+        },
+        error: function(request) {
+                alert("页面错误");
+      }
+  });
+}
+
+  //删除或取消订单
+  $('.delete').click(function(){
+    id = $(this).attr('data');
+    type = $(this).attr('type');
+    $.ajax({
+       type:'post',
+       url:"{:url('order/cancel')}",
+       data:{id:id,type:type},
+       dataType:'json',
+       success: function(data) {
+            if (data.code) {
+                alert(data.msg);
+                setTimeout(function () {
+                  location.href = data.url;
+                }, 1000);
+            } else {
+                alert(data.msg);
+            }
+          },
+          error: function(request) {
+            alert("页面错误");
+        }
+    });
+  })
+</script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  status = "<?php if(empty($_GET['status'])){echo('all');}else{echo($_GET['status']);}?>";
+  //高亮导航
+  var curWwwPath = window.document.location.href;   
+  var pathName = window.document.location.pathname; 
+  $('.order-content').children('div').each(function(){
+     url = $(this).children('span').children('a').attr('href');
+     if(url == String(pathName)){
+        $(this).addClass('navhover');
+     }
+  });
+  $('.order-choice').children('span').each(function(){
+     if(status == $(this).attr('data')){
+        $(this).children('a').addClass('order-order');
+     }
+  });
+
+
+  //帮助中心
+    $('.show-sub').click(function(){
+      $($(this).parent().siblings().children('ul:visible').prev('span')).toggleClass('visted');
+      $($(this).parent().siblings().children('ul:visible')).slideToggle();
+      $($(this).parent().siblings().children('ul:visible').prev('span').children('i')).toggleClass('glyphicon-down');
+
+      $(this).toggleClass('visted');
+      $(this).next('ul').slideToggle();
+      $(this).children('i').toggleClass('glyphicon-down');
+    })
+
+   
+});  
+</script> 
+</body>
+</html>

@@ -1,0 +1,48 @@
+{include file="public/qintu/header"/}
+{include file="public/qintu/nav"/}
+<style>
+	.thumbnail {
+		margin-bottom: 10px;
+		position: relative;
+	}
+	.item-overlay{
+		height: 40px;
+    	line-height: 20px;
+	}
+</style>
+<div class="row section-bg-gray section">
+</div>
+<div class="row section-bg-white section">
+	<div class="col-md-8 col-md-offset-2 title-one">
+		  <p class="text-center title" style="margin-bottom: 30px;">在日本各地实际拍摄照片</p>
+		<div class="row">
+			{volist name="list" id="data" }
+			<div class="col-sm-4">
+				<div class="thumbnail">
+					{php} $daren=_get_qtdr_person($data['share_child_id']); {/php}
+					{empty name="$data['cover_path']"}
+						<img src="{:config('theme_path')}/index/images/Thumbnail_Placeholder.png" alt="{$data['name']}">
+					{else /}
+                    	<img class="zoomify" src="{:root_path()}{$data['cover_path']}" alt="{$data['name']}">
+                    {/empty}
+					<p class="item-overlay text-center">{$data['label_area']}<br>来自{$daren['name']}</p>
+				</div>
+			</div>
+			{/volist}
+		</div>
+		<nav class="text-center" aria-label="Page navigation">
+			{$page}
+		</nav>
+	</div>
+</div>
+<div class="row section-bg-gray section">
+
+</div>
+<div class="section"></div>
+<div class="section"></div>
+{include file="public/qintu/footer"/}
+<script>
+	$(function() {
+		$('.zoomify').zoomify();
+	});
+</script>

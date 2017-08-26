@@ -1,0 +1,127 @@
+{include file="common:head"}
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+  {include file="common:header"}
+  <!-- Left side column. contains the logo and sidebar -->
+  {include file="common:navbar"}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        设置
+        <small>菜单管理</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{:url('admin/index/index')}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{:url('admin/menu/index')}">设置</a></li>
+        <li class="active"><a>菜单管理</a></li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+      <!-- form start -->
+      <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-primary">
+
+            <div class="box-header with-border">
+              <h3 class="box-title">添加菜单</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <!-- Font Awesome Icons -->
+              <form  action="{:url('add')}" method="post" id="addMenu">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">名称 </label>
+                  <input type="text" class="form-control" name="name" placeholder="用于后台显示的配置标题" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">图标 </label>
+                  <input type="text" class="form-control" name="icon" placeholder="菜单图标" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">链接</label>
+                  <input type="text" class="form-control" name="url" placeholder="url函数解析的URL或者外链" />
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">排序</label>
+                  <input type="text" class="form-control" name="sort" placeholder="用于分组显示的顺序">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">上级菜单</label>
+                  <select class="form-control" name="pid">
+                   <option value="0">无</option>
+                   {:tree_to_menu_select($menuTree)}
+                 </select>
+                </div>
+               <div class="form-group">
+                  <label for="exampleInputPassword1">是否隐藏</label>
+                  <select class="form-control" name="hide" >
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                  </select>
+                </div>
+            </form>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+              <div class="pull-right">
+                <button class="btn btn-success" onclick="javascript:history.back(-1);return false;">返 回</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary submit">确 定</button>
+              </div>
+            </div>
+            <!-- /.box-footer -->
+          </div>
+          </div>
+          </div>
+          <!-- /.nav-tabs-custom -->
+        </section>
+      </div>
+ 
+  <!-- /.content-wrapper -->
+  {include file="common:footer"}
+
+</div>
+<!-- ./wrapper -->
+
+<script src="STATIC_PATH/plugins/jQuery/jquery-1.9.1.min.js"></script>
+<script src="STATIC_PATH/plugins/jQueryUI/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+ $().ready(function (argument) {
+    // 更新菜单
+    $('.submit').click(function () {
+        $.ajax({
+          cache: true,
+          type: "POST",
+          url : '{:url('add')}',
+          data: $('#addMenu').serialize(),
+          async: false,
+            success: function(data) {
+              if (data.code) {
+                  msgok(data.msg);
+                  setTimeout(function () {
+                    location.href = data.url;
+                  }, 1000);
+              } else {
+                  msgerr(data.msg);
+              }
+
+            },
+            error: function(request) {
+              msgerr("页面错误");
+            }
+        });
+    });
+ });
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="STATIC_PATH/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+</body>
+</html>

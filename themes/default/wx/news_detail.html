@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>小微商城</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/icons-extra.css" />
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/news.css">
+		<script src="{:config('theme_path')}/wap/js/jquery.min.js"></script>
+		<script src="js/mui.js"></script>
+		<script>
+			$(function(){
+				$('.show-nav').click(function(){
+					$('#h-nav').slideToggle();
+				})
+			})
+		</script>
+	</head>
+	<body>
+		<div id="h-nav" style="position:fixed;top:45px;background:#000;z-index:9999;color:#fff;width:100%;height:100%;filter:alpha(opacity=80); -moz-opacity:0.8;-khtml-opacity: 0.8; opacity: 0.8;display:none">
+			<ul style="list-style:none;margin-left:20px;line-height:250%">
+				{:get_nav()}
+			</ul>
+		</div>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav" style="background: #FF2D4B;">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;" onclick="history.go(-1)"></a>
+			 <a class="mui-icon mui-icon-extra mui-icon-extra-class mui-pull-right show-nav" style="color: #fff;"></a>
+			<h1 class="mui-title" style="color:#fff">{$categoryInfo['name']}</h1>
+		</header>
+		<!-- 头部结束 -->
+		<div class="main">
+		<div id="title">{$postInfo['title']}</div>
+		<div id="content">
+			{$postInfo['content']}
+		</div>
+		<div class="div-line"></div>
+		<div class="footer">
+			<p><span><a href='{:url('article/page','name=address')}'>联系我们</a></span>&nbsp;&nbsp;&nbsp;&nbsp;<span><a href='{:url('article/page','name=company')}'>企业介绍</a></span></p>
+			<p><span>copyright©2016&nbsp;&nbsp;&nbsp;&nbsp;珍良缘农副食品超商有限公司</span></p>
+		</div>
+		</div>
+		<!-- 底部 -->
+		{template file="wap/footer.html" /}
+		<!-- 底部结束 -->
+
+	</body>
+</html>

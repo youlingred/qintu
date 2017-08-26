@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>{:config('web_site_title')}</title>
+<meta name="keywords" content="{:config('web_site_keyword')}"/>
+<meta name="description" content="{:config('web_site_description')}"/>
+<!-- Bootstrap -->
+<link href="{:config('theme_path')}/index/css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="{:config('theme_path')}/index/css/common.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/cart.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="{:config('theme_path')}/index/js/html5shiv.min.js"></script>
+    <script src="{:config('theme_path')}/index/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+{template file="index/header.html" /}
+<!--main start-->
+<div class="main">
+  <div class="container">
+	<div class="cart-bar">
+		<div class="cart-bar-left">成功提交订单</div>
+		<div class="cart-bar-right" style="width:1094px;"></div>
+    </div>
+    <div style="clear:both;"></div>
+    <div class="cart-box">
+    	<div class="cart-step">
+    		<div class="cart-step1">
+    			<div class="cart-step1-off"></div>
+            	<div class="cart-step-title">我的购物车</div>
+        	</div>
+    		<div class="cart-step2">
+    			<div class="cart-step2-off"></div>
+            	<div class="cart-step-title">填写核对订单信息</div>
+        	</div>
+    		<div class="cart-step3">
+    			<div class="cart-step3-on"></div>
+            	<div class="cart-step-title">成功提交订单</div>
+        	</div>
+        </div>
+    	<div style="clear:both;"></div>
+        <div class="cart-list">
+			<table class="table">
+				<tr>
+            		<td colspan="6">
+						<p style="font-size:16px; margin-top:10px;">您的订单号为：{$order_no}</p>
+                        <p style="font-size:26px;color:#ff2c4c">
+							订单提交成功，请稍后正在跳转到支付页面...
+                        	<!--<div class="row">
+                            	<div class="col-md-6">
+                                	<div class="trc-left">
+                                    	<img src="{:config('theme_path')}/index/images/success-on.png">
+                                    </div>
+                                	<div class="trc-right">
+                                    	<p>我已支付成功，查看订单详情</p>
+                                    	<p><a class="order-detail-button" href="#">查看订单</a></p>
+                                    </div>
+                                </div>
+                            	<div class="col-md-6">
+                                	<div class="trc-left">
+                                    	<img src="{:config('theme_path')}/index/images/error-off.png">
+                                    </div>
+                                	<div class="trc-right">
+                                    	<p>支付出现故障，我要重新支付</p>
+                                    	<p><a class="repay-button" href="#">重新支付</a></p>
+                                    </div>
+                                </div>
+                            </div>-->
+                        </p>
+                        <div style="clear:both; height:20px;"></div>
+                    </td>
+           		</tr>
+			</table>
+        </div>
+   	  <div style="clear:both;"></div>
+    </div>
+  </div>
+</div>
+<!--main end-->
+
+<!--help start-->
+{template file="index/help.html" /}
+<!--help end-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+<!--footer start-->
+{template file="index/footer.html" /}
+<!--footer end-->
+<script>
+	$(document).ready(function(e) {
+		gopay();
+		function gopay() {
+              setTimeout(function () {
+				  window.location.href = "{:url('pay',['order_no'=>$order_no])}";
+              }, 2000);
+		}
+
+		$('.jian').click(function(){
+				num = parseInt($(this).next().find('#buy-num').val())-1;
+				if(num<=0) {
+					num = 1;
+					}
+				$(this).next().find('#buy-num').val(num);
+			});
+		$('.jia').click(function(){
+				num = parseInt($(this).prev().find('#buy-num').val())+1;
+				if(num<=0) {
+					num = 1;
+					}
+				$(this).prev().find('#buy-num').val(num);
+			});
+
+    	$("div #cart-buy").hover(function(){
+			$(this).removeClass("cart-buy");
+			$(this).addClass("cart-buy-on");
+		},function(){
+			$(this).removeClass("cart-buy-on");
+			$(this).addClass("cart-buy");
+		});
+		$(".gwzn").hover(function(){
+			$(this).attr('src','{:config('theme_path')}/index/images/help_icon_011.png');
+		},function(){
+			$(this).attr('src','{:config('theme_path')}/index/images/help_icon_01.png');
+		});
+		$(".shfw").hover(function(){
+			$(this).attr('src','{:config('theme_path')}/index/images/help_icon_022.png');
+		},function(){
+			$(this).attr('src','{:config('theme_path')}/index/images/help_icon_02.png');
+		});
+		$(".zffs").hover(function(){
+			$(this).attr('src','{:config('theme_path')}/index/images/help_icon_033.png');
+		},function(){
+			$(this).attr('src','{:config('theme_path')}/index/images/help_icon_03.png');
+		});
+		$(".psfs").hover(function(){
+			$(this).attr('src','{:config('theme_path')}/index/images/help_icon_044.png');
+		},function(){
+			$(this).attr('src','{:config('theme_path')}/index/images/help_icon_04.png');
+		});
+	
+    });
+	
+</script>
+</body>
+</html>

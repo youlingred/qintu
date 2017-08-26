@@ -1,0 +1,275 @@
+{include file="common:head"}
+  <style type="text/css">
+    label {
+    display: inline-block;
+    font-weight: 700;
+    margin-bottom: 5px;
+    max-width: 100%;
+    font-size: 12px;
+    }
+  </style>
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+
+  {include file="common:header"}
+  <!-- Left side column. contains the logo and sidebar -->
+  {include file="common:navbar"}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        版本更新
+        <small>更新详情</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="#">版本</a></li>
+        <li class="active"><a href="#">版本更新</a></li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <!-- <form action="{:url('Upgrade/start')}" method="post" > -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">{$data['title']}</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="form-group" id="content">
+                <p>{$data['content']}</p>
+                {if condition="$data.can eq 2"}<p>当前版本 : {$data['version']}</p>
+                {/if}
+              </div>
+              
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+              <div>
+                {if condition="$data.can eq 2"}
+                  <a class="btn btn-primary " href="#">以往版本</a>
+                {else /}
+                  <button  class="btn btn-primary upgrade">立即更新</button>
+                {/if}
+               
+              </div>
+            </div>
+            <!-- /.box-footer -->
+          </div>
+          <!-- /. box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3">
+
+          
+          
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- </form> -->
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  {include file="common:footer"}
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+</div>
+<!-- ./wrapper -->
+
+
+<script src="STATIC_PATH/plugins/jQuery/jquery-1.9.1.min.js"></script>
+<script src="STATIC_PATH/plugins/jQueryUI/jquery-ui.min.js"></script>
+
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="STATIC_PATH/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+
+<script type="text/javascript">
+  var uploadPictuer     = '{:url('Upload/uploadPicture')}';
+  var ueditorUploadPath = '{:url('ueditor/index')}';
+</script>
+<!-- Page Script -->
+<script type="text/javascript" charset="utf-8" src="STATIC_PATH/plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="STATIC_PATH/plugins/ueditor/ueditor.all.min.js"> </script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script type="text/javascript" charset="utf-8" src="STATIC_PATH/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="STATIC_PATH/plugins/webuploader/dist/webuploader.js"></script>
+<script type="text/javascript" src="STATIC_PATH/plugins/webuploader/examples/image-upload/upload.js"></script>
+
+<script type="text/javascript">
+
+  $().ready(function () {
+    var content = $('#content');
+    
+    // 系统更新
+    $('.upgrade').click(function () {
+        $(this).css('disabled','disabled').css('background',"#ccc");
+        content.html('<p>开始更新系统，请不要再做其他操作...</p>');
+        content.append('<p>正在下载补丁包...</p>')
+        address = "{$data['address']}";
+        $.ajax({
+          cache: true,
+          type: "POST",
+          url : '{:url('Upgrade/start')}',
+          data: {address:address},
+          async: false,
+            success: function(data) {
+              if (data.code) {
+                  if(data.data.success==1){
+                      content.append('<p>补丁包下载完成。</p>');
+                      // alert(data.msg);
+                      extract();
+                  }else{
+                      content.append('<p>补丁包下载失败。</p>');
+                      msgerr('下载补丁包失败，请稍后再试');
+                  }
+              } else {
+                  msgerr(data.msg);
+              }
+
+            },
+            error: function(request) {
+              msgerr("页面错误");
+            }
+        });
+    });
+
+
+    //解压补丁包
+    function extract(){
+        content.append('<p>正在解压补丁包...</p>');
+        $.ajax({
+          cache: true,
+          type: "POST",
+          url : '{:url('Upgrade/extract')}',
+          async: false,
+            success: function(data) {
+              if (data.code) {
+                  if(data.data.success==1){
+                      content.append('<p>补丁包解压完成...</p>');
+                      //是否有sql文件
+                      hasSql();
+                  }else{
+                      content.append('<p>补丁包解压失败。</p>');
+                      msgerr(data.msg);
+                  }
+              } else {
+                  msgerr(data.msg);
+              }
+
+            },
+            error: function(request) {
+              msgerr("页面错误");
+            }
+        });
+    }
+
+    //判断是否有sql文件
+    function hasSql(){
+        $.ajax({
+          cache: true,
+          type: "POST",
+          url : '{:url('Upgrade/hasSql')}',
+          async: false,
+            success: function(data) {
+              if (data.code) {
+                  if(data.data.sql==1){
+                      content.append('<p>初始化sql文件...</p>');
+                      content.append('<p>开始升级数据库...</p>');
+                      //执行sql文件
+                      executeSql(0);
+                  }else{
+                      install();
+                  }
+              } else {
+                  msgerr(data.msg);
+              }
+
+            },
+            error: function(request) {
+              msgerr("页面错误");
+            }
+        });
+    }
+
+    //执行sql文件
+    function executeSql(num){
+        $.ajax({
+          cache: true,
+          type: "POST",
+          data:{num:num},
+          url : '{:url('Upgrade/executeSql')}',
+          async: false,
+            success: function(data) {
+              if (data.code) {
+                  if(data.data.end==1){
+                      if(data.msg != "" && data.msg != null){
+                        content.append('<p>'+data.msg+'...</p>');
+                      }
+                      //执行sql文件
+                      executeSql(data.data.num);
+                  }else{
+                      content.append('<p>数据库升级完成...</p>');
+                      install();
+                  }
+              } else {
+                  msgerr(data.msg);
+              }
+
+            },
+            error: function(request) {
+              content.append('<p style="color:red">数据库升级失败,请手动下载补丁包升级数据库...</p>');
+              //继续安装
+              install();
+            }
+        });
+    }
+
+    //安装补丁
+    function install(){
+        var url = "http://{$Think.server.SERVER_NAME}ROOT_PATH/upsystem.php";
+        content.append('<p>正在安装补丁程序...</p>');
+        $.ajax({
+          cache: true,
+          type: "POST",
+          url : url,
+          async: false,
+          dataType: "json",
+            success: function(data) {
+              //layer.close(index);
+              if (data.code) {
+                  content.append('<p>'+data.msg+'</p>');
+                  msgok(data.msg);
+                  location.reload() ;
+              } else {
+                  msgerr(data.msg);
+              }
+
+            },
+            error: function(request) {
+             // layer.close(index);
+              msgerr("页面错误");
+            }
+        });
+    }
+
+  })
+
+
+
+</script>
+
+</body>
+</html>

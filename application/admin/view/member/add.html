@@ -1,0 +1,136 @@
+{include file="common:head"}
+<script src="STATIC_PATH/plugins/jQuery/jquery-1.9.1.min.js"></script>
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+
+{include file="common:header"}
+<!-- Left side column. contains the logo and sidebar -->
+{include file="common:navbar"}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+       会员
+        <small>添加会员</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{:url('admin/index/index')}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{:url('admin/member/index')}">会员</a></li>
+        <li class="active"><a href="{:url('admin/member/add')}">添加会员</a></li>
+      </ol>
+    </section>
+ 
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">添加会员</h3>
+              
+            </div>
+            <div class="box-body no-padding">
+              <form method="post" action={:url('add')} id="add">
+                <div class="box-body">
+                <div class="form-group">
+                    <label for="uname" id="uname_label" class="uname">用户名</label>
+                    <input class="form-control" id="username" name="username" value="" placeholder="用户名" type="text">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1" class="nname">昵称</label>
+                    <input class="form-control" id="nickname" name="nickname" value="" placeholder="用户昵称" type="text">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1" class="email">邮箱</label>
+                    <input class="form-control" name="email" id="email" value="" placeholder="邮箱" type="email">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="exampleInputPassword1" class="mobile">手机号</label>
+                    <input class="form-control" id="mobile" name="mobile" placeholder="手机号" value="" type="text">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1" class="upwd">密码</label>
+                    <input class="form-control" id="upwd" name="password" placeholder="密码" value="" type="password">
+                  </div>
+                   <div class="form-group">
+                    <label for="exampleInputPassword1" class="rpwd">确认密码</label>
+                    <input class="form-control" id="rpwd" name="repassword" placeholder="手机号" value="" type="password">
+                  </div>
+            
+                  <div class="pull-right">
+                <button class="btn btn-success" onclick="javascript:history.back(-1);return false;">返 回</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button"  class="btn btn-primary submit">确 定</button>
+              </div>
+              </form>
+
+<script type="text/javascript"> 
+      $(function(){
+    $('.submit').click(function () {
+        $.ajax({
+          cache: true,
+          type: "POST",
+           url: '{:url('member/add')}',
+          data: $('#add').serialize(),
+          async: false,
+            success: function(data) {
+              if (data.code) {
+                  msgok(data.msg);
+                  setTimeout(function () {
+                    location.href = data.url;
+                  }, 1000);
+              } else {
+                  msgerr(data.msg);
+              }
+
+            },
+            error: function(request) {
+              msgerr("页面错误");
+            }
+        });
+    });
+          })
+     
+</script>
+             
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /. box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  
+  {include file="common:footer"}
+</div>
+<!-- ./wrapper -->
+<script src="STATIC_PATH/plugins/jQueryUI/jquery-ui.min.js"></script>
+
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="STATIC_PATH/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

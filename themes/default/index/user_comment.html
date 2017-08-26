@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>{:config('web_site_title')}</title>
+<meta name="keywords" content="{:config('web_site_keyword')}"/>
+<meta name="description" content="{:config('web_site_description')}"/>
+<!-- Bootstrap -->
+<link href="{:config('theme_path')}/index/css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="{:config('theme_path')}/index/css/common.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/user_center.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/car.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="{:config('theme_path')}/index/js/html5shiv.min.js"></script>
+    <script src="{:config('theme_path')}/index/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+{template file="index/header.html" /}
+
+<!--main start-->
+<div class="main">
+  <div class="container">
+    <div class="row">
+    <!--左栏目 start-->
+    {template file="index/header_nav.html" /}
+    <!--左栏目 end-->
+
+      <!--我的评论 start-->
+      <div class="col-xs-9 " >
+       <div class="user-center">
+        <p class="user-title"><span>我要评论</span></p>
+        <div class="user-content user-content-center">
+    
+         <!--不同部分 start-->
+         <div class="col-xs-3 " >
+          <div>
+          <a href="{:url('goods/detail',['id'=>$postInfo['goods_id']])}">
+          {empty name="$postInfo['cover_path']"}
+             <img src="{:config('theme_path')}/index/images/irc_defaut.png" class="order-img"  />
+              {else /}
+              <img src="{:root_path()}{$postInfo['cover_path']}" class="order-img"  />
+           {/empty}</a>
+          </div>
+          <div class="comment-goods"><p class="bold">{$postInfo['name']}</p><p class="type">规格 : {$postInfo['standard']}</p></div>
+        </div>
+        <div class="col-xs-9 " >
+          <div  class="comment">
+          <div class="starbox">
+<!--             <span class="s_name">总体评价：</span> -->
+            <ul class="star_ul fl">
+              <li><a class="one-star" id="1" title="很差" href="#"></a></li>
+              <li><a class="two-star" id="2" title="差" href="#"></a></li>
+              <li><a class="three-star" id="3" title="还行" href="#"></a></li>
+              <li><a class="four-star"id="4" title="好" href="#"></a></li>
+              <li><a class="five-star"id="5" title="很好" href="#"></a></li>
+            </ul>
+            <span class="s_result fl">请打分</span>
+        </div>
+       
+          </div>
+          <div style="margin-top:30px">
+            <form action="" method="POST">
+              <textarea class="comment-area" id="content"  onkeyup="ta(this)"  maxlength="100" title="最多可输入100个字符" placeholder="请输入评论的内容......"></textarea>
+            </form>
+          </div>
+
+        </div> 
+        <input type="hidden" id="order_id" value="{$postInfo['order_id']}" />
+        <input type="hidden" id="goods_id" value="{$postInfo['goods_id']}" />
+        <input type="hidden" id="score" value="" />
+        <div class="comment-line"></div>
+        <button type="button" id="submit" class="  collection_btn" style="margin-top:50px">发表评论</button> 
+     <!--不同部分 end-->
+        </div>
+        </div>
+        </div>
+
+        <!--我的评论 end-->
+      </div>
+    </div>
+</div>
+<!--main end-->
+
+
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+
+
+<!--footer start-->
+
+{template file="index/footer.html" /}
+<!-- 客服 end -->
+
+<script type="text/javascript">
+$(function(){
+  
+  $('.star_ul a').click(function(){
+    $('.star_ul a').removeClass('active-star');
+    $(this).addClass('active-star');
+    $('.s_result').css('color','#c00').html($(this).attr('title'))
+    $('#score').val($(this).attr('id'));
+
+  });  
+})
+</script>
+  
+<script type="text/javascript">
+  function ta(obj){
+    var val=$(obj).val().length;
+    if(val==100){
+      alert("至多输入100个字符！");
+      $(obj).val($(obj).val().substring(0,100))
+      }
+  }
+</script>
+<script type="text/javascript" language="javascript">
+// 提交数据
+$(function(){
+  $("#submit").click(function(){
+    var goods_id  =$("#goods_id").val();
+    var order_id  =$("#order_id").val();
+    var content   =$("#content").val();
+    var score     =$("#score").val();
+  $.ajax({
+     type:'post',
+     url:"{:url('comment/orderComment')}",
+     data:{"goods_id" :goods_id,
+           "order_id" :order_id,
+           "content"  :content,
+           "score"    :score,
+          },
+     dataType:'json',
+     success: function(data) {
+                if (data.code) {
+            alert(data.msg);
+          setTimeout(function () {
+          location.href = data.url;
+        }, 1000);
+        } else {
+            alert(data.msg);
+        }
+        },
+        error: function(request) {
+                alert("页面错误");
+      }
+  });
+  
+   })
+})
+
+</script> 
+
+</body>
+</html>

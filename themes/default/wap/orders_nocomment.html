@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>{:config('web_site_title')}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/icons-extra.css" />
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/cart.css" />
+	</head>
+
+	<body>
+
+		<style>
+			.mui-control-content {
+				background-color: white;
+				min-height: 215px;
+			}
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			.mui-table-view::before {
+				background-color: #fff;
+			}
+			.mui-table-view::after {
+				background-color: #f0f0f0;
+			}
+			.goods-cate a{ width:20%; display:block; float: left; height:40px; line-height:40px;background-color: #fff; color:#333;text-align: center;font-size: 14px;}
+			.goods-cate .active{background-color: #FF2D4B;color:#fff;}
+		</style>
+		<div id="h-nav" style="position:fixed;top:45px;background:#000;z-index:9999;color:#fff;width:100%;height:100%;filter:alpha(opacity=80); -moz-opacity:0.8;-khtml-opacity: 0.8; opacity: 0.8;display:none">
+			<ul style="list-style:none;margin-left:20px;line-height:250%">
+				{:get_nav()}
+			</ul>
+		</div>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav" style="background: #FF2D4B;">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;"onclick="history.go(-1)"></a>
+			<a class="mui-icon mui-icon-extra mui-icon-extra-class mui-pull-right show-nav" style="color: #fff;"></a>
+			<h1 class="mui-title" style="color:#fff">我的订单</h1>
+		</header>
+		<!-- 头部结束 -->
+		<div class="mui-content">
+			<div style='height: 15px;'></div>
+			<div class='goods-cate'>
+				<a href="{:url('order/orderLists',['status'=>''])}" >全部</a>
+				<a href="{:url('order/orderLists',['status'=>'nopaid'])}" class="nopaid">待付款</a>
+				<a href="{:url('order/orderLists',['status'=>'paid'])}" class="paid">待发货</a>
+				<a href="{:url('order/orderLists',['status'=>'shipped'])}" class="shipped">待收货</a>
+				<a href="{:url('comment/ordersNocomment')}"  class='active'>待评价</a>
+				<div style='clear: both;'></div>
+			</div>
+			<div style='height: 15px;'></div>
+			{empty name="lists"}
+          <div  style="margin-top:50px;text-align:center;color:#999;font-size:18px"><img src="{:config('theme_path')}/wap/images/no_order.png"></div>
+          {else /}
+		{volist name="lists" id="list" }
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+			
+				    {empty name="$list['cover_path']"}
+					<img src="{:config('theme_path')}/wap/images/goods1.png" height='60' style='float:left;margin-right:10px;'>
+					{else /}
+                        <img  src="{:root_path()}{$list['cover_path']}" height='60' style='float:left;margin-right:10px;'>
+                      {/empty}
+                      
+					<div class="mui-media-body">
+						<p class="mui-ellipsis goods-name"><a style='float:left;' href='{:url('goods/detail',['id'=>$list['goods_id']])}'>{$list['name']}</a> <a class='edit'>
+						{switch   name="$list['order_id']|get_order_status" }
+                        {case value="nopaid"}未支付{/case}
+                        {case value="paid"}已支付{/case}
+                        {case value="shipped"}已发货{/case}
+                        {case value="completed"}已完成{/case}
+                        {/switch}
+                        </a></p>
+						<p class="mui-ellipsis goods-standard">规格：{$list['standard']}</p>
+						<p class="mui-ellipsis goods-price"><span class='price'>￥{$list['price']}</span><span class='num'>X{$list['num']}</span></p>
+					</div>
+				</li>
+			</ul>
+			<div style='height: 30px; background-color: #fff;'>
+				<div class='goods-checkbox' style='margin-right: 10px;'>
+		
+					<a href="{:url('order/orderDetail',['order_id'=>$list['order_id']])}"><span style='font-size: 12px; color:#fe0024;margin-left: 15px;margin-top:4px;float: left'>订单详情</span></a>
+				</div>
+				<span class="mui-pull-right" style='font-size: 12px; color:#999;margin-top:4px;'>
+				    {switch   name="$list['order_id']|get_orders_status" }
+                        {case value="nopaid"}<a class="delete" data="{$list['order_id']}" type="1" style="cursor:pointer"><span class="mui-pull-right" style='margin-right: 15px;font-size: 12px;' ><img src='{:config('theme_path')}/wap/images/delete-off.png' style='height:12px; margin-top:5px;' /> 取消订单</span></a>{/case}
+                        {case value="completed"}
+                        <a class="delete" data="{$list['order_id']}" type="2" style="cursor:pointer"><span class="mui-pull-right" style='margin-right: 15px;font-size: 12px;' ><img src='{:config('theme_path')}/wap/images/delete-off.png' style='height:12px; margin-top:5px;' /> 删除</span></a>{/case}
+                        {/switch}
+					
+			{eq name="$list['order_id']|get_orders_status" value="completed"
+                        }
+                   {switch   name="$list['is_comment']" }
+                        {case value="1"}【已评价】{/case}
+                        {case value="-1"}
+					<a href="{:url('comment/orderComment',['goods_id'=>$list['goods_id'],'order_id'=>$list['order_id']])}" style="color:red"><span class="mui-pull-right" style='margin-right: 15px;font-size: 12px;' ><img src='{:config('theme_path')}/wap/images/flower.png' style='height:12px; margin-top:5px;' /> 评价</span></a>
+					{/case}
+					{/switch}
+			{else /}
+					
+           {/eq}
+					
+				</span>
+			</div>
+			<div style='height: 15px;'></div>
+			
+		{/volist}
+		<div class="page">
+			{$page}
+		</div>
+		{/empty}
+		</div>
+<script src="{:config('theme_path')}/wap/js/mui.js"></script>
+<script src="{:config('theme_path')}/wap/js/jquery.min.js"></script>		
+		<!-- 底部 -->
+<div style='height: 50px;'></div>
+{template file="wap/footer.html" /}
+	 <!-- 底部结束 -->
+<script type="text/javascript">
+			//删除或取消订单
+  $('.delete').click(function(){
+    id = $(this).attr('data');
+    type = $(this).attr('type');
+    $.ajax({
+       type:'post',
+       url:"{:url('order/cancel')}",
+       data:{id:id,type:type},
+       dataType:'json',
+       success: function(data) {
+            if (data.code) {
+                alert(data.msg);
+                setTimeout(function () {
+                  location.href = data.url;
+                }, 1000);
+            } else {
+                alert(data.msg);
+            }
+          },
+          error: function(request) {
+            alert("页面错误");
+        }
+    });
+  })
+</script>
+
+<script>
+	$(function(){
+		$('.mui-icon-extra').click(function(){
+			$('#h-nav').slideToggle();
+		})
+	})
+</script>
+	</body>
+
+</html>

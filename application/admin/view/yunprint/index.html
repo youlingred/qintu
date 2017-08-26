@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml">  
+<head>  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<script src="STATIC_PATH/plugins/jQuery/jQuery-2.2.0.min.js"></script> 
+  <!-- Bootstrap 3.3.6 -->  
+<title>{:C('web_site_title')}</title>  
+</head>
+<body>  
+
+<form id="form" name="form" method="post" action="#">  
+  <p>商城信息:  
+    <label for="name"></label>  
+    <input type="text" name="header"  />  
+  </p>  
+  
+  <table width="296" border="1">  
+    <tr>  
+      <td width="296">品名</td>  
+      <td width="296">数量</td> 
+      <td width="296">单价</td> 
+      <td width="296">柜台</td> 
+    </tr>
+    <tr> 
+      <td><input type="text" name="table[1][goods]"  /></td> 
+      <td><input type="text" name="table[1][number]"  /></td> 
+      <td><input type="text" name="table[1][price]"  /></td> 
+    </tr>
+    <tr> 
+      <td><input type="text" name="table[2][goods]"  /></td> 
+      <td><input type="text" name="table[2][number]"  /></td> 
+      <td><input type="text" name="table[2][price]"  /></td> 
+    </tr>
+    <tr> 
+      <td><input type="text" name="table[5][goods]"  /></td> 
+      <td><input type="text" name="table[5][number]"  /></td> 
+      <td><input type="text" name="table[5][price]"  /></td> 
+    </tr>
+    <tr> 
+      <td><input type="text" name="table[7][goods]"  /></td> 
+      <td><input type="text" name="table[7][number]"  /></td> 
+      <td><input type="text" name="table[7][price]"  /></td> 
+    </tr>
+    <tr> 
+      <td><input type="text" name="table[10][goods]"  /></td> 
+      <td><input type="text" name="table[10][number]"  /></td> 
+      <td><input type="text" name="table[10][price]"  /></td> 
+      <td><input type="text" name="table[10][total]"  /></td> 
+    </tr>
+
+  </table>
+   <p>公司信息:  
+    <label for="name"></label>  
+    <input type="text" name="footer"  />  
+  </p> 
+
+  <input type="button" class="submit" value="提交"/>  
+
+</form> 
+<script type="text/javascript">
+//执行打印操作
+  $(function(){
+  $('.submit').click(function(){     
+    $.ajax({
+        cache:true,
+        type :"POST",
+        url  :'{:url('yunprint/action_print')}',
+        data :$('#form').serialize(),
+        async:false,
+           success:function(data){
+            if(data.code){
+              msgok(data.msg);
+            } else {
+              msgerr(data.msg);
+            }
+           },
+          error:function(request){
+            msgerr("页面错误");
+           }
+      }); 
+  });
+});
+
+  //添加打印操作
+//   $(function(){
+//   $('.add').click(function(){     
+//     $.ajax({
+//         cache:true,
+//         type :"POST",
+//         url  :'{:url('yunprint/add_print')}',
+//         data :$('#form').serialize(),
+//         async:false,
+//            success:function(data){
+//             if(data.code){
+//               alert(data.msg);
+//               setTimeout(function(){
+//                 location.href=data.url;
+//               },1000);
+//             } else {
+//               alert(data.msg);
+//             }
+//            },
+//            error:function(request){
+//             alert("页面错误");
+//            }
+//       }); 
+//   });
+// });
+
+//   //删除打印机操作
+//   $(function(){
+//   $('.delete').click(function(){     
+//     $.ajax({
+//         cache:true,
+//         type :"POST",
+//         url  :'{:url('yunprint/delete_print')}',
+//         data :$('#form').serialize(),
+//         async:false,
+//            success:function(data){
+//             if(data.code){
+//               alert(data.msg);
+//               setTimeout(function(){
+//                 location.href=data.url;
+//               },1000);
+//             } else {
+//               alert(data.msg);
+//             }
+//            },
+//            error:function(request){
+//             alert("页面错误");
+//            }
+//       }); 
+//   });
+// });
+</script>
+</body>  
+</html>  

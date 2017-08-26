@@ -1,0 +1,241 @@
+{include file="common:head"}
+<link rel="stylesheet" type="text/css" href="STATIC_PATH/plugins/webuploader/css/webuploader.css" />
+<link rel="stylesheet" type="text/css" href="STATIC_PATH/plugins/webuploader/examples/image-upload/style.css" />
+<script src="STATIC_PATH/plugins/jQuery/jquery-1.9.1.min.js"></script>
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+  <style type="text/css">
+    label {
+    display: inline-block;
+    font-weight: 700;
+    margin-bottom: 5px;
+    max-width: 100%;
+    font-size: 12px;
+    }
+  </style>
+{include file="common:header"}
+<!-- Left side column. contains the logo and sidebar -->
+{include file="common:navbar"}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+      广告管理
+        <small>添加广告</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{:url('admin/index/index')}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{:url('admin/banner/index')}">广告管理</a></li>
+        <li class="active"><a href="{:url('admin/banner/add')}">添加广告</a></li>
+      </ol>
+    </section>
+ 
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">添加广告</h3>
+              
+            </div>
+            <div class="box-body">
+              <form method="post" enctype="multipart/form-data"  action="{:url('add')}" id="add">
+                <div class="box-body">
+                  <div class="form-group">
+                   <label for="exampleInputEmail1">广告名称</label>
+                    <input class="form-control" id="name" name="adname" value="" placeholder="广告名称" type="text">
+
+                  </div>
+                   <div class="form-group">
+                    <label for="exampleInputEmail1">广告描述</label>
+                    <input class="form-control" id="description" name="description" value="" placeholder="广告描述" type="text">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">URL</label>
+                    <input class="form-control" id="link" name="link" value="" placeholder="链接地址" type="url">
+                  </div>                
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">广告位置</label>
+                    <select class="form-control" id="pos" name="pos">
+                      <option value="0">无</option>
+                     {volist name="pos" id="list"}
+                     <option value="{$list.id}">{$list.title}</option>
+                     {/volist}            
+                    </select>
+                  </div>
+                 <div class="form-group">
+                    <label for="exampleInputEmail1">优先级</label>
+                    <input class="form-control" name="level" value="" placeholder="优先级" type="text">
+                  </div>    
+                 <div class="form-group">
+                    
+                    <label>封面图</label><br/>  
+                    <div class="box-body cover_show">
+                    </div>
+                    <a href="#" class="btn" data-toggle="modal" data-target="#myModal" style="background-color: #3c8dbc;border-color: #367fa9;border: 1px solid transparent;color:#fff;">上传封面图</a>
+                    <input id="img_list" hidden="hidden" type="text" name="banner_path"/>
+                                         
+                  </div>                            
+                  <div class="pull-right">
+                    <button class="btn btn-success" onclick="javascript:history.back(-1);return false;">返 回</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-primary submit">确 定</button>
+                  </div>
+              </form>
+<script type="text/javascript"> 
+  $(function(){
+  
+    $('.submit').click(function() {
+  
+      $.ajax({
+        cache: true,
+        type: "POST",
+         url: '{:url('add')}',
+        data: $('#add').serialize(),
+        async: false,
+          success: function(data) {
+            if (data.code) {
+              msgok(data.msg);
+              setTimeout(function () {
+                location.href = data.url;
+              }, 1000);
+            } else {
+              msgerr(data.msg);
+            }
+
+          },
+          error: function(request) {
+            msgerr("页面错误");
+          }
+      });
+    });
+  })  
+   
+</script>
+
+             
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /. box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  
+  {include file="common:footer"}
+</div>
+<!-- ./wrapper -->
+<script type="text/javascript">
+  var uploadPictuer     = '{:url('Upload/uploadPicture')}';  
+</script>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+       <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" 
+             aria-hidden="true">×
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+             封面图
+          </h4>
+       </div>
+       <div class="modal-body">
+        <div id="wrapper">
+            <div id="container">
+                <!--头部，相册选择和格式选择-->
+                <div id="uploader">
+                    <div class="queueList">
+                        <div id="dndArea" class="placeholder">
+                            <div id="filePicker"></div>  
+                                        
+                        </div>
+                    </div>
+                    <div class="statusBar" style="display:none;">
+                        <div class="progress" style="position:relative;">
+                            <span class="text">0%</span>
+                            <span class="percentage"></span>
+                        </div><div class="info"></div>
+                        <div class="btns">
+                            <!-- <div id="filePicker2"></div> --><div class="uploadBtn">开始上传</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       </div>
+       <div class="modal-footer">
+          <button type="button" class="btn btn-primary insert_images">
+             确定
+          </button>
+          <button type="button" class="btn btn-default" 
+             data-dismiss="modal">取消
+          </button>
+       </div>
+    </div><!-- /.modal-content -->
+ </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript" src="STATIC_PATH/plugins/webuploader/dist/webuploader.js"></script>
+<script type="text/javascript" src="STATIC_PATH/plugins/webuploader/examples/image-upload/upload.js"></script>
+<!-- jQuery 2.2.0 -->
+
+<script src="STATIC_PATH/plugins/jQueryUI/jquery-ui.min.js"></script>
+
+
+<script type="text/javascript">
+  $('document').ready(function (argument) {
+    
+    $('.insert_images').on('click',function () {
+      var list = new Array(); //定义一数组
+      list = $('#img_list').val().split(","); //字符分割
+      //下面使用each进行遍历
+      var text = '';
+      $.each(list,function(n,value) {
+        if (value !== null && value !== undefined && value !== '') {
+          text = text+"<div class='form-group'><img class='banner_path' style='max-height:150px;' src='ROOT_PATH"+value+"'></div>";
+          $('#img_list').val(value);
+        }
+      });
+
+      $('.cover_show').html(text);
+      uploader = "<div class='queueList'><div id='dndArea' class='placeholder'><div id='filePicker'></div></div></div><div class='statusBar' style='display:none;'><div class='progress' style='position:relative;'><span class='text'>0%</span><span class='percentage'></span></div><div class='info'></div><div class='btns'><div class='uploadBtn'>开始上传</div></div></div>";
+      // 重置uploader
+      $('#uploader').html(uploader);
+      // 隐藏Modal
+      $('#myModal').modal('hide');
+    });
+
+
+
+  });
+</script>
+
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="STATIC_PATH/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,150 @@
+{include file="public/qintu/header"/}
+{include file="public/qintu/nav"/}
+{php}
+$filters=_get_filters();
+$url_category='category='.$category;
+$url_filter='&filter='.$filter;
+$url_search='&search='.$search;
+$url_sort='&sort='.$sort;
+$url_base_search=url('goods/lists?category='.'qdz_area_all|qdz_tese_all'.$url_sort)
+{/php}
+<style>
+	.item-overlay{
+		left: initial;
+		width:30%;
+		right:15px;
+		bottom:142px;
+		text-align: right;
+	}
+</style>
+<img class="img-responsive" src="{:config('theme_path')}/index/images/banner_qdz.jpg?ver={:__VERSION__}">
+<a name="pos"></a>
+<div class="row section-bg-gray section no-padding banner-bottom">
+	<div class="col-md-3 col-md-offset-7">
+		 <div class="input-group">
+                        <input type="text" class="form-control search-input" id="test_data" onkeydown="javascript:if(event.keyCode==13) search('test_data');" value="{$search}" placeholder="输入要搜索的内容关键字">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-gold search-btn" onclick="search('test_data');return false;">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                            </ul>
+                        </div>
+                        <!-- /btn-group -->
+                    </div>
+	</div>
+	<div class="col-md-8 col-md-offset-2 title-one">
+		<div class="row select-main">
+			<ul class="nav">
+				{volist name="selfCates" id="data" key="i"}
+					<li class="nav-item">
+							<ul class="nav nav-pills">
+							{volist name="data" id="vo" key="k"}
+								<?php
+									$url_str=str_replace($categoryInfos[$i-1]['slug'],$vo['slug'],$category);
+								?>
+							    {eq name="$categoryInfos[$i-1]['name']" value="$vo['name']"}
+									<li role="presentation" class="active">
+										<a href="{:url('goods/lists?category='.$url_str.$url_filter.$url_search.$url_sort)}#pos">{$vo['name']}</a>
+									</li>
+	                            {else/}    
+	                                <li role="presentation">
+										<a href="{:url('goods/lists?category='.$url_str.$url_filter.$url_search.$url_sort)}#pos">{$vo['name']}</a>
+									</li>
+	                            {/eq} 
+                   			 {/volist}  
+                   		</ul>
+					</li>
+                {/volist}
+                {notempty name="filters"}
+	                <li class="nav-item">
+	                	<ul class="nav nav-pills">
+	                		{volist name="filters" id="vo"}
+						     <li role="presentation">
+							  <div class="checkbox" style="margin-bottom: 0px;margin-top: 0px;">
+							    <label>
+							      <input name="filter" type="checkbox" onchange="filterChange()" data-slug="{$vo.slug}" value="{$vo.id}" style="width: 15px; height: 15px;">{$vo.name}
+							    </label>
+							  </div>
+							</li>
+							{/volist}
+						</ul>
+	                </li>
+                 {/notempty}
+			</ul>
+		</div>
+		<div class="row">
+			{volist name="list" id="data" }
+			<div class="col-sm-4">
+				<a href="{:url('goods/detail?id='.$data['id'])}">
+					<div class="thumbnail">
+						{empty name="$data['cover_path']"}
+							<img src="{:config('theme_path')}/index/images/Thumbnail_Placeholder.png" alt="{$data['name']}">
+						{else /}
+                        	<img src="{:root_path()}{$data['cover_path']}" alt="{$data['name']}">
+                        {/empty}
+                        <?php
+			  				$price_txt=floor($data['price']);
+			  			?>
+                        <p class="item-overlay text-center">{$price_txt}元起</p>
+						<div class="caption text-center">
+							<p class="c-title">{$data.name}</p>	
+							<p class="description">{$data.description}</p>
+							<?php
+								$labels = explode("|", $data['label_tese']);
+								$total_comment=get_total_comment($data['id'])
+							?>
+							
+							<div style="color: #717171;">
+								<div style="float: left;">
+									<p class="text-left label-wrap"> 
+										{volist name="labels" id="label" }
+											{if condition="$label"}
+												<span class="label label-default">{$label}</span>
+											{/if}
+										{/volist}
+									</p>
+								</div>
+								<div style="float: right">{$total_comment}条评论</div>
+								<div style="clear: both;"></div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			{/volist}
+		</div>
+		<nav class="text-center" aria-label="Page navigation">
+			{$page}
+		</nav>
+	</div>
+</div>
+{include file="public/qintu/footer"/}
+<script type="text/javascript">
+	$().ready(function () {
+		 $url="{:url('goods/lists?'.$url_category.$url_filter.$url_search.$url_sort)}";
+		{volist name='filterInfos' id='vo'}
+	      $("input:checkbox[value='{$vo.id}']").attr('checked','true');
+		{/volist}
+	});
+	function filterChange(){
+		filter_value=[];
+		$('input[name="filter"]:checked').each(function(){ 
+			filter_value.push($(this).attr('data-slug')); 
+		}); 
+		filter_str=filter_value.join("|");
+		location.href = $url+"&filter="+filter_str+"#pos";
+	}
+	function search(search_key){
+		sk=$("#"+search_key).val();
+		$url="{$url_base_search}";
+//		search_key=$.session.get("search_key");
+//		if(search_key){
+//			search_key.push(sk);
+//		}else{
+//			search_key=new Array();
+//			search_key.push(sk);
+//		}
+		location.href= $url+"&search="+sk+"#pos";
+	}
+</script>

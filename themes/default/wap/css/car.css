@@ -1,0 +1,89 @@
+.car{
+	width:100%;
+    height:50px;
+    line-height:50px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+	-webkit-box-align:center;
+    -webkit-flex-flow: row;
+    flex-flow: row;
+    position: fixed;
+    bottom:0;
+}
+.car div{
+	-webkit-box-flex: 1; 
+    -webkit-flex: 1;
+    flex: 1;
+    text-align: center;
+}
+.car .car-info{
+	background: #000;
+	color:#fff;
+}
+.car .car-info img{
+	vertical-align:middle;
+}
+.car .car-info .mui-badge-danger{
+	margin-left: -16px;
+    margin-top: 6px;
+    position: absolute;
+}
+
+.car .car-go{
+	background: #FF2D4B;
+	color:#fff;
+}
+
+.car-header{
+	position: fixed;
+	bottom:50px;
+	background: #fff;
+	width:100%;
+	display: none;
+}
+.car-title{
+	float: left;
+	margin-left: 10px;
+	height: 40px;
+	line-height: 40px;
+	color:#666;
+	font-size: 0.9em;
+}
+.car-clear{
+	float: right;
+	margin-right: 10px;
+	height: 40px;
+	line-height: 40px;
+	color:#666;
+	font-size: 0.9em;
+}
+.car-header .plus{
+	border:1px solid #ccc;
+	padding:2px 8px;
+	cursor: pointer;
+}
+.car-header .minus{
+	border:1px solid #ccc;
+	padding:2px 8px;
+	cursor: pointer;
+}
+.car-header table tr td{
+	height: 40px;
+	text-align: center;
+	font-size: 0.9em;
+	border-top: 1px solid #eee;
+	color:#;
+}
+.car-header .num{
+	border-top:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+	padding:2px 8px;
+}
+.addcar{
+	cursor: pointer;
+}
+.car-clear{
+	cursor: pointer;
+}

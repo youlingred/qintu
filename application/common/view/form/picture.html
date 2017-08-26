@@ -1,0 +1,31 @@
+<div class="form-group">
+  <label>{$title}</label>  
+  <input id="fileupload" type="file" name="file"><br/> 
+  {empty name="data"}
+    <img src="" id="pic" width="20%" style="max-height:150px;display:none;">
+  {else /}
+    <img src="ROOT_PATH{$data|get_picture}" width="20%" style="max-height:150px;" id="pic">
+  {/empty}  
+</div>
+<script type="text/javascript" src="STATIC_PATH/plugins/jQuery/jquery-2.0.3.min.js"></script> 
+<script type="text/javascript" src="STATIC_PATH/plugins/jQuery/jquery.form.js"></script>
+<script type="text/javascript">
+  $(function () {  
+    var files = $(".files");    
+    $("#fileupload").wrap("<form id='myupload' action='{:url('upload/uploadPicture')}'  method='post' enctype='multipart/form-data'></form>");      
+    $("#fileupload").change(function(){   
+      $("#myupload").ajaxSubmit({   
+        dataType:  'json',   
+        success: function(data) {   
+          $("#pic").attr("src","ROOT_PATH"+data['path']); 
+          $("#pic").css('display',''); 
+          alert("上传成功");  
+        },    
+        error:function(xhr){    
+          alert("上传失败");    
+        }   
+      });   
+    });   
+  });
+  
+</script>

@@ -1,0 +1,99 @@
+{include file="common:head"}
+
+<body>
+<form action="{url(wx/edit)}" method="post" id="edit">
+	<table class="table">
+		<tr>
+			<td width="100px;">顶级</td>
+			<td>
+				<select name="parent">
+				  <option value ="0">-无-</option>
+				  {volist name="data" id="vo"}
+				  	 <option value ="{$vo.id}" {if condition="$vo.id eq $info.parent"}selected=true{/if}>{$vo.name}</option>
+				  {/volist}
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>名称</td>
+			<td><input type="text" name="name" value="{$info['name']}" style="width:300px;"></td>
+		</tr>
+		<tr>
+			<td>模式</td>
+			<td>
+				{if condition="$info.type eq 1"}
+					<input name="type" type="radio" value="1" checked="checked"/>跳转链接
+					<input name="type" type="radio" value="2" />发送消息
+				{else /}
+					<input name="type" type="radio" value="1" />跳转链接
+					<input name="type" type="radio" value="2" checked="checked"/>发送消息
+				{/if}
+				
+			</td>
+		</tr>
+		<tr id="url">
+			<td>URL</td>
+			<td>
+				<input type="text" name="url" value="{$info['url']}" style="width:300px;">
+			</td>
+		</tr>
+		<tr id="msg">
+			<td>消息</td>
+			<td>
+				<textarea name="msg" id="" style="width:300px;height:100px;">{$info['msg']}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="hidden" value="{$info['parent']}" name="pid" >
+				<input type="hidden" value="{$info['id']}" name="id" >
+			</td>
+			<td>
+				<div class="pull-left" style="">
+					<a href="" id="submit" class="btn btn-block btn-primary btn-sm">确定</a>
+				</div>
+				<div class="pull-left" style="margin-left:15px">
+					<a href="" id="delete" class="btn btn-block btn-danger btn-sm">删除</a>
+				</div>
+			</td>
+		</tr>
+	</table>
+</form>
+</body>
+<script src="STATIC_PATH/plugins/jQuery/jquery-1.9.1.min.js"></script>
+
+<script>
+$(function(){
+	var type = {$info['type']};
+	if(type==1){ 
+		$('#url').show();
+		$('#msg').hide();
+	}else{
+		$('#url').hide();
+		$('#msg').show();
+	}
+});
+//修改
+$('#submit').click(function(){
+	var data = $('#edit').serialize();
+	parent.window.closeedit(data);
+});
+//修改
+$('#delete').click(function(){
+	var data = $('#edit').serialize();
+	parent.window.closedel(data);
+});
+$("input:radio").change(function() { 
+	type = $(this).val();
+	if(type==1){ 
+		$('#url').show();
+		$('#msg').hide();
+	}else{
+		$('#url').hide();
+		$('#msg').show();
+	}
+});
+
+
+</script>
+</html>

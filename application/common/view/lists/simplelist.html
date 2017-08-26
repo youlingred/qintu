@@ -1,0 +1,48 @@
+
+
+  <div class="box-body no-padding">
+    <div class="table-responsive mailbox-messages">
+      <table class="table table-hover table-striped">
+        <thead>
+        <tr>
+        {if condition="$select_all"}
+          <th><input type="checkbox" class="selectAll"></th>
+        {/if} 
+          {for start="0" end="$count"}
+          <th>{$listTitle[$i]}</th>
+          {/for}   
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="listContent" id="list"}
+        <tr>
+          {if condition="$select_all"}
+          <td><input type="checkbox" name="ids" class="check" value="{$list[$pk]}" /></td>
+          {/if}
+          {volist name="arrayKeys" id="vo"}
+            <td>{if condition="$url"}
+                {if condition="$arg"}
+                <a href="{:url($url,[$arg=>$list[$arg]])}">
+                {else /}
+                <a href="{:url($url)}">
+                {/if}
+                {/if}
+                {if condition="in_array($vo, $funKeys)"}
+                  {$list[$vo]|$fun[$vo]}
+                {else /}
+                  {$list[$vo]}
+                {/if}
+                {if condition="$url"}
+                </a>
+                {/if}
+            </td>
+          {/volist}
+        </tr>
+        {/volist}
+        </tbody>
+      </table>
+      <!-- /.table -->
+    </div>
+    <!-- /.mail-box-messages -->
+  </div>
+  <!-- /.box-body -->

@@ -1,0 +1,261 @@
+{include file="common:head"}
+
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+
+{include file="common:header"}
+<!-- Left side column. contains the logo and sidebar -->
+{include file="common:navbar"}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        数据库
+        <small>数据库备份</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{:url('Index/index')}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{:url('admin/member/index')}">数据库</a></li>
+        <li><a>数据库备份</a></li>
+        
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+               <div class="pull-left">
+              <select class="form-control input-sm setStatus" name="status">
+                <option value="0">批量操作</option>
+                <option value="1">数据表优化</option>
+                <option value="2">数据表修复</option>
+                <option value="3">数据表备份</option>
+              </select>
+
+              </div>
+              <div class="pull-left" style="margin-left:10px;"> 
+                <button type="button"  class="btn btn-block btn-default btn-sm setStatusSubmit">应用</button>
+              </div>
+              
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+            
+              <div class="table-responsive mailbox-messages">
+                <table class="table table-hover table-striped">
+                  <thead>
+                  <tr>
+                     <th><input type="checkbox" class="selectAll" checked></th>
+                     <th>数据表名</th>
+                     <th>类型</th>
+                     <th>记录数</th>
+                     <th>数据</th>
+                     <th>创建时间</th>
+                     <th>状态</th>       
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {volist name="list" id="table" key="k"}
+                  <tr>
+                    <td ><input type="checkbox" class="check" name="ids" value="{$table.name}" checked /></td>
+                    <td>{$table.name}</td>
+                    <td>{$table.engine}</td>
+                    <td>{$table.rows}</td>
+                    <td>{$table.data_length|format_bytes}</td>
+                    <td>{$table.create_time}</td>
+                    <td class="bk_status">未备份</td>
+                    
+                   
+                   
+                  </tr>
+                  {/volist}
+                  
+                  </tbody>
+                  <thead>
+                  
+                  </thead>
+                  
+                </table>
+                <!-- /.table -->
+              </div>
+              <!-- /.mail-box-messages -->
+            </div>
+            <!-- /.box-body -->
+
+
+            <div class="box-footer with-border">
+              
+             
+               <div class="pull-right">
+              </div>          
+              <!-- /.box-tools -->
+            </div>
+          </div>
+          <!-- /. box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  {include file="common:footer"}
+
+</div>
+<script src="STATIC_PATH/plugins/jQuery/jquery-1.9.1.min.js"></script>
+<script src="STATIC_PATH/plugins/jQueryUI/jquery-ui.min.js"></script>
+<script src="STATIC_PATH/plugins/layer/layer.js"></script>
+<script type="text/javascript">
+  $.widget.bridge('uibutton',$.ui.button);
+</script>
+
+<script type="text/javascript">
+var url;
+var tables;
+var index;
+  $('document').ready(function(argument){
+    //全选、取消全选的事件
+    $("th .selectAll").click(function(){
+      if(this.checked){
+        $(".check").each(function(){this.checked=true;});
+      }else{
+        $(".check").each(function(){this.checked=false;});
+      }
+    });
+    //设置状态方法
+    $('.setStatusSubmit').click(function(){
+      setStatus = $(".setStatus").val();
+      var ids = new Array();//声明一个存放id的数组
+      $("[name='ids']:checked").each(function(){
+        ids.push($(this).val());
+      });
+      if(setStatus==0){
+        msgerr('请选择操作类型');
+        return;
+      }
+      if(ids.length==0){
+        msgerr('请选择要操作的数据');
+        return;
+      }
+      if(setStatus == 3){ //备份
+          url='{:url('export')}';
+          sendbk(url,ids);
+      }else{ //表优化、修复
+          index = layer.load(1, {
+            offset: ['50%', '50%'],
+            shade: [0.1,'#fff'] //0.1透明度的白色背景
+          });
+          if(setStatus==1){ //表优化
+            url = '{:url('optimize')}';
+          }else{ //表修复
+            url = '{:url('repair')}';
+          }
+          $.ajax({
+          cache:true,
+          type :"POST",
+          url  :url,
+          data :{tables:ids},
+          async:false,
+             success:function(data){
+              layer.close(index);
+              if(data.code){
+                msgok(data.msg);
+                setTimeout(function(){
+                  location.href=data.url;
+                },1000);
+              } else {
+                msgerr(data.msg);
+              }
+             },
+             error:function(request){
+              msgerr("页面错误");
+             }
+        });   
+      }
+           
+    });
+
+     // select选中
+    $(".filterStatus").val("{$Think.get.status ?? '0'}");
+
+        function sendbk(url,ids){
+
+            $('.setStatusSubmit').attr("disabled","disabled");
+            $('.setStatusSubmit').html("正在发送备份请求...");
+            $.post(
+                url,
+                {tables:ids},
+                function(data){
+                    if(data.code){
+                        tables = data.data.tables;
+                        $('.setStatusSubmit').html(data.msg + "开始备份，请不要关闭本页面！");
+                        backup(data.data.tab);
+                        window.onbeforeunload = function(){ return "正在备份数据库，请不要关闭！" }
+                    } else {
+                        msgerr(data.msg);
+                        $('.setStatusSubmit').attr("disabled",false);
+                        $('.setStatusSubmit').html("立即备份");
+                    }
+                },
+                "json"
+            );
+            return false;
+        }
+
+        function backup(tab, status){
+            showmsg(tab.id, "开始备份...(0%)");
+            $.get(url, tab, function(data){
+                if(data.code){
+
+                    
+                    if(!$.isPlainObject(data.data.tab)){
+                        id = data.data.tid-1;
+                        showmsg(id, data.msg);
+                        $('.setStatusSubmit').attr("disabled",false);
+                        $('.setStatusSubmit').html("备份完成，点击重新备份");
+                        window.onbeforeunload = function(){ return null }
+                        return;
+                    }else{
+                      id = data.data.tab.id-1;
+                      showmsg(id, data.msg);
+                      backup(data.data.tab, data.data.tab.id);
+                    }
+                   
+                } else {
+                    msgerr(data.info);
+                    $('.setStatusSubmit').parent().children().removeClass("disabled");
+                    $('.setStatusSubmit').html("立即备份");
+                    setTimeout(function(){
+                      $('#top-alert').find('button').click();
+                      $(that).removeClass('disabled').prop('disabled',false);
+                  },1500);
+                }
+            }, "json");
+
+        }
+
+        function showmsg(id, msg){
+          // alert(tables[id]);
+            $('table').find("input[value=" + tables[id] + "]").closest("tr").find(".bk_status").html(msg);
+        }
+
+
+
+
+  })
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="STATIC_PATH/bootstrap/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="STATIC_PATH/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="STATIC_PATH/dist/js/app.min.js"></script>
+</body>
+</html>

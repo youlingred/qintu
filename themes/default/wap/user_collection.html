@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>{:config('web_site_title')}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/icons-extra.css" />
+		<link rel="stylesheet" type="text/css" href="{:config('theme_path')}/wap/css/cart.css" />
+		<link rel="stylesheet" href="{:config('theme_path')}/wap/css/car.css">
+
+		<script src="{:config('theme_path')}/wap/js/mui.js"></script>
+		<script src="{:config('theme_path')}/wap/js/jquery.min.js"></script>
+		<script src="{:config('theme_path')}/wap/js/jquery.cookie.js"></script>
+		<script type="text/javascript">
+		    var car_path = '{:config('theme_path')}/wap/images/';
+		</script>
+		<script src="{:config('theme_path')}/wap/js/car.js"></script>
+	</head>
+
+	<body>
+
+		<style>
+			.mui-control-content {
+				background-color: white;
+				min-height: 215px;
+			}
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			.mui-content>.mui-table-view:first-child {
+			     margin-top: 0px;
+			}			
+		</style>
+		<!-- 头部 -->
+		<header class="mui-bar mui-bar-nav" style="background: #FF2D4B;">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;" onclick="history.go(-1)"></a>
+			<a  class="mui-icon mui-icon-trash mui-pull-right" style="color: #fff;" onclick="del()"></a>
+			<h1 class="mui-title" style="color:#fff">我的收藏</h1>
+		</header>
+		<!-- 头部结束 -->
+		<div class="mui-content">
+		{empty name="lists"}
+          <div  style="margin-top:50px;text-align:center;color:#999;font-size:18px"><img src="{:config('theme_path')}/wap/images/no_collection.png"></div>
+          {else /}
+			<ul class="mui-table-view">
+			   {volist name="lists" id="list"}
+				<li class="mui-table-view-cell mui-media">
+					<div class='goods-checkbox'>
+						<input name="ids" type="checkbox" value="{$list.id}" style="display:none" >
+						<img id='select' class='{$list.id}' src='{:config('theme_path')}/wap/images/select_off.png' style='height:12px; margin-top:22px;' class="mui-pull-left">
+					</div>
+					{empty name="$list.cover_path"}
+					<img src="{:config('theme_path')}/wap/images/goods1.png" height='60' style='float:left;margin:0 10px;'>
+					{else /}
+					<img src="{:root_path()}{$list['cover_path']}" height='60' style='float:left;margin:0 10px;'>
+					{/empty}
+					<div class="mui-media-body">
+						<p class="mui-ellipsis goods-name"><a style='float:left;' href="{:url('goods/detail',['id'=>$list['goods_id']])}">{$list['name']}</a> <a class='edit'><img class="addcar" src="{:config('theme_path')}/wap/images/shopping_cart.png" alt="" dataname="{$list['name']}" dataprice="{$list['price']}" dataid="{$list['goods_id']}">
+											<span style="display:none">
+											<span class="plus addcar" dataname="{$list['name']}" dataprice="{$list['price']}" dataid="{$list['goods_id']}">+</span><span class="num1" id="list_{$list['goods_id']}">1</span><span class="minus">-</span>
+											</span></a></p>
+						<p class="mui-ellipsis goods-standard">规格：{$list['standard']}</p>
+						<p class="mui-ellipsis goods-price"><span class='price'>￥{$list.price}</span><span class='num' style='font-size: 11px;'><img src="{:config('theme_path')}/wap/images/hot.png" style='height:12px;'> 销量 {$list['sell_num']}</span></p>
+					</div>
+				</li>
+				<div class='goods-border'></div>
+		    {/volist}
+		
+			</ul>
+
+			<div style='height: 10px;'></div>
+				<div class="page">
+					{$page}
+
+				</div>
+		{/empty}
+		</div>
+		<!-- 底部 购物车-->
+		<div class="car-header">
+			<div><span class="car-title">购物车</span><span class="car-clear">[清空]</span></div>
+			<div style="clear:both"></div>
+			<div>
+				<table  style="width:100%">
+					<tr>
+						<td width="55%" style="text-align:left;padding-left:4px">名称</td>
+						<td width="15%" style="color:red">单价</td>
+						<td width="30%">数量</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="car">
+			<div class="car-info"><img id="car-logo" src="{:config('theme_path')}/wap/images/shopping_cart_big.png" alt=""><span class="mui-badge mui-badge-danger" style="display:none">1</span>&nbsp;&nbsp;共<span id="money">0.00</span>元</div>
+			<div class="car-go">去结算</div>
+		</div>
+		<!-- 底部结束 -->
+
+
+
+
+<script>
+		$(function(){
+
+			//检测是否有列表数据
+			hasList();
+
+			$('.mui-icon-search').click(function(){
+				$(this).css('display','none');
+				$('.mui-title').css('display','none');
+				$('.mui-search').css('display','block');
+			});
+
+			//显示隐藏购物车
+			$('.car-info').click(function(){
+			 	$('.car-header').slideToggle();
+			})
+			$('.addcar').on('click',addProduct);
+			// 点击减号
+			$('.minus').on('click',function(){
+		  		//设置购物车显示
+		  		id = $(this).parent().prev('img').attr('dataid');
+		  		sub(id);
+			})
+			//清空购物车
+			$('.car-clear').click(function(){
+				clear();
+			})
+			//去结算
+			$('.car-go').click(function(){
+				location.href ="{:url('cart/index')}";
+			})
+		})
+		$(".main").click(function(){
+			$('.mui-icon-search').css('display','block');
+			$('.mui-title').css('display','block');
+			$('.mui-search').css('display','none');
+		})
+		$('.mui-icon-extra').click(function(){
+			$('#h-nav').slideToggle();
+		})
+	</script>
+<script type="text/javascript" language="javascript">
+// 删除数据
+  function del(){
+  	
+    var ids = new Array();//声明一个存放id的数组
+      $("[name='ids']:checked").each(function(){
+        ids.push($(this).val());
+        
+      });
+     if(ids==false){
+      alert('请选择数据');
+      return false
+     }
+     alert(ids);
+  $.ajax({
+     type:'post',
+     url:"{:url('collection/delGoodsCollection')}",
+     data:{"ids":ids,
+          },
+     dataType:'json',
+     success: function(data) {
+                if (data.code) {
+            alert(data.msg);
+          setTimeout(function () {
+          location.href = data.url;
+        }, 1000);
+        } else {
+            alert(data.msg);
+        }
+        },
+        error: function(request) {
+                alert("页面错误");
+      }
+  });
+  
+}
+</script>
+<script type="text/javascript">
+			$('document').ready(function(){
+				$('.goods-checkbox').click(function(){
+					select = $(this).children('img').attr('src');
+					if(select == '{:config('theme_path')}/wap/images/select_on.png') {
+						$(this).children('img').attr('src','{:config('theme_path')}/wap/images/select_off.png');
+						$(this).children('input').attr("checked",false);
+						
+					} else {
+						$(this).children('img').attr('src','{:config('theme_path')}/wap/images/select_on.png');
+						$(this).children('input').attr("checked",true);
+
+					}
+
+				});
+				});
+	</script>			
+
+	</body>
+
+</html>

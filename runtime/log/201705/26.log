@@ -1,0 +1,328 @@
+[ 2017-05-26T10:56:43+08:00 ] ::1 ::1 GET /minishop/wap.php/goods/lists.html?category=qtdr_area_all&sort=areadown
+[ log ] localhost/minishop/wap.php/goods/lists.html?category=qtdr_area_all&sort=areadown [运行时间：0.128008s][吞吐率：7.81req/s] [内存消耗：2,070.32kb] [文件加载：55]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop\core\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'wap',
+    1 => 'goods',
+    2 => 'lists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=8p2g34qa2ub34lalt43e04sn00',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+  'category' => 'qtdr_area_all',
+  'sort' => 'areadown',
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop/application/wap\lang\zh-cn.php
+[ info ] [ SESSION ] INIT array (
+  'prefix' => 'minishop',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] Method [ <user> public method lists ] {
+  @@ D:\phpStudy\WWW\minishop\application\wap\controller\Goods.php 28 - 165
+}
+
+[ info ] [ VIEW ] ./themes/qintu/wap/goods_qtdr_list.html [ array (
+  0 => 'userinfo',
+  1 => 'categoryInfos',
+  2 => 'category',
+  3 => 'filterInfos',
+  4 => 'filter',
+  5 => 'search',
+  6 => 'list',
+  7 => 'selfCates',
+  8 => 'parentCates',
+  9 => 'page',
+  10 => 'sort',
+  11 => 'type',
+) ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT file
+[ sql ] [ DB ] CONNECT:[ UseTime:0.003000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_key_value` [ RunTime:0.015001s ]
+[ sql ] [ SQL ] SELECT `value` FROM `mini_key_value` WHERE  `collection` = 'indextheme' LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `collection` = 'config.base'   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_apiconfig` [ RunTime:0.006000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_apiconfig`  [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_cate` [ RunTime:0.005001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'qtdr_area_all' LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 34 ORDER BY id asc   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `id` = 34 LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_cate_relationships` [ RunTime:0.006000s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 35   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_filter` [ RunTime:0.006001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_filter` WHERE  `slug` = '' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods` [ RunTime:0.006000s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM mini_goods a INNER JOIN mini_view_goods_and_cates b ON a.id=b.goods_id  WHERE  `id` IN (59,304,90,89,88,87,70,75,71,60,76,77,305,86,69,85,51)  AND `status` = 1 ORDER BY label_area desc,cate_id asc LIMIT 1                     [ RunTime:0.004000s ]
+[ sql ] [ SQL ] SELECT * FROM mini_goods a INNER JOIN mini_view_goods_and_cates b ON a.id=b.goods_id  WHERE  `id` IN (59,304,90,89,88,87,70,75,71,60,76,77,305,86,69,85,51)  AND `status` = 1 ORDER BY label_area desc,cate_id asc LIMIT 0,8                     [ RunTime:0.005001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `collection` = 'indextheme'  AND `uuid` = 'default' LIMIT 1     [ RunTime:0.001000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_navigation` [ RunTime:0.009000s ]
+[ sql ] [ SQL ] SELECT `id`,`name`,`icon`,`pid`,`sort`,`url`,`hide` FROM `mini_navigation` WHERE  `hide` = 0 ORDER BY sort   [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'qtdr' LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 26   [ RunTime:0.001001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods` WHERE  `id` IN (59,304,90,89,88,87,70,75,71,60,76,77,305,86,69,85,51)  AND `status` = 1  AND `is_best` = 1 ORDER BY sort asc LIMIT 3                      [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_posts` [ RunTime:0.007000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_posts` WHERE  `name` = 'server-process-qtdr' LIMIT 1    [ RunTime:0.009001s ]
+
+---------------------------------------------------------------
+[ 2017-05-26T10:57:13+08:00 ] ::1 ::1 GET /minishop/wap.php/goods/lists.html?category=qtdr_area_all&sort=areadown
+[ log ] localhost/minishop/wap.php/goods/lists.html?category=qtdr_area_all&sort=areadown [运行时间：0.116006s][吞吐率：8.62req/s] [内存消耗：2,070.02kb] [文件加载：55]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop\core\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'wap',
+    1 => 'goods',
+    2 => 'lists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=8p2g34qa2ub34lalt43e04sn00; think_var=zh-cn; __session:0.132636419318793:=http:',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+  'category' => 'qtdr_area_all',
+  'sort' => 'areadown',
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop/application/wap\lang\zh-cn.php
+[ info ] [ SESSION ] INIT array (
+  'prefix' => 'minishop',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] Method [ <user> public method lists ] {
+  @@ D:\phpStudy\WWW\minishop\application\wap\controller\Goods.php 28 - 165
+}
+
+[ info ] [ VIEW ] ./themes/qintu/wap/goods_qtdr_list.html [ array (
+  0 => 'userinfo',
+  1 => 'categoryInfos',
+  2 => 'category',
+  3 => 'filterInfos',
+  4 => 'filter',
+  5 => 'search',
+  6 => 'list',
+  7 => 'selfCates',
+  8 => 'parentCates',
+  9 => 'page',
+  10 => 'sort',
+  11 => 'type',
+) ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT file
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_key_value` [ RunTime:0.006001s ]
+[ sql ] [ SQL ] SELECT `value` FROM `mini_key_value` WHERE  `collection` = 'indextheme' LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `collection` = 'config.base'   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_apiconfig` [ RunTime:0.006000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_apiconfig`  [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_cate` [ RunTime:0.005001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'qtdr_area_all' LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 34 ORDER BY id asc   [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `id` = 34 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_cate_relationships` [ RunTime:0.005000s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 35   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_filter` [ RunTime:0.006001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_filter` WHERE  `slug` = '' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods` [ RunTime:0.006000s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM mini_goods a INNER JOIN mini_view_goods_and_cates b ON a.id=b.goods_id  WHERE  `id` IN (59,304,90,89,88,87,70,75,71,60,76,77,305,86,69,85,51)  AND `status` = 1 ORDER BY label_area desc,cate_id asc LIMIT 1                     [ RunTime:0.003000s ]
+[ sql ] [ SQL ] SELECT * FROM mini_goods a INNER JOIN mini_view_goods_and_cates b ON a.id=b.goods_id  WHERE  `id` IN (59,304,90,89,88,87,70,75,71,60,76,77,305,86,69,85,51)  AND `status` = 1 ORDER BY label_area desc,cate_id asc LIMIT 0,8                     [ RunTime:0.004001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `collection` = 'indextheme'  AND `uuid` = 'default' LIMIT 1     [ RunTime:0.000000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_navigation` [ RunTime:0.005001s ]
+[ sql ] [ SQL ] SELECT `id`,`name`,`icon`,`pid`,`sort`,`url`,`hide` FROM `mini_navigation` WHERE  `hide` = 0 ORDER BY sort   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'qtdr' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 26   [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods` WHERE  `id` IN (59,304,90,89,88,87,70,75,71,60,76,77,305,86,69,85,51)  AND `status` = 1  AND `is_best` = 1 ORDER BY sort asc LIMIT 3                      [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_posts` [ RunTime:0.006000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_posts` WHERE  `name` = 'server-process-qtdr' LIMIT 1    [ RunTime:0.001000s ]
+
+---------------------------------------------------------------
+[ 2017-05-26T10:59:15+08:00 ] ::1 ::1 GET /minishop/wap.php/goods/lists.html?category=qtdr_area_all&sort=areadown
+[ log ] localhost/minishop/wap.php/goods/lists.html?category=qtdr_area_all&sort=areadown [运行时间：0.110006s][吞吐率：9.09req/s] [内存消耗：2,069.93kb] [文件加载：55]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop\core\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'wap',
+    1 => 'goods',
+    2 => 'lists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=8p2g34qa2ub34lalt43e04sn00; think_var=zh-cn',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+  'category' => 'qtdr_area_all',
+  'sort' => 'areadown',
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop/application/wap\lang\zh-cn.php
+[ info ] [ SESSION ] INIT array (
+  'prefix' => 'minishop',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] Method [ <user> public method lists ] {
+  @@ D:\phpStudy\WWW\minishop\application\wap\controller\Goods.php 28 - 165
+}
+
+[ info ] [ VIEW ] ./themes/qintu/wap/goods_qtdr_list.html [ array (
+  0 => 'userinfo',
+  1 => 'categoryInfos',
+  2 => 'category',
+  3 => 'filterInfos',
+  4 => 'filter',
+  5 => 'search',
+  6 => 'list',
+  7 => 'selfCates',
+  8 => 'parentCates',
+  9 => 'page',
+  10 => 'sort',
+  11 => 'type',
+) ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT file
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_key_value` [ RunTime:0.006001s ]
+[ sql ] [ SQL ] SELECT `value` FROM `mini_key_value` WHERE  `collection` = 'indextheme' LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `collection` = 'config.base'   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_apiconfig` [ RunTime:0.005001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_apiconfig`  [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_cate` [ RunTime:0.005000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'qtdr_area_all' LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 34 ORDER BY id asc   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `id` = 34 LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_cate_relationships` [ RunTime:0.006000s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 35   [ RunTime:0.001001s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_filter` [ RunTime:0.006000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_filter` WHERE  `slug` = '' LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods` [ RunTime:0.006000s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM mini_goods a INNER JOIN mini_view_goods_and_cates b ON a.id=b.goods_id  WHERE  `id` IN (59,304,90,89,88,87,70,75,71,60,76,77,305,86,69,85,51)  AND `status` = 1 ORDER BY label_area desc,cate_id asc LIMIT 1                     [ RunTime:0.003001s ]
+[ sql ] [ SQL ] SELECT * FROM mini_goods a INNER JOIN mini_view_goods_and_cates b ON a.id=b.goods_id  WHERE  `id` IN (59,304,90,89,88,87,70,75,71,60,76,77,305,86,69,85,51)  AND `status` = 1 ORDER BY label_area desc,cate_id asc LIMIT 0,8                     [ RunTime:0.005000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `collection` = 'indextheme'  AND `uuid` = 'default' LIMIT 1     [ RunTime:0.001000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_navigation` [ RunTime:0.005000s ]
+[ sql ] [ SQL ] SELECT `id`,`name`,`icon`,`pid`,`sort`,`url`,`hide` FROM `mini_navigation` WHERE  `hide` = 0 ORDER BY sort   [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'qtdr' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 26   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods` WHERE  `id` IN (59,304,90,89,88,87,70,75,71,60,76,77,305,86,69,85,51)  AND `status` = 1  AND `is_best` = 1 ORDER BY sort asc LIMIT 3                      [ RunTime:0.001001s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_posts` [ RunTime:0.005000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_posts` WHERE  `name` = 'server-process-qtdr' LIMIT 1    [ RunTime:0.001000s ]
+
+---------------------------------------------------------------
+[ 2017-05-26T11:00:17+08:00 ] ::1 ::1 GET /minishop/wap.php/goods/lists.html?category=qtdr_area_all&sort=areadown
+[ log ] localhost/minishop/wap.php/goods/lists.html?category=qtdr_area_all&sort=areadown [运行时间：0.104006s][吞吐率：9.61req/s] [内存消耗：2,070.02kb] [文件加载：55]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop\core\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'wap',
+    1 => 'goods',
+    2 => 'lists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=8p2g34qa2ub34lalt43e04sn00; think_var=zh-cn; __session:0.132636419318793:=http:',
+  'accept-language' => 'zh-CN,zh;q=0.8',
+  'accept-encoding' => 'gzip, deflate, sdch',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36',
+  'upgrade-insecure-requests' => '1',
+  'cache-control' => 'max-age=0',
+  'connection' => 'close',
+  'host' => 'localhost',
+)
+[ info ] [ PARAM ] array (
+  'category' => 'qtdr_area_all',
+  'sort' => 'areadown',
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\minishop/application/wap\lang\zh-cn.php
+[ info ] [ SESSION ] INIT array (
+  'prefix' => 'minishop',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] Method [ <user> public method lists ] {
+  @@ D:\phpStudy\WWW\minishop\application\wap\controller\Goods.php 28 - 165
+}
+
+[ info ] [ VIEW ] ./themes/qintu/wap/goods_qtdr_list.html [ array (
+  0 => 'userinfo',
+  1 => 'categoryInfos',
+  2 => 'category',
+  3 => 'filterInfos',
+  4 => 'filter',
+  5 => 'search',
+  6 => 'list',
+  7 => 'selfCates',
+  8 => 'parentCates',
+  9 => 'page',
+  10 => 'sort',
+  11 => 'type',
+) ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT file
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011001s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_key_value` [ RunTime:0.006000s ]
+[ sql ] [ SQL ] SELECT `value` FROM `mini_key_value` WHERE  `collection` = 'indextheme' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `collection` = 'config.base'   [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_apiconfig` [ RunTime:0.006000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_apiconfig`  [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_cate` [ RunTime:0.005000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'qtdr_area_all' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `pid` = 34 ORDER BY id asc   [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `id` = 34 LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_cate_relationships` [ RunTime:0.005001s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 35   [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods_filter` [ RunTime:0.005000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_filter` WHERE  `slug` = '' LIMIT 1    [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_goods` [ RunTime:0.006000s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM mini_goods a INNER JOIN mini_view_goods_and_cates b ON a.id=b.goods_id  WHERE  `id` IN (59,304,90,89,88,87,70,75,71,60,76,77,305,86,69,85,51)  AND `status` = 1 ORDER BY label_area desc,cate_id asc LIMIT 1                     [ RunTime:0.004001s ]
+[ sql ] [ SQL ] SELECT * FROM mini_goods a INNER JOIN mini_view_goods_and_cates b ON a.id=b.goods_id  WHERE  `id` IN (59,304,90,89,88,87,70,75,71,60,76,77,305,86,69,85,51)  AND `status` = 1 ORDER BY label_area desc,cate_id asc LIMIT 0,8                     [ RunTime:0.004000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_key_value` WHERE  `collection` = 'indextheme'  AND `uuid` = 'default' LIMIT 1     [ RunTime:0.001000s ]
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000000s ] mysql:dbname=minishop_db;host=127.0.0.1;port=3306;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_navigation` [ RunTime:0.005000s ]
+[ sql ] [ SQL ] SELECT `id`,`name`,`icon`,`pid`,`sort`,`url`,`hide` FROM `mini_navigation` WHERE  `hide` = 0 ORDER BY sort   [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods_cate` WHERE  `slug` = 'qtdr' LIMIT 1    [ RunTime:0.000000s ]
+[ sql ] [ SQL ] SELECT `goods_id` FROM `mini_goods_cate_relationships` WHERE  `cate_id` = 26   [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_goods` WHERE  `id` IN (59,304,90,89,88,87,70,75,71,60,76,77,305,86,69,85,51)  AND `status` = 1  AND `is_best` = 1 ORDER BY sort asc LIMIT 3                      [ RunTime:0.001000s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `mini_posts` [ RunTime:0.005001s ]
+[ sql ] [ SQL ] SELECT * FROM `mini_posts` WHERE  `name` = 'server-process-qtdr' LIMIT 1    [ RunTime:0.000000s ]
+
+---------------------------------------------------------------

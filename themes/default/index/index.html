@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>{:config('web_site_title')}</title>
+<meta name="keywords" content="{:config('web_site_keyword')}"/>
+<meta name="description" content="{:config('web_site_description')}"/>
+<link rel="shortcut icon" href="{:root_path()}/favicon.ico" />
+<!-- Bootstrap -->
+<link href="{:config('theme_path')}/index/css/bootstrap.css" rel="stylesheet">
+<!--引用通用样式-->
+<link href="{:config('theme_path')}/index/css/common.css" rel="stylesheet">
+<link href="{:config('theme_path')}/index/css/index.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="{:config('theme_path')}/index/js/html5shiv.min.js"></script>
+    <script src="{:config('theme_path')}/index/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+
+{template file="index/header.html" /}
+
+<!--banner start-->
+<div class="banner">
+  <div class="container">
+    <div data-ride="carousel" class="carousel slide" id="carousel-example-generic">
+      <ol class="carousel-indicators">
+		{banner name='banner' pos="1"}
+		    <li data-slide-to="{$key}" data-target="#carousel-example-generic" class="{eq name="key" value="0"}active{/eq}"></li>
+		{/banner}
+      </ol>
+      <div role="listbox" class="carousel-inner">
+		{banner name='banner' pos="1"}
+			<div class="item {eq name="key" value="0"}active{/eq}">
+				<a href="{:url($banner.link)}"><img alt="title" src="{:root_path()}{$banner.banner_path}" width="{$banner.width}" height="{$banner.height}" data-holder-rendered="true"></a>
+			</div>
+		{/banner}
+      </div>
+      <a data-slide="prev" role="button" href="#carousel-example-generic" class="left carousel-control"> 
+      	<span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span> 
+        <span class="sr-only">上一个</span> 
+      </a>
+      <a data-slide="next" role="button" href="#carousel-example-generic" class="right carousel-control">
+      	<span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">下一个</span>
+      </a>
+    </div>
+  </div>
+</div>
+<!--banner end-->
+<!--main start-->
+<div class="main">
+  <div class="container">
+	<div class="main-left">
+    	<!--bar start-->
+    	<div class="product-bar">
+        	<div class="product-bar-left">
+            	全部商品
+            </div>
+        	<div class="product-bar-right">
+				<ul id="myTab" class="nav nav-tabs">
+					<li>|</li>
+					{goodscategorys name='cate' map="pid=0" num='6'}
+						<li class="{eq name="key" value="0"}active{/eq}">
+							<a href="#tab-{$key}" data-toggle="tab">
+							{$cate.name}
+							</a>
+						</li>
+						<li>|</li>
+					{/goodscategorys}
+				</ul>
+            </div>
+        </div>
+        <!--bar end-->
+        <!--product start-->
+        <div class="product-box">
+		<div id="myTabContent" class="tab-content">
+			{goodscategorys name='cate' map="pid=0" num='6'}
+   			<div class="tab-pane fade {eq name="key" value="0"}in active{/eq}" id="tab-{$key}">
+			<div class="row">
+				{$cate.id|theme_get_product_list}
+            </div>
+   			</div>
+            <!--分割线-->
+			{/goodscategorys}
+		</div>
+        </div>
+        <!--product end-->
+        <!--about us start-->
+        <div class="about-box">
+			<a href="{:url('index/article/page','name=company')}">
+        	<div class="about-picture">
+            	<img src="{:config('theme_path')}/index/images/00.png">
+            </div>
+			</a>
+        	<div class="about-text">
+				{pages name='page' map="id=15"}
+				<a href="{:url('index/article/page','name=company')}">
+					<div class="title">{$page.title}</div>
+					<div style="clear:both;"></div>
+					<div class="content">
+						{$page.content|strip_tags|msubstr=0,300}
+					</div>
+				</a>
+				{/pages}
+                <a id="more" class="more-off" href="{:url('index/article/page','name=company')}"></a>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <!--about us end-->
+        <!--news start-->
+        <div class="news-bar">
+        	<div class="news-bar-left">新闻中心</div>
+        	<div class="news-bar-right"><a href="{:url('index/article/lists','category=news')}">更多</a></div>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="news-box">
+        	<table class="table table-bordered table-no-border">
+				{subcateposts name='post' cateid='4' num='4'}
+					{switch name="key"}
+						{case value="0"}
+						<tr>
+							<td width="50%">
+								<div class="news-picture"><img src="{$post.uuid|get_posts_cover}" width="135" height="100"></div>
+								<div class="news-text">
+									<div class="news-title">
+									{$post.title}
+									</div>
+									<div class="news-content">
+									{$post.uuid|get_val=###,'description',30}
+									</div>
+									<a id="more" class="more-off" href="{:url('index/article/detail',['id'=>$post.id,'category'=>$post.category])}"></a>
+								</div>
+							</td>
+						{/case}
+						{case value="1"}
+							<td width="50%">
+								<div class="news-picture"><img src="{$post.uuid|get_posts_cover}" width="135" height="100"></div>
+								<div class="news-text">
+									<div class="news-title">
+									{$post.title}
+									</div>
+									<div class="news-content">
+									{$post.uuid|get_val=###,'description',30}
+									</div>
+									<a id="more" class="more-off" href="{:url('index/article/detail',['id'=>$post.id,'category'=>$post.category])}"></a>
+								</div>
+							</td>
+						</tr>
+						{/case}
+						{case value="2"}
+						<tr>
+							<td>
+								<div class="news-picture"><img src="{$post.uuid|get_posts_cover}" width="135" height="100"></div>
+								<div class="news-text">
+									<div class="news-title">
+									{$post.title}
+									</div>
+									<div class="news-content">
+									{$post.uuid|get_val=###,'description',30}
+									</div>
+									<a id="more" class="more-off" href="{:url('index/article/detail',['id'=>$post.id,'category'=>$post.category])}"></a>
+								</div>
+							</td>
+						{/case}
+						{case value="3"}
+							<td>
+								<div class="news-picture"><img src="{$post.uuid|get_posts_cover}" width="135" height="100"></div>
+								<div class="news-text">
+									<div class="news-title">
+									{$post.title}
+									</div>
+									<div class="news-content">
+									{$post.uuid|get_val=###,'description',30}
+									</div>
+									<a id="more" class="more-off" href="{:url('index/article/detail',['id'=>$post.id,'category'=>$post.category])}"></a>
+								</div>
+							</td>
+						</tr>
+						{/case}
+						{default /}无数据
+					{/switch}
+				{/subcateposts}
+            </table>
+        </div>
+        <!--news end-->
+    </div>
+	<div class="main-right">
+    	<div class="mr-bar-box">
+        	<table class="table table-bordered" style="background-color:#fff; text-align:center;">
+            	<tr>
+                	<td width="50%" height="100">
+                    	<a href="{:url('index/article/page','name=honor')}" style="text-decoration:none;">
+                    	<div class="mr-bar-picture" style="margin-top:10px;">
+                    		<img src="{:config('theme_path')}/index/images/icon_01.png">
+                        </div>
+                    	<div class="mr-bar-title" style="margin-top:5px; color:#cccccc;">
+                    		资质荣誉
+                        </div>
+                        </a>
+                    </td>
+                    <td width="50%" height="100">
+                    	<a href="{:url('index/article/page','name=culture')}" style="text-decoration:none;">
+                    	<div class="mr-bar-picture" style="margin-top:10px;">
+                    		<img src="{:config('theme_path')}/index/images/icon_02.png">
+                        </div>
+                    	<div class="mr-bar-title" style="margin-top:5px; color:#cccccc;">
+                    		企业文化
+                        </div>
+                        </a>
+                    </td>
+                </tr>
+            	<tr>
+                	<td height="100">
+                    	<a href="{:url('index/article/page','name=history')}" style="text-decoration:none;">
+                    	<div class="mr-bar-picture" style="margin-top:10px;">
+                    		<img src="{:config('theme_path')}/index/images/icon_03.png">
+                        </div>
+                    	<div class="mr-bar-title" style="margin-top:5px; color:#cccccc;">
+                    		发展历程
+                        </div>
+                        </a>
+                    </td>
+                    <td height="100">
+                        <a href="{:url('index/article/page','name=company')}" style="text-decoration:none;">
+                    	<div class="mr-bar-picture" style="margin-top:10px;">
+                    		<img src="{:config('theme_path')}/index/images/icon_04.png">
+                        </div>
+                    	<div class="mr-bar-title" style="margin-top:5px; color:#cccccc;">
+                    		企业简介
+                        </div>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <!--行业资讯 开始-->
+        <div class="hyzx-bar-box">
+        	<div class="hbb-left">行业资讯</div>
+        	<div class="hbb-right"><a href="{:url('index/article/lists','category=info')}">更多</a></div>
+        </div>
+        <div class="hyzx-list-box">
+        	<ul>
+				{cateposts name='post' cateid='2' num='10'}
+            	<li><a href="{:url('index/article/detail',['id'=>$post.id,'category'=>$post.category])}">{$post.title}</a></li>
+				{/cateposts}
+            </ul>
+        </div>
+        <!--行业资讯 结束-->
+        <!--热销商品 开始-->
+        <div class="hot-product">
+		<ul id="myTab" class="nav nav-tabs">
+   			<li class="active">
+      			<a href="#hot" data-toggle="tab">
+         		热销商品
+      			</a>
+   			</li>
+            <li style="border-left:1px #999999 solid;float:left; width:2%; height:18px; margin-top:16px;"> &nbsp;</li>
+   			<li>
+            	<a href="#good" data-toggle="tab">
+            	精品排名
+            	</a>
+            </li>
+		</ul>
+		<div id="myTabContent" class="tab-content">
+   			<div class="tab-pane fade in active" id="hot">
+				{hotgoods name='goods' num='4'}
+					<!--box start-->
+					<div class="hpp-box">
+						<div class="hpp-box-left">
+							<div class="hppbl-title">
+								<a href="{:url('index/goods/detail','id='.$goods.id)}">{$goods.name}</a>
+							</div>
+							<div class="hppbl-hot">
+								<img src="{:config('theme_path')}/index/images/icon_heat.png">
+								销售热度：{$goods.sell_num}
+							</div>
+						</div>
+						<div class="hpp-box-right">
+							<img src="{:root_path()}{$goods.cover_path}" height="60" width="85">
+						</div>
+						<div style="clear:both;"></div>
+					</div>
+					<!--box end-->
+				{/hotgoods}
+                <div class="hpp-box-more">
+                	<a href="{:url('index/goods/lists')}">查看更多>></a>
+                </div>
+   			</div>
+   			<div class="tab-pane fade" id="good">
+				{bestgoods name='goods' num='4'}
+					<!--box start-->
+					<div class="hpp-box">
+						<div class="hpp-box-left">
+							<div class="hppbl-title">
+								<a href="{:url('index/goods/detail','id='.$goods.id)}">{$goods.name}</a>
+							</div>
+							<div class="hppbl-hot">
+								<img src="{:config('theme_path')}/index/images/icon_heat.png">
+								销售热度：{$goods.sell_num}
+							</div>
+						</div>
+						<div class="hpp-box-right">
+							<img src="{:root_path()}{$goods.cover_path}" height="60" width="85">
+						</div>
+						<div style="clear:both;"></div>
+					</div>
+					<!--box end-->
+				{/bestgoods}
+                <div class="hpp-box-more">
+                	<a href="{:url('index/goods/lists','category=cabbage')}">查看更多>></a>
+                </div>
+   			</div>
+		</div>
+        </div>
+        <!--热销商品 结束-->
+    </div>
+  </div>
+</div>
+<!--main end-->
+<!--help start-->
+{template file="index/help.html" /}
+<!--help end-->
+<!--friendlink start-->
+<div class="friendlink">
+	<div class="container">
+		<div class="friendlink-bar">
+    		<div class="friendlink-bar-left">友情链接</div>
+    		<div class="friendlink-bar-right">
+                {link name="data"}
+                    <a href="{$data['url']}"  target="{$data['target']}">{$data['name']}</a>&nbsp; | &nbsp;
+                {/link}
+            </div>
+    	</div>
+    </div>
+</div>
+<!--friendlink end-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="{:config('theme_path')}/index/js/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="{:config('theme_path')}/index/js/bootstrap.min.js"></script>
+<!--footer start-->
+{template file="index/footer.html" /}
+<!--footer end-->
+
+<script>
+$(document).ready(function(e) {
+    $("div #more").hover(function(){
+		$(this).removeClass("more-off");
+		$(this).addClass("more-on");
+	},function(){
+		$(this).removeClass("more-on");
+		$(this).addClass("more-off");
+	});
+    $(".gwzn").hover(function(){
+		$(this).attr('src','{:config('theme_path')}/index/images/help_icon_011.png');
+	},function(){
+		$(this).attr('src','{:config('theme_path')}/index/images/help_icon_01.png');
+	});
+    $(".shfw").hover(function(){
+		$(this).attr('src','{:config('theme_path')}/index/images/help_icon_022.png');
+	},function(){
+		$(this).attr('src','{:config('theme_path')}/index/images/help_icon_02.png');
+	});
+    $(".zffs").hover(function(){
+		$(this).attr('src','{:config('theme_path')}/index/images/help_icon_033.png');
+	},function(){
+		$(this).attr('src','{:config('theme_path')}/index/images/help_icon_03.png');
+	});
+    $(".psfs").hover(function(){
+		$(this).attr('src','{:config('theme_path')}/index/images/help_icon_044.png');
+	},function(){
+		$(this).attr('src','{:config('theme_path')}/index/images/help_icon_04.png');
+	});
+	$(".img").mouseover(function(e) {
+        $(this).stop().fadeTo(500,0.65);
+    });
+	$('.img').mouseout(function(e) {
+        $(this).stop().fadeTo(500,1);
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<div class="row section-bg-footer section" style="padding-bottom: 20px;">
+	<footer class="text-center">
+		<h6>@2017 All rights reserved Powered by Japan Health Tech </h6>
+		<h6>{:config('web_site_icp')}</h6></footer>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="{:config('theme_path')}/index/js/jquery-1.11.3.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{:config('theme_path')}/index/js/bootstrap.js"></script>
+<script src="{:config('theme_path')}/index/js/bootstrap-datetimepicker.min.js"></script>
+<script src="{:config('theme_path')}/index/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="{:config('theme_path')}/index/js/bootstrapValidator.min.js"></script>
+<script src="{:config('theme_path')}/index/js/jquery.spinner.min.js"></script>
+<script src="{:config('theme_path')}/index/js/jquerysession.js"></script>
+<!--<script src="{:config('theme_path')}/index/js/bootstrap-suggest.js"></script>-->
+<!--<script src="{:config('theme_path')}/index/js/search.js"></script>-->
+<script src="STATIC_PATH/plugins/layer/layer.js"></script>
+<script src="STATIC_PATH/plugins/qrcode/jquery.qrcode.min.js"></script>
+<script src="{:config('theme_path')}/index/js/zoomify.min.js"></script>
+<script src="{:config('theme_path')}/index/js/common.js?ver={:__VERSION__}"></script>
+<!--<script src="{:config('theme_path')}/index/js/share.js?ver={:__VERSION__}"></script>-->
+<script type="text/javascript">
+	var $login_url="{:url('index/islogin')}";
+	var $orders_url="{:url('order/orderLists')}";
+	var $addCart_url="{:url('cart/addXyd')}";
+	var $postCart_url="{:url('cart/postXyd')}";
+	var $orderNum_url="{:url('order/getOrdersNoAddNum')}";
+	var $cartDel_url="{:url('cart/delete')}";
+	var $orderDel_url="{:url('order/cancel')}";
+</script>
+	</body>
+</html>
