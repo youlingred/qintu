@@ -1,3 +1,0 @@
-<?php
-//000000000000a:1:{i:0;a:16:{s:2:"id";i:1;s:4:"uuid";s:36:"ad75820a-96c3-a1a8-20c6-195534dd75d3";s:8:"username";s:5:"admin";s:8:"password";s:32:"e0faa3ff776ae329a96b55c445deb1ec";s:8:"nickname";s:5:"admin";s:5:"email";s:12:"admin@qq.com";s:6:"mobile";s:1:" ";s:7:"regdate";i:1487298736;s:5:"regip";s:1:"1";s:4:"salt";s:6:"071cf9";s:6:"status";i:1;s:10:"last_login";i:1491878904;s:13:"wechat_openid";s:0:"";s:9:"qq_openid";s:0:"";s:11:"sina_openid";s:0:"";s:5:"score";i:0;}}
-?>
