@@ -25,6 +25,9 @@
 				</li>
 				{else/}
 				<li>
+					{php}
+						$nav['url']=str_replace("|qdz_tese_all","",$nav['url']);
+					{/php}
 					<a href="{:url($nav['url'])}">{$nav.name}</a>
 				</li>
 				{/if} 

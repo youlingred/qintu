@@ -6,7 +6,7 @@ $url_category='category='.$category;
 $url_filter='&filter='.$filter;
 $url_search='&search='.$search;
 $url_sort='&sort='.$sort;
-$url_base_search=url('goods/lists?category='.'qdz_area_all|qdz_tese_all'.$url_sort)
+$url_base_search=url('goods/lists?category='.'qdz_area_all'.$url_sort)
 {/php}
 <style>
 	.btn{
@@ -34,7 +34,7 @@ $url_base_search=url('goods/lists?category='.'qdz_area_all|qdz_tese_all'.$url_so
 	<div class="col-sm-8 col-sm-offset-2 title-one">
 		<div class="row select-main" style="height: 50px;padding-top: 10px;">
 			{volist name="selfCates" id="data" key="i"}
-			<div class="dropdown" style="float: left; width: 50%;">
+			<div class="dropdown" style="float: left; width: 100%;">
 				<button type="button" class="btn dropdown-toggle" id="dropdownMenu" 
 					data-toggle="dropdown">
 					{$parentCates[$key]['name']}
