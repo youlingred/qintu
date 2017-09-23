@@ -10,11 +10,11 @@
 ?>
 <div class="row section-bg-white section">
 	<div class="col-md-8 col-md-offset-2 title-one">
-		  <p class="text-center title">跨境分享结交良师益友</p>
-		  <p class="text-center txt">告别走马观花，这里只有纯粹的生活方式，让你深入民间结交朋友，有空来亲途看看。</p>
-		  <p class=" title-two">推荐分享 <a href="{:url('goods/lists?category=qdz_area_all|qdz_tese_all')}"><span class="txt-lookmore">查看更多>></span></p>
+		  <p class="text-center title">推荐玩法</p>
+		  <p class="text-center txt">当地达人直接为您服务，让旅行更加自由</p>
+		  <p class=" title-two">推荐分享 <a href="{:url('goods/lists?category=qdz_area_all|qdz_tese_all')}"><span class="txt-lookmore">更多>></span></p>
 	  <div class="row">
-	  	<div id="carousel1" class="carousel slide" data-ride="carousel">	
+	  	<div id="carousel1" class="carousel slide" data-ride="carousel" data-interval="false">	
 			<div class="carousel-inner" role="listbox">
 				{for start="0" end="$qdz_length" step="3"}
 				<div class="item {eq name="i" value="0"}active{/eq}">
@@ -29,7 +29,7 @@
 							    {/empty}
 								<div class="caption text-center">
 								  <p class="c-title">{$qdz_hot_list[$i]['name']}</p>	
-								  <p class="description">{$qdz_hot_list[$i]['description']}</p>
+								  <!--<p class="description">{$qdz_hot_list[$i]['description']}</p>-->
 								</div>
 							  </div>
 							  </a>
@@ -46,7 +46,7 @@
 							    {/empty}
 								<div class="caption text-center">
 								  <p class="c-title">{$qdz_hot_list[$i+1]['name']}</p>	
-								  <p class="description">{$qdz_hot_list[$i+1]['description']}</p>
+								  <!--<p class="description">{$qdz_hot_list[$i+1]['description']}</p>-->
 								</div>
 							  </div>
 							  </a>
@@ -63,7 +63,7 @@
 							    {/empty}
 								<div class="caption text-center">
 								  <p class="c-title">{$qdz_hot_list[$i+2]['name']}</p>	
-								  <p class="description">{$qdz_hot_list[$i+2]['description']}</p>
+								  <!--<p class="description">{$qdz_hot_list[$i+2]['description']}</p>-->
 								</div>
 							  </div>
 							  </a>
@@ -76,7 +76,7 @@
 			<a class="right carousel-control" style="right:-100px;color: #6D6666" href="#carousel1" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right" style="margin-top: -50px;" aria-hidden="true"></span><span class="sr-only">Next</span></a>
 		</div>
 	</div>
-	  <p class=" title-two">推荐达人<a href="{:url('goods/lists?category=qtdr_area_all|qtdr_tese_all')}"><span class="txt-lookmore">查看更多>></span></p>
+	  <p class=" title-two">推荐达人<a href="{:url('goods/lists?category=qtdr_area_all|qtdr_tese_all')}"><span class="txt-lookmore">更多>></span></p>
 		  <div class="row">
 			{volist name="qtdr_hot_list" id="vo"}
 			<div class="col-sm-3">
@@ -100,8 +100,8 @@
 </div>
 <div class="row section-bg-gray section">
   <div class="col-md-8 col-md-offset-2 title-one">
-    <p class="text-center title">绝不简单的旅行<!--<a href="{:url('article/page?name=srdz')}"><span class="txt-lookmore"><button type="button" class="btn btn-lg btn-gold">预约我的旅行</button></span></a>--></p>
-    <p class="text-center txt">在亲途还可以做很多事，我们只会为您精选日本最好的服务与产品，您差的只是一张机票而已。</p>
+    <p class="text-center title">发现主题<!--<a href="{:url('article/page?name=srdz')}"><span class="txt-lookmore"><button type="button" class="btn btn-lg btn-gold">预约我的旅行</button></span></a>--></p>
+    <p class="text-center txt">我们为您提供专业的咨询服务</p>
     <div class="row">
     {volist name="ztdz_hot_list" id="vo"}
 			<div class="col-sm-4">
@@ -112,16 +112,16 @@
 		{else /}
         	<img src="{:root_path()}{$vo['cover_path']}" alt="{$vo['name']}">
         {/empty}
-		<div class="caption text-center">
+		<!--<div class="caption text-center">
 		  <p class="c-title">{$vo.name}</p>	
 		  <p class="description">{$vo.description}</p>
-		</div>
+		</div>-->
 	  </div>
 	  <!--</a>-->
 	</div>
 	{/volist}
     </div>
-    <!--<p class=" title-two">当季推荐主题<a href="{:url('goods/lists?category=ztdz')}"><span class="txt-lookmore">查看更多>></span></p>
+    <!--<p class=" title-two">当季推荐主题<a href="{:url('goods/lists?category=ztdz')}"><span class="txt-lookmore">更多>></span></p>
     <div class="row">
     	 {volist name="ztdz_hot_list" id="vo"}
 		<div class="col-sm-4">
@@ -145,6 +145,24 @@
 		  {/volist}
 		 </div>-->
   </div>
+</div>
+<div class="row section-bg-white section">
+	<div class="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3 title-one">
+		<p class="text-center title" style="font-weight: normal;">关注我们的信公众号</p>
+		<div class="row">
+				<div class="col-sm-12 text-center">
+					<img src="{:config('theme_path')}/index/images/weixin.jpg?ver={:__VERSION__}" style="margin-top: 20px;"/>
+				</div>
+		</div>
+		<div class="row">
+				<div class="col-sm-12 text-left">
+					<p>合作伙伴</p>
+					{link name="data"}
+	                    <a href="{$data['url']}"  target="{$data['target']}"><img src="{:root_path()}{$data.image}"/></a>&nbsp;&nbsp;
+	                {/link}
+				</div>
+		</div>
+	</div>
 </div>
 {include file="public/qintu/footer"/}
 
