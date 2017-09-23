@@ -154,14 +154,14 @@
 					<img src="{:config('theme_path')}/index/images/weixin.jpg?ver={:__VERSION__}" style="margin-top: 20px;"/>
 				</div>
 		</div>
-		<div class="row">
-				<div class="col-sm-12 text-left">
-					<p>合作伙伴</p>
-					{link name="data"}
-	                    <a href="{$data['url']}"  target="{$data['target']}"><img src="{:root_path()}{$data.image}"/></a>&nbsp;&nbsp;
-	                {/link}
-				</div>
-		</div>
+	</div>
+</div>
+<div class="row section-bg-white section">
+	<div class="col-sm-8 col-sm-offset-2 title-one">
+		<p>合作伙伴</p>
+		{link name="data"}
+	        <a href="{$data['url']}"  target="{$data['target']}"><img src="{:root_path()}{$data.image}"/></a>&nbsp;&nbsp;
+	    {/link}
 	</div>
 </div>
 {include file="public/qintu/footer"/}
