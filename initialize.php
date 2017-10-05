@@ -9,7 +9,7 @@
 
 // 版本定义
 //const MINISHOP_VERSION = '1.0.0_dev';
- define('__VERSION__','1.0.2.1');
+ define('__VERSION__','1.0.2.2');
 
 /**
  * 系统初始化文件
